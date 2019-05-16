@@ -63,7 +63,7 @@ interface NotebookDao {
     // word_record
 
     @Insert
-    fun insertWordRecord(wordRecord: WordRecord)
+    fun insertWordRecord(wordRecord: WordRecord): Long
 
     @Delete
     fun deleteWordRecord(wordRecord: WordRecord)
@@ -74,7 +74,7 @@ interface NotebookDao {
     // score
 
     @Insert
-    fun insertScore(score: Score)
+    fun insertScore(score: Score): Long
 
     @Delete
     fun deleteScore(score: Score)
