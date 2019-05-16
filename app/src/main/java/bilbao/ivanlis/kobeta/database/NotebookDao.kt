@@ -10,7 +10,7 @@ interface NotebookDao {
     @Query("SELECT * FROM language")
     fun getLanguages(): Array<Language>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun insertLanguage(lang: Language)
 
     @Query("INSERT INTO language (native_name, english_name) VALUES (:nativeName, :englishName)")
@@ -36,4 +36,49 @@ interface NotebookDao {
     """)
     fun registerForm(langEnglishName: String, posEnglishName: String,
                    formNativeName: String, formEnglishName: String, initial: Boolean)
+
+
+    // lesson
+
+    @Insert
+    fun insertLesson(lesson: Lesson): Long
+
+    @Delete
+    fun deleteLesson(lesson: Lesson)
+
+    @Update
+    fun updateLesson(lesson: Lesson)
+
+    // word
+
+    @Insert
+    fun insertWord(word: Word): Long
+
+    @Delete
+    fun deleteWord(word: Word)
+
+    @Update
+    fun updateWord(word: Word)
+
+    // word_record
+
+    @Insert
+    fun insertWordRecord(wordRecord: WordRecord)
+
+    @Delete
+    fun deleteWordRecord(wordRecord: WordRecord)
+
+    @Update
+    fun updateWordRecord(wordRecord: WordRecord)
+
+    // score
+
+    @Insert
+    fun insertScore(score: Score)
+
+    @Delete
+    fun deleteScore(score: Score)
+
+    @Update
+    fun updateScore(score: Score)
 }

@@ -64,6 +64,19 @@ abstract class NotebookDb : RoomDatabase() {
                 "", "verb")
             getInstance(context).notebookDao().registerPartOfSpeech("arabic",
                 "", "particle")
+
+            getInstance(context).notebookDao().registerForm("arabic", "noun",
+                "", "singular", true)
+            getInstance(context).notebookDao().registerForm("arabic", "noun",
+                "", "plural", false)
+            getInstance(context).notebookDao().registerForm("arabic", "verb",
+                "", "past", true)
+            getInstance(context).notebookDao().registerForm("arabic", "verb",
+                "", "nonpast", false)
+            getInstance(context).notebookDao().registerForm("arabic", "verb",
+                "", "verbalnoun", false)
+            getInstance(context).notebookDao().registerForm("arabic", "particle",
+                "", "particle", true)
         }
     }
 
