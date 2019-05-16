@@ -1,10 +1,7 @@
 package bilbao.ivanlis.kobeta.database
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.PrimaryKey
 
 @Entity(tableName = "language")
 data class Language(
@@ -23,7 +20,8 @@ data class Language(
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("language_id"),
         onDelete = CASCADE
-    )]
+    )],
+    indices = [Index(value = ["language_id"])]
 )
 data class PartOfSpeech(
     @PrimaryKey(autoGenerate = true)
@@ -43,7 +41,8 @@ data class PartOfSpeech(
         parentColumns = ["id"],
         childColumns = ["part_of_speech_id"],
         onDelete = CASCADE
-    )]
+    )],
+    indices = [Index(value = ["part_of_speech_id"])]
 )
 data class Form(
     @PrimaryKey(autoGenerate = true)
@@ -76,7 +75,8 @@ data class Lesson(
         parentColumns = ["id"],
         childColumns = ["lesson_id"],
         onDelete = CASCADE
-    )]
+    )],
+    indices = [Index(value = ["lesson_id"])]
 )
 data class Word(
     @PrimaryKey(autoGenerate = true)
@@ -87,18 +87,22 @@ data class Word(
     val lessonId: Long
 )
 
-@Entity(tableName = "score",
+@Entity(
+    tableName = "score",
     foreignKeys = [ForeignKey(
         entity = Word::class,
         parentColumns = ["id"],
         childColumns = ["word_id"],
-        onDelete = CASCADE)])
+        onDelete = CASCADE
+    )],
+    indices = [Index(value = ["word_id"])]
+)
 data class Score(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    @ColumnInfo(name="word_id")
+    @ColumnInfo(name = "word_id")
     val wordId: Long,
-    @ColumnInfo(name="date_time")
+    @ColumnInfo(name = "date_time")
     val dateTime: Long,
     @ColumnInfo(name = "score_value")
     val scoreValue: Double
@@ -106,12 +110,19 @@ data class Score(
 
 @Entity(
     tableName = "word_record",
-    foreignKeys = [ForeignKey(
-        entity = Word::class,
-        parentColumns = ["id"],
-        childColumns = ["word_id"],
-        onDelete = CASCADE
-    )]
+    foreignKeys = [
+        ForeignKey(
+            entity = Word::class,
+            parentColumns = ["id"],
+            childColumns = ["word_id"],
+            onDelete = CASCADE
+        ),
+        ForeignKey(
+            entity = Form::class,
+            parentColumns = ["id"],
+            childColumns = ["form_id"]
+        )],
+    indices = [Index(value = ["word_id"]), Index(value = ["form_id"])]
 )
 data class WordRecord(
     @PrimaryKey(autoGenerate = true)
