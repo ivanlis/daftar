@@ -1,5 +1,6 @@
 package bilbao.ivanlis.kobeta.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -81,4 +82,15 @@ interface NotebookDao {
 
     @Update
     fun updateScore(score: Score)
+
+
+    //TODO: convert to view
+    // query to extract the initial forms of every word belonging to a certain lesson
+    @Query(
+        """SELECT wr.spelling, w.translation FROM
+        word AS w INNER JOIN word_record AS wr INNER JOIN form AS f
+        ON w.id = wr.word_id AND wr.form_id = f.id
+        WHERE f.initial = 1 AND w.lesson_id = :lessonId
+        """)
+    fun extractInitialFormsOfLesson(lessonId: Long): LiveData<List<WordTranslation>>
 }
