@@ -11,6 +11,9 @@ interface NotebookDao {
     @Query("SELECT * FROM language")
     fun getLanguages(): Array<Language>
 
+    @Query("SELECT count(*) FROM language")
+    fun getLanguageCount(): Long
+
     @Insert
     fun insertLanguage(lang: Language)
 
@@ -40,16 +43,20 @@ interface NotebookDao {
 
 
     // lesson
-    @Query("""
-        SELECT * FROM lesson ORDER BY creation_date_time DESC
-    """)
+    @Query("SELECT * FROM lesson ORDER BY creation_date_time DESC")
     fun getAllLessons(): LiveData<List<Lesson>>
+
+    @Query("SELECT count(*) FROM lesson")
+    fun getLessonCount(): Long
 
     @Insert
     fun insertLesson(lesson: Lesson): Long
 
     @Delete
     fun deleteLesson(lesson: Lesson)
+
+    @Query("DELETE FROM lesson")
+    fun deleteAllLessons()
 
     @Update
     fun updateLesson(lesson: Lesson)

@@ -29,9 +29,9 @@ class LessonsListViewModel (application: Application):
         d("LessonsListViewModel", "Creating repository...")
         repository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
         d("LessonsListViewModel", "Repository ready.")
-        uiScope.launch {
-            repository.insertLesson(Lesson(name = "Really fake lesson", creationDateTime = System.currentTimeMillis()))
-        }
+//        uiScope.launch {
+//            repository.insertLesson(Lesson(name = "Really fake lesson", creationDateTime = System.currentTimeMillis()))
+//        }
     }
 
 

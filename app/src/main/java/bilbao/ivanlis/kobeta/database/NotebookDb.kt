@@ -74,34 +74,65 @@ abstract class NotebookDb : RoomDatabase() {
 
         //TODO: suspend needed?
         private fun prePopulateArabic(context: Context) {
-            getInstance(context).notebookDao().registerLanguage("", "arabic")
 
-            getInstance(context).notebookDao().registerPartOfSpeech("arabic",
-                "", "noun")
-            getInstance(context).notebookDao().registerPartOfSpeech("arabic",
-                "", "verb")
-            getInstance(context).notebookDao().registerPartOfSpeech("arabic",
-                "", "particle")
+            if (getInstance(context).notebookDao().getLanguageCount() > 0)
+                d("prePopulateArabic", "There are registered languages. Not adding anything.")
+            else {
 
-            getInstance(context).notebookDao().registerForm("arabic", "noun",
-                "", "singular", true)
-            getInstance(context).notebookDao().registerForm("arabic", "noun",
-                "", "plural", false)
-            getInstance(context).notebookDao().registerForm("arabic", "verb",
-                "", "past", true)
-            getInstance(context).notebookDao().registerForm("arabic", "verb",
-                "", "nonpast", false)
-            getInstance(context).notebookDao().registerForm("arabic", "verb",
-                "", "verbalnoun", false)
-            getInstance(context).notebookDao().registerForm("arabic", "particle",
-                "", "particle", true)
+                d("prePopulateArabic", "Inserting Arabic and everything related.")
+
+                getInstance(context).notebookDao().registerLanguage("", "arabic")
+
+                getInstance(context).notebookDao().registerPartOfSpeech(
+                    "arabic",
+                    "", "noun"
+                )
+                getInstance(context).notebookDao().registerPartOfSpeech(
+                    "arabic",
+                    "", "verb"
+                )
+                getInstance(context).notebookDao().registerPartOfSpeech(
+                    "arabic",
+                    "", "particle"
+                )
+
+                getInstance(context).notebookDao().registerForm(
+                    "arabic", "noun",
+                    "", "singular", true
+                )
+                getInstance(context).notebookDao().registerForm(
+                    "arabic", "noun",
+                    "", "plural", false
+                )
+                getInstance(context).notebookDao().registerForm(
+                    "arabic", "verb",
+                    "", "past", true
+                )
+                getInstance(context).notebookDao().registerForm(
+                    "arabic", "verb",
+                    "", "nonpast", false
+                )
+                getInstance(context).notebookDao().registerForm(
+                    "arabic", "verb",
+                    "", "verbalnoun", false
+                )
+                getInstance(context).notebookDao().registerForm(
+                    "arabic", "particle",
+                    "", "particle", true
+                )
+            }
         }
 
         private fun addFakeLessons(context: Context) {
-            d("addFakeLessons", "Adding fake lessons...")
-            val fakeLesson1 = Lesson(name ="Fake lesson 1.", creationDateTime = System.currentTimeMillis())
-            val newId = getInstance(context).notebookDao().insertLesson(fakeLesson1)
-            d("addFakeLessons", "Fake id = ${newId}")
+            val currentLessonCount = getInstance(context).notebookDao().getLessonCount()
+            if (currentLessonCount > 0)
+                d("addFakeLessons", "We already have a lot of lessons, not creating anything")
+            else {
+                d("addFakeLessons", "Adding fake lessons...")
+                val fakeLesson1 = Lesson(name = "Fake lesson 1.", creationDateTime = System.currentTimeMillis())
+                val newId = getInstance(context).notebookDao().insertLesson(fakeLesson1)
+                d("addFakeLessons", "Fake id = ${newId}")
+            }
         }
     }
 
