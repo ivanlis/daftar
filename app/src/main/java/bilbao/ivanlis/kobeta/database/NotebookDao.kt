@@ -40,6 +40,10 @@ interface NotebookDao {
 
 
     // lesson
+    @Query("""
+        SELECT * FROM lesson ORDER BY creation_date_time DESC
+    """)
+    fun getAllLessons(): LiveData<List<Lesson>>
 
     @Insert
     fun insertLesson(lesson: Lesson): Long
@@ -93,4 +97,7 @@ interface NotebookDao {
         WHERE f.initial = 1 AND w.lesson_id = :lessonId
         """)
     fun extractInitialFormsOfLesson(lessonId: Long): LiveData<List<WordTranslation>>
+
+
+
 }

@@ -1,15 +1,33 @@
 package bilbao.ivanlis.kobeta.database
 
+import android.util.Log.d
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class NotebookRepository(private val notebookDao: NotebookDao) {
 
     @WorkerThread
-    suspend fun insertLesson(lesson: Lesson) = notebookDao.insertLesson(lesson)
+    suspend fun insertLesson(lesson: Lesson): Long {
+        return withContext(Dispatchers.IO) {
+            notebookDao.insertLesson(lesson)
+        }
+    }
     @WorkerThread
     suspend fun deleteLesson(lesson: Lesson) { notebookDao.deleteLesson(lesson) }
     @WorkerThread
     suspend fun updateLesson(lesson: Lesson) { notebookDao.updateLesson(lesson) }
+    @WorkerThread
+    fun getAllLessons(): LiveData<List<Lesson>> {
+        d("NotebookRepository", "Calling notebookDao.getAllLessons()...")
+//        val lessons = withContext(Dispatchers.IO) {
+//            notebookDao.getAllLessons()
+//        }
+        val lessons = notebookDao.getAllLessons()
+        d("NotebookRepository", "Lessons extracted: ${lessons.value?.size}")
+        return lessons
+    }
 
     @WorkerThread
     suspend fun insertWord(word: Word) = notebookDao.insertWord(word)

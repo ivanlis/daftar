@@ -1,6 +1,7 @@
 package bilbao.ivanlis.kobeta.database
 
 import android.content.Context
+import android.util.Log.d
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -24,9 +25,14 @@ abstract class NotebookDb : RoomDatabase() {
         private var INSTANCE: NotebookDb? = null
 
         fun getInstance(context: Context): NotebookDb {
+
+            d("NotebookDb.getInstance", "Accessing DB instance...")
+
             return INSTANCE ?: synchronized(this) {
                 // create database
+                d("NotebookDb.getInstance", "Calling buildDatabase()...")
                 val instance = buildDatabase(context)
+                d("NotebookDb.getInstance", "Instance ready")
                 INSTANCE = instance
                 instance
             }
@@ -39,23 +45,35 @@ abstract class NotebookDb : RoomDatabase() {
                 .addCallback(
 
                     object : Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
+                        override fun onOpen(db: SupportSQLiteDatabase) {
+
+                            d("onOpen", "On database opening...")
+
+                            super.onOpen(db)
 
                             //TODO: call prePopulateArabic() in an appropriate thread
                             val ioScope = CoroutineScope(Dispatchers.IO)
                             ioScope.launch {
                                 prePopulateArabic(context)
+
+                                //TODO: temporary
+                                addFakeLessons(context)
                             }
+                        }
+
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            d("onOpen", "On database creation...")
+                            super.onCreate(db)
                         }
                     }
 
                 )
+                .fallbackToDestructiveMigration()
 
                 .build()
 
         //TODO: suspend needed?
-        private suspend fun prePopulateArabic(context: Context) {
+        private fun prePopulateArabic(context: Context) {
             getInstance(context).notebookDao().registerLanguage("", "arabic")
 
             getInstance(context).notebookDao().registerPartOfSpeech("arabic",
@@ -77,6 +95,13 @@ abstract class NotebookDb : RoomDatabase() {
                 "", "verbalnoun", false)
             getInstance(context).notebookDao().registerForm("arabic", "particle",
                 "", "particle", true)
+        }
+
+        private fun addFakeLessons(context: Context) {
+            d("addFakeLessons", "Adding fake lessons...")
+            val fakeLesson1 = Lesson(name ="Fake lesson 1.", creationDateTime = System.currentTimeMillis())
+            val newId = getInstance(context).notebookDao().insertLesson(fakeLesson1)
+            d("addFakeLessons", "Fake id = ${newId}")
         }
     }
 

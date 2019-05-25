@@ -60,11 +60,11 @@ data class Form(
 @Entity(tableName = "lesson")
 data class Lesson(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    var id: Long = 0L,
     @ColumnInfo(name = "name")
-    val name: String,
+    var name: String,
     @ColumnInfo(name = "creation_date_time")
-    val creationDateTime: Long
+    var creationDateTime: Long
 )
 
 

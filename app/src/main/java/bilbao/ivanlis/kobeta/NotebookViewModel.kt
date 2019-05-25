@@ -6,7 +6,7 @@ import bilbao.ivanlis.kobeta.database.NotebookDb
 import bilbao.ivanlis.kobeta.database.NotebookRepository
 
 class NotebookViewModel(application: Application): AndroidViewModel(application) {
-    private lateinit var repository: NotebookRepository
+    private var repository: NotebookRepository
 
     init {
         val notebookDao = NotebookDb.getInstance(application).notebookDao()

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation"
+            app:startDestination="@id/lessonsListFragment">
+
+    <fragment android:id="@+id/lessonsListFragment" android:name="bilbao.ivanlis.kobeta.LessonsListFragment"
+              android:label="fragment_lessons_list" tools:layout="@layout/fragment_lessons_list">
+        <action android:id="@+id/action_lessonsListFragment_to_lessonDetailsFragment"
+                app:destination="@id/lessonDetailsFragment"/>
+    </fragment>
+    <fragment android:id="@+id/lessonDetailsFragment" android:name="bilbao.ivanlis.kobeta.LessonDetailsFragment"
+              android:label="fragment_lesson_details" tools:layout="@layout/fragment_lesson_details">
+        <argument android:name="lessonId" app:argType="long" android:defaultValue="-1L"/>
+    </fragment>
+</navigation>
