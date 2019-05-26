@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
         PartOfSpeech::class, Form::class, Lesson::class,
         Word::class, Score::class, WordRecord::class],
     views = [LessonItemForList::class],
-    version = 1, exportSchema = false)
+    version = 2, exportSchema = false)
 abstract class NotebookDb : RoomDatabase() {
 
     abstract fun notebookDao(): NotebookDao

@@ -37,10 +37,11 @@ class LessonsListViewModel (application: Application):
 
 
     val lessons = repository.getAllLessons()
+    val lessonItemsForList = repository.getLessonItemsForList()
 
-    val lessonStrings = Transformations.map(lessons) { lessons->
-        formatLessons(lessons, application.resources)
-    }
+//    val lessonStrings = Transformations.map(lessons) { lessons->
+//        formatLessons(lessons, application.resources)
+//    }
 
 }
 
