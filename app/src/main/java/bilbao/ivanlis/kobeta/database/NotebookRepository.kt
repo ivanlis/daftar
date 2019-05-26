@@ -28,6 +28,10 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
         d("NotebookRepository", "Lessons extracted: ${lessons.value?.size}")
         return lessons
     }
+    @WorkerThread
+    fun getLessonItemsForList(): LiveData<List<LessonItemForList>> {
+        return notebookDao.getLessonItemsForList()
+    }
 
     @WorkerThread
     suspend fun insertWord(word: Word) = notebookDao.insertWord(word)

@@ -64,7 +64,7 @@ data class Lesson(
     @ColumnInfo(name = "name")
     var name: String,
     @ColumnInfo(name = "creation_date_time")
-    var creationDateTime: Long
+    var creationDateTime: Long = System.currentTimeMillis()
 )
 
 
@@ -80,7 +80,7 @@ data class Lesson(
 )
 data class Word(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0L,
     @ColumnInfo(name = "translation")
     val translation: String,
     @ColumnInfo(name = "lesson_id")
@@ -136,3 +136,17 @@ data class WordRecord(
 )
 
 
+
+// views
+
+// View to show lessons: name, date, number of words
+@DatabaseView("""
+    SELECT les.name AS name, les.creation_date_time AS creationDateTime, count(w.id) AS wordCount
+    FROM lesson as les LEFT JOIN word AS w ON les.id = w.lesson_id
+    GROUP BY les.id ORDER BY les.creation_date_time DESC
+""")
+data class LessonItemForList(
+    val name: String,
+    val creationDateTime: Long,
+    val wordCount: Long
+)

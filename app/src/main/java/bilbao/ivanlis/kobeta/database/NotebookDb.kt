@@ -2,6 +2,7 @@ package bilbao.ivanlis.kobeta.database
 
 import android.content.Context
 import android.util.Log.d
+import androidx.annotation.VisibleForTesting
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
     entities = [Language::class,
         PartOfSpeech::class, Form::class, Lesson::class,
         Word::class, Score::class, WordRecord::class],
+    views = [LessonItemForList::class],
     version = 1, exportSchema = false)
 abstract class NotebookDb : RoomDatabase() {
 
@@ -24,14 +26,18 @@ abstract class NotebookDb : RoomDatabase() {
         @Volatile
         private var INSTANCE: NotebookDb? = null
 
-        fun getInstance(context: Context): NotebookDb {
+        fun getInstance(context: Context, forTesting: Boolean = false): NotebookDb {
 
             d("NotebookDb.getInstance", "Accessing DB instance...")
 
             return INSTANCE ?: synchronized(this) {
                 // create database
                 d("NotebookDb.getInstance", "Calling buildDatabase()...")
-                val instance = buildDatabase(context)
+                //val instance = buildDatabase(context)
+                val instance = when(forTesting) {
+                    false -> buildDatabase(context)
+                    true -> buildDatabaseForTesting(context)
+                }
                 d("NotebookDb.getInstance", "Instance ready")
                 INSTANCE = instance
                 instance
@@ -70,6 +76,11 @@ abstract class NotebookDb : RoomDatabase() {
                 )
                 .fallbackToDestructiveMigration()
 
+                .build()
+
+        private fun buildDatabaseForTesting(context: Context) =
+            Room.inMemoryDatabaseBuilder(context, NotebookDb::class.java)
+                .allowMainThreadQueries()
                 .build()
 
         //TODO: suspend needed?

@@ -46,6 +46,12 @@ interface NotebookDao {
     @Query("SELECT * FROM lesson ORDER BY creation_date_time DESC")
     fun getAllLessons(): LiveData<List<Lesson>>
 
+    @Query("SELECT * FROM LessonItemForList")
+    fun getLessonItemsForList(): LiveData<List<LessonItemForList>>
+
+    @Query("SELECT * FROM LessonItemForList")
+    fun getLessonItemsForListNotLive(): List<LessonItemForList>
+
     @Query("SELECT count(*) FROM lesson")
     fun getLessonCount(): Long
 
