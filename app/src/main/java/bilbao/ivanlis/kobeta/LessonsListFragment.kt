@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import bilbao.ivanlis.kobeta.databinding.FragmentLessonsListBinding
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_lessons_list.view.*
 
@@ -70,7 +71,10 @@ class LessonsListFragment : Fragment() {
         binding.lessonsList.layoutManager = manager
 
         val adapter = LessonItemAdapter(LessonItemListener {
-            //TODO: navigate to lesson details
+            //Navigation.findNavController(activity).navigate(R.id.action_lessonsListFragment_to_lessonDetailsFragment)
+            findNavController(this).navigate(
+                LessonsListFragmentDirections.actionLessonsListFragmentToLessonDetailsFragment(it)
+            )
         })
         binding.lessonsList.adapter = adapter
 
