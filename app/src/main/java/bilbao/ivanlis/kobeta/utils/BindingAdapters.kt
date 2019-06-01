@@ -3,6 +3,7 @@ package bilbao.ivanlis.kobeta.utils
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import bilbao.ivanlis.kobeta.database.LessonItemForList
+import bilbao.ivanlis.kobeta.database.WordInitialFormTranslation
 import java.text.SimpleDateFormat
 
 @BindingAdapter("lessonNameFormatted")
@@ -23,5 +24,20 @@ fun TextView.creationDateTimeFormatted(item: LessonItemForList?) {
 fun TextView.wordCountFormatted(item: LessonItemForList?) {
     item?.let {
         text = item.wordCount.toString()
+    }
+}
+
+
+@BindingAdapter("initialFormSpellingFormatted")
+fun TextView.initialFormSpellingFormatted(item: WordInitialFormTranslation?) {
+    item?.let {
+        text = item.spelling
+    }
+}
+
+@BindingAdapter("translationFormatted")
+fun TextView.translationFormatted(item: WordInitialFormTranslation?) {
+    item?.let {
+        text = item.translation
     }
 }

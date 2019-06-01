@@ -3,19 +3,13 @@ package bilbao.ivanlis.kobeta
 import android.app.Application
 import android.util.Log.d
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import bilbao.ivanlis.kobeta.database.Lesson
-import bilbao.ivanlis.kobeta.database.NotebookDao
 import bilbao.ivanlis.kobeta.database.NotebookDb
 import bilbao.ivanlis.kobeta.database.NotebookRepository
-import bilbao.ivanlis.kobeta.utils.formatLessons
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import javax.sql.CommonDataSource
 
 class LessonsListViewModel (application: Application):
         AndroidViewModel(application) {

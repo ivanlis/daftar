@@ -151,3 +151,7 @@ data class LessonItemForList(
     val creationDateTime: Long,
     val wordCount: Long
 )
+
+
+// auxiliary structures
+data class WordInitialFormTranslation(val wordId: Long, val spelling: String, val translation: String)

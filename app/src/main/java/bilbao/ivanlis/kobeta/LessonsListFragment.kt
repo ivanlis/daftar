@@ -6,16 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import bilbao.ivanlis.kobeta.databinding.FragmentLessonsListBinding
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_lessons_list.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,8 +24,6 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class LessonsListFragment : Fragment() {
-
-    lateinit var tempLessonDetailsBtn: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,8 +73,8 @@ class LessonsListFragment : Fragment() {
         binding.lessonsList.adapter = adapter
 
         lessonsListViewModel.lessonItemsForList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.submitList(it)
+            it?.let {it1 ->
+                adapter.submitList(it1)
             }
         })
         binding.lifecycleOwner = this

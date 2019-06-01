@@ -2,11 +2,18 @@ package bilbao.ivanlis.kobeta
 
 
 import android.os.Bundle
+import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import bilbao.ivanlis.kobeta.databinding.FragmentLessonDetailsBinding
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,21 +31,63 @@ class LessonDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val inflatedLayout = inflater.inflate(R.layout.fragment_lesson_details, container, false)
+//        // Inflate the layout for this fragment
+//        val inflatedLayout = inflater.inflate(R.layout.fragment_lesson_details, container, false)
+//
+//        val tempText = inflatedLayout.findViewById<TextView>(R.id.tempText)
+//
+//        val args = arguments
+//
+//        val lessonId = when(args != null) {
+//            true -> LessonDetailsFragmentArgs.fromBundle(args).lessonId
+//            false -> null
+//        }
+//
+//        tempText.text = "Info on lesson ${lessonId} will be shown here."
+//
+//        return inflatedLayout
 
-        val tempText = inflatedLayout.findViewById<TextView>(R.id.tempText)
+        val binding: FragmentLessonDetailsBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_lesson_details, container, false)
 
         val args = arguments
-
-        val lessonId = when(args != null) {
+        val lessonId = requireNotNull(when(args != null) {
             true -> LessonDetailsFragmentArgs.fromBundle(args).lessonId
             false -> null
-        }
+        })
 
-        tempText.text = "Info on lesson ${lessonId} will be shown here."
+        d("LessonDetailsFragment", "lessonId = ${lessonId}")
 
-        return inflatedLayout
+        val application = requireNotNull(this.activity).application
+        val viewModelFactory = LessonDetailsViewModelFactory(application, lessonId)
+
+        val viewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(LessonDetailsViewModel::class.java)
+        binding.lessonDetailsViewModel = viewModel
+
+        //binding.lessonNameText.text = viewModel.lessonName
+        viewModel.lessonName.observe(viewLifecycleOwner, Observer {
+            //it?.let {
+                binding.lessonNameText.text = it
+            //}
+        })
+
+        //TODO: prepare recycler view
+        binding.initialFormsList.layoutManager = LinearLayoutManager(activity)
+        val adapter = InitialFormItemAdapter(InitialFormItemListener {
+            //TODO: define action
+        })
+        binding.initialFormsList.adapter = adapter
+
+        viewModel.initialForms.observe(viewLifecycleOwner, Observer {
+            it?.let {it1 ->
+                adapter.submitList(it1)
+            }
+        })
+        binding.lifecycleOwner = this
+
+        return binding.root
+
     }
 }
 

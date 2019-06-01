@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import bilbao.ivanlis.kobeta.database.LessonItemForList
 import bilbao.ivanlis.kobeta.databinding.ListItemLessonBinding
 
-class LessonItemAdapter(val clickListener: LessonItemListener) :
+class LessonItemAdapter(private val clickListener: LessonItemListener) :
     ListAdapter<LessonItemForList, LessonItemAdapter.ViewHolder>(LessonItemDiffCallback()) {
 
 

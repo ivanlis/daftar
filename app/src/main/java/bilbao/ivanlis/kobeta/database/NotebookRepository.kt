@@ -9,6 +9,9 @@ import kotlinx.coroutines.withContext
 class NotebookRepository(private val notebookDao: NotebookDao) {
 
     @WorkerThread
+    fun getLessonName(lessonId: Long): LiveData<String> = notebookDao.getLessonName(lessonId)
+
+    @WorkerThread
     suspend fun insertLesson(lesson: Lesson): Long {
         return withContext(Dispatchers.IO) {
             notebookDao.insertLesson(lesson)
@@ -39,6 +42,9 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     suspend fun deleteWord(word: Word) { notebookDao.deleteWord(word) }
     @WorkerThread
     suspend fun updateWord(word: Word) { notebookDao.updateWord(word) }
+
+    @WorkerThread
+    fun extractInitialFormsForLesson(lessonId: Long) = notebookDao.extractInitialFormsForLesson(lessonId)
 
     @WorkerThread
     suspend fun insertWordRecord(wordRecord: WordRecord) = notebookDao.insertWordRecord(wordRecord)

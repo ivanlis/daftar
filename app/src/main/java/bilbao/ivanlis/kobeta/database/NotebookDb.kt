@@ -142,7 +142,7 @@ abstract class NotebookDb : RoomDatabase() {
                 d("addFakeLessons", "Adding fake lessons...")
                 val fakeLesson1 = Lesson(name = "Fake lesson 1.", creationDateTime = System.currentTimeMillis())
                 val newId = getInstance(context).notebookDao().insertLesson(fakeLesson1)
-                d("addFakeLessons", "Fake id = ${newId}")
+                d("addFakeLessons", "Fake id = $newId")
             }
         }
     }

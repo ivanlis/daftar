@@ -43,6 +43,10 @@ interface NotebookDao {
 
 
     // lesson
+
+    @Query("SELECT name FROM lesson WHERE id = :lessonId")
+    fun getLessonName(lessonId: Long): LiveData<String>
+
     @Query("SELECT * FROM lesson ORDER BY creation_date_time DESC")
     fun getAllLessons(): LiveData<List<Lesson>>
 
@@ -101,16 +105,13 @@ interface NotebookDao {
     fun updateScore(score: Score)
 
 
-    //TODO: convert to view
     // query to extract the initial forms of every word belonging to a certain lesson
     @Query(
-        """SELECT wr.spelling, w.translation FROM
+        """SELECT wr.word_id AS wordId, wr.spelling, w.translation FROM
         word AS w INNER JOIN word_record AS wr INNER JOIN form AS f
         ON w.id = wr.word_id AND wr.form_id = f.id
         WHERE f.initial = 1 AND w.lesson_id = :lessonId
         """)
-    fun extractInitialFormsOfLesson(lessonId: Long): LiveData<List<WordTranslation>>
-
-
+    fun extractInitialFormsForLesson(lessonId: Long): LiveData<List<WordInitialFormTranslation>>
 
 }
