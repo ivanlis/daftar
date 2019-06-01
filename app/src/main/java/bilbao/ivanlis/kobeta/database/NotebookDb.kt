@@ -141,21 +141,66 @@ abstract class NotebookDb : RoomDatabase() {
             else {
                 d("addFakeLessons", "Adding fake lessons...")
                 val fakeLesson1 = Lesson(name = "Fake lesson 1.", creationDateTime = System.currentTimeMillis())
-                val newId = getInstance(context).notebookDao().insertLesson(fakeLesson1)
+                var newId = getInstance(context).notebookDao().insertLesson(fakeLesson1)
                 d("addFakeLessons", "Fake id = $newId")
-                addFakeWords(context, newId)
+                addFakeWords1(context, newId)
+
+                val fakeLesson2 = Lesson(name = "Fake lesson 2.", creationDateTime = System.currentTimeMillis())
+                newId = getInstance(context).notebookDao().insertLesson(fakeLesson2)
+                d("addFakeLessons", "Fake id = $newId")
+                addFakeWords2(context, newId)
             }
         }
 
-        private fun addFakeWords(context: Context, lessonId: Long) {
+        private fun addFakeWords1(context: Context, lessonId: Long) {
 
-            val wordId = getInstance(context).notebookDao().insertWord(Word(translation = "делать", lessonId = lessonId))
+            var wordId = getInstance(context).notebookDao().insertWord(Word(translation = "делать", lessonId = lessonId))
             getInstance(context).notebookDao().registerWordRecord(wordId,
                 "arabic", "past", "فعل")
             getInstance(context).notebookDao().registerWordRecord(wordId,
                 "arabic", "nonpast", "يفعل")
             getInstance(context).notebookDao().registerWordRecord(wordId,
                 "arabic", "verbalnoun", "فعل")
+
+            wordId = getInstance(context).notebookDao().insertWord(Word(translation = "глаз", lessonId = lessonId))
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "singular", "عين")
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "plural", "عيون")
+
+            wordId = getInstance(context).notebookDao().insertWord(Word(translation = "в", lessonId = lessonId))
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "particle", "في")
+        }
+
+        private fun addFakeWords2(context: Context, lessonId: Long) {
+
+            var wordId = getInstance(context).notebookDao().insertWord(Word(translation = "просыпаться", lessonId = lessonId))
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "past", "اِسْتَيْقَظَ")
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "nonpast", "يَسْتَيْقِظُ")
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "verbalnoun", "اِسْتِيقَاظ")
+
+            wordId = getInstance(context).notebookDao().insertWord(Word(translation = "на", lessonId = lessonId))
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "particle", "على")
+
+            wordId = getInstance(context).notebookDao().insertWord(Word(translation = "читать", lessonId = lessonId))
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "past", "قَرَأَ")
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "nonpast", "يَقْرَأُ")
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "verbalnoun", "قِرَاءَة")
+
+            wordId = getInstance(context).notebookDao().insertWord(Word(translation = "красный", lessonId = lessonId))
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "singular", "أَحْمَر")
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "plural", "حُمْر")
+
         }
     }
 
