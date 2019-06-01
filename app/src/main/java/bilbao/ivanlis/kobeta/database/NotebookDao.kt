@@ -93,6 +93,16 @@ interface NotebookDao {
     @Update
     fun updateWordRecord(wordRecord: WordRecord)
 
+    @Query("""
+        INSERT INTO word_record (word_id, form_id, spelling)
+        SELECT :wordId, f.id, :spelling
+        FROM language AS l INNER JOIN part_of_speech AS pof
+        INNER JOIN form AS f
+        ON l.id = pof.language_id AND pof.id = f.part_of_speech_id
+        WHERE l.english_name = :languageName AND f.english_name = :formName
+    """)
+    fun registerWordRecord(wordId: Long, languageName: String, formName: String, spelling: String): Long
+
     // score
 
     @Insert

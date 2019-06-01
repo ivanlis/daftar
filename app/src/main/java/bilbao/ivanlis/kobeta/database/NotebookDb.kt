@@ -143,7 +143,19 @@ abstract class NotebookDb : RoomDatabase() {
                 val fakeLesson1 = Lesson(name = "Fake lesson 1.", creationDateTime = System.currentTimeMillis())
                 val newId = getInstance(context).notebookDao().insertLesson(fakeLesson1)
                 d("addFakeLessons", "Fake id = $newId")
+                addFakeWords(context, newId)
             }
+        }
+
+        private fun addFakeWords(context: Context, lessonId: Long) {
+
+            val wordId = getInstance(context).notebookDao().insertWord(Word(translation = "делать", lessonId = lessonId))
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "past", "فعل")
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "nonpast", "يفعل")
+            getInstance(context).notebookDao().registerWordRecord(wordId,
+                "arabic", "verbalnoun", "فعل")
         }
     }
 
