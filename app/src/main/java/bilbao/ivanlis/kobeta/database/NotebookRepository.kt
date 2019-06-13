@@ -1,10 +1,10 @@
 package bilbao.ivanlis.kobeta.database
 
-import android.util.Log.d
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class NotebookRepository(private val notebookDao: NotebookDao) {
 
@@ -23,12 +23,12 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     suspend fun updateLesson(lesson: Lesson) { notebookDao.updateLesson(lesson) }
     @WorkerThread
     fun getAllLessons(): LiveData<List<Lesson>> {
-        d("NotebookRepository", "Calling notebookDao.getAllLessons()...")
+        Timber.d("Calling notebookDao.getAllLessons()...")
 //        val lessons = withContext(Dispatchers.IO) {
 //            notebookDao.getAllLessons()
 //        }
         val lessons = notebookDao.getAllLessons()
-        d("NotebookRepository", "Lessons extracted: ${lessons.value?.size}")
+        Timber.d("Lessons extracted: ${lessons.value?.size}")
         return lessons
     }
     @WorkerThread

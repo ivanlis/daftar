@@ -2,18 +2,16 @@ package bilbao.ivanlis.kobeta
 
 
 import android.os.Bundle
-import android.util.Log.d
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import bilbao.ivanlis.kobeta.databinding.FragmentLessonDetailsBinding
+import timber.log.Timber
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -56,7 +54,8 @@ class LessonDetailsFragment : Fragment() {
             false -> null
         })
 
-        d("LessonDetailsFragment", "lessonId = ${lessonId}")
+        //d("LessonDetailsFragment", "lessonId = ${lessonId}")
+        Timber.d("lessonId = ${lessonId}")
 
         val application = requireNotNull(this.activity).application
         val viewModelFactory = LessonDetailsViewModelFactory(application, lessonId)

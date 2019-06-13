@@ -1,7 +1,5 @@
 package bilbao.ivanlis.kobeta
 
-
-import android.util.Log.d
 import org.junit.runner.RunWith
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -13,6 +11,7 @@ import junit.framework.Assert.assertEquals
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import timber.log.Timber
 import java.io.IOException
 import java.lang.Exception
 
@@ -57,7 +56,8 @@ class NotebookDbTest {
     fun insertLessonsAndTestView() {
 
         notebookDao.deleteAllLessons()
-        d("insertLessonsAndTestView", "All lessons deleted.")
+        //d("insertLessonsAndTestView", "All lessons deleted.")
+        Timber.d("All lessons deleted.")
 
         val lessonName1 = "First lesson"
         val lessonName2 = "Урок второй"
@@ -76,15 +76,15 @@ class NotebookDbTest {
 
         val viewList = notebookDao.getLessonItemsForListNotLive()
 
-        d("insertLessonsAndTestView", "In view results: ${viewList.size} elements.")
+        Timber.d("In view results: ${viewList.size} elements.")
         assertEquals(viewList.size, 3)
-        d("insertLessonsAndTestView", "Name of lesson 0: ${viewList[0].name}, word count: ${viewList[0].wordCount}")
+        Timber.d("Name of lesson 0: ${viewList[0].name}, word count: ${viewList[0].wordCount}")
         assertEquals(viewList[0].name, lessonName3)
         assertEquals(viewList[0].wordCount, 1)
-        d("insertLessonsAndTestView", "Name of lesson 1: ${viewList[1].name}, word count: ${viewList[1].wordCount}")
+        Timber.d("Name of lesson 1: ${viewList[1].name}, word count: ${viewList[1].wordCount}")
         assertEquals(viewList[1].name, lessonName2)
         assertEquals(viewList[1].wordCount, 0)
-        d("insertLessonsAndTestView", "Name of lesson 2: ${viewList[2].name}, word count: ${viewList[2].wordCount}")
+        Timber.d("Name of lesson 2: ${viewList[2].name}, word count: ${viewList[2].wordCount}")
         assertEquals(viewList[2].name, lessonName1)
         assertEquals(viewList[2].wordCount, 3)
     }

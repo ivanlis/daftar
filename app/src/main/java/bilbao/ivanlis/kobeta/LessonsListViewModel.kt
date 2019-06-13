@@ -1,7 +1,6 @@
 package bilbao.ivanlis.kobeta
 
 import android.app.Application
-import android.util.Log.d
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +9,7 @@ import bilbao.ivanlis.kobeta.database.NotebookRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import timber.log.Timber
 
 class LessonsListViewModel (application: Application):
         AndroidViewModel(application) {
@@ -20,9 +20,11 @@ class LessonsListViewModel (application: Application):
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     init {
-        d("LessonsListViewModel", "Creating repository...")
+        //d("LessonsListViewModel", "Creating repository...")
+        Timber.d("Creating repository...")
         repository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
-        d("LessonsListViewModel", "Repository ready.")
+        //d("LessonsListViewModel", "Repository ready.")
+        Timber.d("Repository ready.")
 //        uiScope.launch {
 //            repository.insertLesson(Lesson(name = "Really fake lesson", creationDateTime = System.currentTimeMillis()))
 //        }

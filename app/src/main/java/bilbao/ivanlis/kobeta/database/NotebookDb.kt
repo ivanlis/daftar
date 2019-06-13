@@ -1,8 +1,6 @@
 package bilbao.ivanlis.kobeta.database
 
 import android.content.Context
-import android.util.Log.d
-import androidx.annotation.VisibleForTesting
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -10,6 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @Database(
     entities = [Language::class,
@@ -28,17 +27,17 @@ abstract class NotebookDb : RoomDatabase() {
 
         fun getInstance(context: Context, forTesting: Boolean = false): NotebookDb {
 
-            d("NotebookDb.getInstance", "Accessing DB instance...")
+            Timber.d("Accessing DB instance...")
 
             return INSTANCE ?: synchronized(this) {
                 // create database
-                d("NotebookDb.getInstance", "Calling buildDatabase()...")
+                Timber.d("Calling buildDatabase()...")
                 //val instance = buildDatabase(context)
                 val instance = when(forTesting) {
                     false -> buildDatabase(context)
                     true -> buildDatabaseForTesting(context)
                 }
-                d("NotebookDb.getInstance", "Instance ready")
+                Timber.d("Instance ready")
                 INSTANCE = instance
                 instance
             }
@@ -53,7 +52,7 @@ abstract class NotebookDb : RoomDatabase() {
                     object : Callback() {
                         override fun onOpen(db: SupportSQLiteDatabase) {
 
-                            d("onOpen", "On database opening...")
+                            Timber.d("On database opening...")
 
                             super.onOpen(db)
 
@@ -68,7 +67,7 @@ abstract class NotebookDb : RoomDatabase() {
                         }
 
                         override fun onCreate(db: SupportSQLiteDatabase) {
-                            d("onOpen", "On database creation...")
+                            Timber.d("On database creation...")
                             super.onCreate(db)
                         }
                     }
@@ -87,10 +86,10 @@ abstract class NotebookDb : RoomDatabase() {
         private fun prePopulateArabic(context: Context) {
 
             if (getInstance(context).notebookDao().getLanguageCount() > 0)
-                d("prePopulateArabic", "There are registered languages. Not adding anything.")
+                Timber.d( "There are registered languages. Not adding anything.")
             else {
 
-                d("prePopulateArabic", "Inserting Arabic and everything related.")
+                Timber.d("Inserting Arabic and everything related.")
 
                 getInstance(context).notebookDao().registerLanguage("", "arabic")
 
@@ -137,17 +136,17 @@ abstract class NotebookDb : RoomDatabase() {
         private fun addFakeLessons(context: Context) {
             val currentLessonCount = getInstance(context).notebookDao().getLessonCount()
             if (currentLessonCount > 0)
-                d("addFakeLessons", "We already have a lot of lessons, not creating anything")
+                Timber.d("We already have a lot of lessons, not creating anything")
             else {
-                d("addFakeLessons", "Adding fake lessons...")
+                Timber.d("Adding fake lessons...")
                 val fakeLesson1 = Lesson(name = "Fake lesson 1.", creationDateTime = System.currentTimeMillis())
                 var newId = getInstance(context).notebookDao().insertLesson(fakeLesson1)
-                d("addFakeLessons", "Fake id = $newId")
+                Timber.d("Fake id = $newId")
                 addFakeWords1(context, newId)
 
                 val fakeLesson2 = Lesson(name = "Fake lesson 2.", creationDateTime = System.currentTimeMillis())
                 newId = getInstance(context).notebookDao().insertLesson(fakeLesson2)
-                d("addFakeLessons", "Fake id = $newId")
+                Timber.d("Fake id = $newId")
                 addFakeWords2(context, newId)
             }
         }
