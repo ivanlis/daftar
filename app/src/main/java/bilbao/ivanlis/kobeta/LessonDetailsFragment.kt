@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import bilbao.ivanlis.kobeta.databinding.FragmentLessonDetailsBinding
 import timber.log.Timber
@@ -74,7 +75,22 @@ class LessonDetailsFragment : Fragment() {
         //TODO: prepare recycler view
         binding.initialFormsList.layoutManager = LinearLayoutManager(activity)
         val adapter = InitialFormItemAdapter(InitialFormItemListener {
-            //TODO: define action
+            Timber.d("Clicked on word: id = ${it.wordId}, part of speech name = ${it.partOfSpeechName}")
+            // the destination depends on the part of speech
+//            when(it.partOfSpeechName) {
+//                "verb" -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToVerbFragment(it.wordId)
+//                "noun" -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNounFragment(it.wordId)
+//                "particle" -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToParticleFragment(it.wordId)
+//            }
+
+            NavHostFragment.findNavController(this).navigate(
+                when(it.partOfSpeechName) {
+                    "verb" -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToVerbFragment(it.wordId)
+                    "noun" -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNounFragment(it.wordId)
+                    //TODO: exception on unknown part of speech name
+                    else -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToParticleFragment(it.wordId)
+                }
+            )
         })
         binding.initialFormsList.adapter = adapter
 

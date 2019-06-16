@@ -4,4 +4,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lessons_list">Lessons List</string>
+    <string name="label_singular">Singular</string>
+    <string name="label_plural">Plural</string>
+    <string name="noun_singular">Noun singular</string>
+    <string name="noun_plural">Noun plural</string>
+    <string name="past_form">Past form</string>
+    <string name="nonpast_form">Non-past form</string>
+    <string name="label_past">Past</string>
+    <string name="label_nonpast">Non-past</string>
+    <string name="verbal_nout">Verbal Noun</string>
+    <string name="label_verbnoun">Verbal Noun</string>
 </resources>

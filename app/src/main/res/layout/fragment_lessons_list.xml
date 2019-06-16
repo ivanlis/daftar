@@ -16,7 +16,7 @@
                                                        tools:context="LessonsListFragment">
 
         <TextView
-                android:text="Lessons List"
+                android:text="@string/lessons_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView" app:layout_constraintStart_toStartOf="parent"

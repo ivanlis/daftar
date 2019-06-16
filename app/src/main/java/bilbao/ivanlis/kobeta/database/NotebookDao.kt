@@ -117,9 +117,10 @@ interface NotebookDao {
 
     // query to extract the initial forms of every word belonging to a certain lesson
     @Query(
-        """SELECT wr.word_id AS wordId, wr.spelling, w.translation FROM
-        word AS w INNER JOIN word_record AS wr INNER JOIN form AS f
-        ON w.id = wr.word_id AND wr.form_id = f.id
+        """SELECT wr.word_id AS wordId, wr.spelling, w.translation, pos.english_name AS partOfSpeechName
+            FROM
+        word AS w INNER JOIN word_record AS wr INNER JOIN form AS f INNER JOIN part_of_speech AS pos
+        ON w.id = wr.word_id AND wr.form_id = f.id AND f.part_of_speech_id = pos.id
         WHERE f.initial = 1 AND w.lesson_id = :lessonId
         """)
     fun extractInitialFormsForLesson(lessonId: Long): LiveData<List<WordInitialFormTranslation>>

@@ -56,6 +56,6 @@ class InitialFormItemDiffCallback: DiffUtil.ItemCallback<WordInitialFormTranslat
 }
 
 
-class InitialFormItemListener(val clickListener: (wordId: Long) -> Unit) {
-    fun onClick(initialFormItem: WordInitialFormTranslation) = clickListener(initialFormItem.wordId)
+class InitialFormItemListener(val clickListener: (initialFormItem: WordInitialFormTranslation) -> Unit) {
+    fun onClick(initialFormItem: WordInitialFormTranslation) = clickListener(initialFormItem)
 }

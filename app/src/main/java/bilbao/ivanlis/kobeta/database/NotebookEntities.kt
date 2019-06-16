@@ -154,4 +154,7 @@ data class LessonItemForList(
 
 
 // auxiliary structures
-data class WordInitialFormTranslation(val wordId: Long, val spelling: String, val translation: String)
+data class WordInitialFormTranslation(val wordId: Long,
+                                      val spelling: String,
+                                      val translation: String,
+                                      val partOfSpeechName: String)
