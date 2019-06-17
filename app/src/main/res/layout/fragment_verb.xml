@@ -3,6 +3,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+                name="viewModel"
+                type="bilbao.ivanlis.kobeta.VerbFragmentViewModel"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                                                        android:layout_height="match_parent"
                                                        tools:context="VerbFragment">
@@ -21,6 +27,7 @@
                 android:ems="10"
                 android:id="@+id/past_edit" android:layout_marginTop="4dp"
                 android:hint="@string/past_form"
+                android:text="@{viewModel.verbForms.pastForm}"
                 app:layout_constraintTop_toBottomOf="@+id/save_button"
                 app:layout_constraintStart_toEndOf="@+id/text_past" android:layout_marginStart="8dp"/>
         <EditText
@@ -29,9 +36,10 @@
                 android:inputType="text"
                 android:ems="10"
                 android:id="@+id/nonpast_edit"
+                android:hint="@string/nonpast_form"
+                android:text="@{viewModel.verbForms.nonpastForm}"
                 app:layout_constraintTop_toBottomOf="@+id/past_edit" android:layout_marginTop="16dp"
-                app:layout_constraintStart_toEndOf="@+id/text_nonpast" android:layout_marginStart="8dp"
-                android:hint="@string/nonpast_form"/>
+                app:layout_constraintStart_toEndOf="@+id/text_nonpast" android:layout_marginStart="8dp"/>
         <TextView
                 android:text="@string/label_past"
                 android:layout_width="wrap_content"
@@ -54,9 +62,11 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:ems="10"
-                tools:layout_editor_absoluteY="181dp"
-                android:id="@+id/verbnoun_edit" android:hint="@string/verbal_nout"
-                app:layout_constraintStart_toEndOf="@+id/textView4" android:layout_marginStart="8dp"/>
+                android:id="@+id/verbnoun_edit"
+                android:hint="@string/verbal_nout"
+                android:text="@{viewModel.verbForms.verbalNounForm}"
+                app:layout_constraintStart_toEndOf="@+id/textView4" android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/nonpast_edit"/>
         <TextView
                 android:text="@string/label_verbnoun"
                 android:layout_width="wrap_content"

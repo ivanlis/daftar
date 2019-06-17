@@ -125,4 +125,22 @@ interface NotebookDao {
         """)
     fun extractInitialFormsForLesson(lessonId: Long): LiveData<List<WordInitialFormTranslation>>
 
+    // query to extract all forms for an Arabic word
+    //TODO: extract constant literals as constants
+    @Query(
+        """SELECT :wordId AS wordId, sel1.spelling AS pastForm, sel2.spelling AS nonpastForm,
+            sel3.spelling AS verbalNounForm
+                FROM
+            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="past") AS sel1
+            LEFT JOIN
+            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="nonpast") AS sel2
+            LEFT JOIN
+            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="verbalnoun") AS sel3
+        """
+    )
+    fun extractArabicVerbForms(wordId: Long): LiveData<ArabicVerbForms>
+
 }

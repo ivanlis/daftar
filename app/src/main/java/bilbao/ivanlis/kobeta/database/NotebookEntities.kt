@@ -154,7 +154,14 @@ data class LessonItemForList(
 
 
 // auxiliary structures
+// initial form and translation
 data class WordInitialFormTranslation(val wordId: Long,
                                       val spelling: String,
                                       val translation: String,
                                       val partOfSpeechName: String)
+
+// Verb forms for Arabic
+data class ArabicVerbForms(val wordId: Long,
+                           val pastForm: String,
+                           val nonpastForm: String = "",
+                           val verbalNounForm: String = "")

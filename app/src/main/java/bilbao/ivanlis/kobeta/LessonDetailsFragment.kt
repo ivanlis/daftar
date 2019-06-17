@@ -56,7 +56,7 @@ class LessonDetailsFragment : Fragment() {
         })
 
         //d("LessonDetailsFragment", "lessonId = ${lessonId}")
-        Timber.d("lessonId = ${lessonId}")
+        Timber.d("lessonId = $lessonId")
 
         val application = requireNotNull(this.activity).application
         val viewModelFactory = LessonDetailsViewModelFactory(application, lessonId)
