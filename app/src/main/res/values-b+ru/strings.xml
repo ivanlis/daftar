@@ -16,4 +16,5 @@
     <string name="label_nonpast">Non-past</string>
     <string name="verbal_nout">Verbal Noun</string>
     <string name="label_verbnoun">Verbal Noun</string>
+    <string name="save">Save</string>
 </resources>
