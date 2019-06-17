@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+                name="viewModel"
+                type="bilbao.ivanlis.kobeta.NounFragmentViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
@@ -37,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:text="Name"
+                android:text="@{viewModel.nounForms.singularForm}"
                 android:ems="10"
                 android:id="@+id/singular_edit" android:hint="@string/noun_singular"
                 app:layout_constraintStart_toEndOf="@+id/text_singular" android:layout_marginStart="8dp"
@@ -46,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:text="Name"
+                android:text="@{viewModel.nounForms.pluralForm}"
                 android:ems="10"
                 android:id="@+id/plural_edit"
                 android:hint="@string/noun_plural" app:layout_constraintStart_toEndOf="@+id/text_plural"

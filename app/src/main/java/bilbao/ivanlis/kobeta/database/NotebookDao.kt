@@ -143,4 +143,19 @@ interface NotebookDao {
     )
     fun extractArabicVerbForms(wordId: Long): LiveData<ArabicVerbForms>
 
+    // query to extract all forms for an Arabic noun
+    //TODO: extract constant literals as constants
+    @Query(
+        """SELECT :wordId AS wordId, sel1.spelling AS singularForm, sel2.spelling AS pluralForm
+            FROM
+            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="singular") AS sel1
+            LEFT JOIN
+            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="plural") AS sel2
+
+        """
+    )
+    fun extractArabicNounForms(wordId: Long): LiveData<ArabicNounForms>
+
 }

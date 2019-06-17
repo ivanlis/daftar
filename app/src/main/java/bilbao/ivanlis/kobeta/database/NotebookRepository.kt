@@ -47,6 +47,8 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     fun extractInitialFormsForLesson(lessonId: Long) = notebookDao.extractInitialFormsForLesson(lessonId)
     @WorkerThread
     fun extractArabicVerbForms(wordId: Long) = notebookDao.extractArabicVerbForms(wordId)
+    @WorkerThread
+    fun extractArabicNounForms(wordId: Long) = notebookDao.extractArabicNounForms(wordId)
 
     @WorkerThread
     suspend fun insertWordRecord(wordRecord: WordRecord) = notebookDao.insertWordRecord(wordRecord)

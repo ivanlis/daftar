@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import bilbao.ivanlis.kobeta.databinding.FragmentNounBinding
+import timber.log.Timber
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,8 +27,27 @@ class NounFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_noun, container, false)
+
+        val binding: FragmentNounBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_noun, container, false)
+
+        val args = arguments
+        val wordId = requireNotNull(when(args != null) {
+            true -> NounFragmentArgs.fromBundle(args).wordId
+            false -> null
+        })
+
+        Timber.d("Noun, wordId = $wordId")
+
+        val application = requireNotNull(this.activity).application
+        val viewModelFactory = NounFragmentViewModelFactory(application, wordId)
+
+        val viewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(NounFragmentViewModel::class.java)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        return binding.root
     }
 
 

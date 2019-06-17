@@ -165,3 +165,8 @@ data class ArabicVerbForms(val wordId: Long,
                            val pastForm: String,
                            val nonpastForm: String = "",
                            val verbalNounForm: String = "")
+
+// Noun forms for Arabic
+data class ArabicNounForms(val wordId: Long,
+                           val singularForm: String,
+                           val pluralForm: String = "")
