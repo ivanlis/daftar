@@ -16,4 +16,8 @@
     <string name="verbal_nout">Verbal Noun</string>
     <string name="label_verbnoun">Verbal Noun</string>
     <string name="save">Save</string>
+    <string name="label_translation">Translation</string>
+    <string name="translation">Translation</string>
+    <string name="label_particle">Particle</string>
+    <string name="particle">Particle</string>
 </resources>

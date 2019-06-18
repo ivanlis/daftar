@@ -10,23 +10,24 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
-class VerbFragmentViewModel(application: Application, wordId: Long):
+class ParticleFragmentViewModel(application: Application, wordId: Long):
         AndroidViewModel(application) {
 
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
     //private val wordId = wordId
-    val verbForms = repository.extractArabicVerbForms(wordId)
-
+    val particleForms = repository.extractArabicParticleForms(wordId)
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 }
 
-class VerbFragmentViewModelFactory(private val application: Application, private val wordId: Long): ViewModelProvider.Factory {
+class ParticleFragmentViewModelFactory(private val application: Application, private val wordId: Long):
+        ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(VerbFragmentViewModel::class.java)) {
-            return VerbFragmentViewModel(application, wordId) as T
+
+        if (modelClass.isAssignableFrom(ParticleFragmentViewModel::class.java)) {
+            return ParticleFragmentViewModel(application, wordId) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

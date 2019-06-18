@@ -11,7 +11,7 @@ class NounFragmentViewModel(application: Application, wordId: Long):
     AndroidViewModel(application) {
 
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
-    private val wordId = wordId
+    //private val wordId = wordId
     val nounForms = repository.extractArabicNounForms(wordId)
 
 }

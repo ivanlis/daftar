@@ -128,9 +128,12 @@ interface NotebookDao {
     // query to extract all forms for an Arabic word
     //TODO: extract constant literals as constants
     @Query(
-        """SELECT :wordId AS wordId, sel1.spelling AS pastForm, sel2.spelling AS nonpastForm,
+        """SELECT :wordId AS wordId, sel0.translation AS translation,
+            sel1.spelling AS pastForm, sel2.spelling AS nonpastForm,
             sel3.spelling AS verbalNounForm
                 FROM
+            (SELECT w.translation AS translation FROM word AS w WHERE w.id = :wordId) AS sel0
+            LEFT JOIN
             (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
                 ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="past") AS sel1
             LEFT JOIN
@@ -146,8 +149,11 @@ interface NotebookDao {
     // query to extract all forms for an Arabic noun
     //TODO: extract constant literals as constants
     @Query(
-        """SELECT :wordId AS wordId, sel1.spelling AS singularForm, sel2.spelling AS pluralForm
-            FROM
+        """SELECT :wordId AS wordId, sel0.translation AS translation,
+            sel1.spelling AS singularForm, sel2.spelling AS pluralForm
+                FROM
+            (SELECT w.translation AS translation FROM word AS w WHERE w.id = :wordId) AS sel0
+            LEFT JOIN
             (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
                 ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="singular") AS sel1
             LEFT JOIN
@@ -157,5 +163,19 @@ interface NotebookDao {
         """
     )
     fun extractArabicNounForms(wordId: Long): LiveData<ArabicNounForms>
+
+    // query to extract the spelling of an Arabic particle
+    //TODO: extract constant literals as constants
+    @Query(
+        """SELECT :wordId AS wordId, sel0.translation AS translation,
+            sel1.spelling as particleForm
+            FROM
+            (SELECT w.translation AS translation FROM word AS w WHERE w.id = :wordId) AS sel0
+            LEFT JOIN
+            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="particle") AS sel1
+        """
+    )
+    fun extractArabicParticleForms(wordId: Long): LiveData<ArabicParticleForms>
 
 }
