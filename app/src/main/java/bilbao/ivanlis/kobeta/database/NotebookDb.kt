@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import bilbao.ivanlis.kobeta.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -91,44 +92,44 @@ abstract class NotebookDb : RoomDatabase() {
 
                 Timber.d("Inserting Arabic and everything related.")
 
-                getInstance(context).notebookDao().registerLanguage("", "arabic")
+                getInstance(context).notebookDao().registerLanguage("", LANG_ARABIC)
 
                 getInstance(context).notebookDao().registerPartOfSpeech(
-                    "arabic",
-                    "", "noun"
+                    LANG_ARABIC,
+                    "", POS_NOUN
                 )
                 getInstance(context).notebookDao().registerPartOfSpeech(
-                    "arabic",
-                    "", "verb"
+                    LANG_ARABIC,
+                    "", POS_VERB
                 )
                 getInstance(context).notebookDao().registerPartOfSpeech(
-                    "arabic",
-                    "", "particle"
+                    LANG_ARABIC,
+                    "", POS_PARTICLE
                 )
 
                 getInstance(context).notebookDao().registerForm(
-                    "arabic", "noun",
-                    "", "singular", true
+                    LANG_ARABIC, POS_NOUN,
+                    "", FORM_SINGULAR, true
                 )
                 getInstance(context).notebookDao().registerForm(
-                    "arabic", "noun",
-                    "", "plural", false
+                    LANG_ARABIC, POS_NOUN,
+                    "", FORM_PLURAL, false
                 )
                 getInstance(context).notebookDao().registerForm(
-                    "arabic", "verb",
-                    "", "past", true
+                    LANG_ARABIC, POS_VERB,
+                    "", FORM_PAST, true
                 )
                 getInstance(context).notebookDao().registerForm(
-                    "arabic", "verb",
-                    "", "nonpast", false
+                    LANG_ARABIC, POS_VERB,
+                    "", FORM_NONPAST, false
                 )
                 getInstance(context).notebookDao().registerForm(
-                    "arabic", "verb",
-                    "", "verbalnoun", false
+                    LANG_ARABIC, POS_VERB,
+                    "", FORM_VERBALNOUN, false
                 )
                 getInstance(context).notebookDao().registerForm(
-                    "arabic", "particle",
-                    "", "particle", true
+                    LANG_ARABIC, POS_PARTICLE,
+                    "", FORM_PARTICLE, true
                 )
             }
         }
@@ -155,50 +156,50 @@ abstract class NotebookDb : RoomDatabase() {
 
             var wordId = getInstance(context).notebookDao().insertWord(Word(translation = "делать", lessonId = lessonId))
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "past", "فعل")
+                LANG_ARABIC, FORM_PAST, "فعل")
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "nonpast", "يفعل")
+                LANG_ARABIC, FORM_NONPAST, "يفعل")
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "verbalnoun", "فعل")
+                LANG_ARABIC, FORM_VERBALNOUN, "فعل")
 
             wordId = getInstance(context).notebookDao().insertWord(Word(translation = "глаз", lessonId = lessonId))
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "singular", "عين")
+                LANG_ARABIC, FORM_SINGULAR, "عين")
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "plural", "عيون")
+                LANG_ARABIC, FORM_PLURAL, "عيون")
 
             wordId = getInstance(context).notebookDao().insertWord(Word(translation = "в", lessonId = lessonId))
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "particle", "في")
+                LANG_ARABIC, FORM_PARTICLE, "في")
         }
 
         private fun addFakeWords2(context: Context, lessonId: Long) {
 
             var wordId = getInstance(context).notebookDao().insertWord(Word(translation = "просыпаться", lessonId = lessonId))
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "past", "اِسْتَيْقَظَ")
+                LANG_ARABIC, FORM_PAST, "اِسْتَيْقَظَ")
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "nonpast", "يَسْتَيْقِظُ")
+                LANG_ARABIC, FORM_NONPAST, "يَسْتَيْقِظُ")
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "verbalnoun", "اِسْتِيقَاظ")
+                LANG_ARABIC, FORM_VERBALNOUN, "اِسْتِيقَاظ")
 
             wordId = getInstance(context).notebookDao().insertWord(Word(translation = "на", lessonId = lessonId))
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "particle", "على")
+                LANG_ARABIC, FORM_PARTICLE, "على")
 
             wordId = getInstance(context).notebookDao().insertWord(Word(translation = "читать", lessonId = lessonId))
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "past", "قَرَأَ")
+                LANG_ARABIC, FORM_PAST, "قَرَأَ")
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "nonpast", "يَقْرَأُ")
+                LANG_ARABIC, FORM_NONPAST, "يَقْرَأُ")
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "verbalnoun", "قِرَاءَة")
+                LANG_ARABIC, FORM_VERBALNOUN, "قِرَاءَة")
 
             wordId = getInstance(context).notebookDao().insertWord(Word(translation = "красный", lessonId = lessonId))
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "singular", "أَحْمَر")
+                LANG_ARABIC, FORM_SINGULAR, "أَحْمَر")
             getInstance(context).notebookDao().registerWordRecord(wordId,
-                "arabic", "plural", "حُمْر")
+                LANG_ARABIC, FORM_PLURAL, "حُمْر")
 
         }
     }

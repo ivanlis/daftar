@@ -2,6 +2,7 @@ package bilbao.ivanlis.kobeta.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import bilbao.ivanlis.kobeta.*
 
 @Dao
 interface NotebookDao {
@@ -135,13 +136,13 @@ interface NotebookDao {
             (SELECT w.translation AS translation FROM word AS w WHERE w.id = :wordId) AS sel0
             LEFT JOIN
             (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
-                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="past") AS sel1
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_PAST") AS sel1
             LEFT JOIN
             (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
-                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="nonpast") AS sel2
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_NONPAST") AS sel2
             LEFT JOIN
             (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
-                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="verbalnoun") AS sel3
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_VERBALNOUN") AS sel3
         """
     )
     fun extractArabicVerbForms(wordId: Long): LiveData<ArabicVerbForms>
@@ -155,10 +156,10 @@ interface NotebookDao {
             (SELECT w.translation AS translation FROM word AS w WHERE w.id = :wordId) AS sel0
             LEFT JOIN
             (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
-                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="singular") AS sel1
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_SINGULAR") AS sel1
             LEFT JOIN
             (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
-                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="plural") AS sel2
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_PLURAL") AS sel2
 
         """
     )
@@ -173,7 +174,7 @@ interface NotebookDao {
             (SELECT w.translation AS translation FROM word AS w WHERE w.id = :wordId) AS sel0
             LEFT JOIN
             (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
-                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="particle") AS sel1
+                ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_PARTICLE") AS sel1
         """
     )
     fun extractArabicParticleForms(wordId: Long): LiveData<ArabicParticleForms>
