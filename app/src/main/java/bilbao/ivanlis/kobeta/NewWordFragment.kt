@@ -32,6 +32,18 @@ class NewWordFragment : Fragment() {
         val binding: FragmentNewWordBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_word,
             container, false)
 
+        binding.pastEdit.visibility = View.GONE
+        binding.textPast.visibility = View.GONE
+        binding.nonpastEdit.visibility = View.GONE
+        binding.textNonpast.visibility = View.GONE
+        binding.verbnounEdit.visibility = View.GONE
+        binding.textVerbnoun.visibility = View.GONE
+        binding.singularEdit.visibility = View.GONE
+        binding.textSingular.visibility = View.GONE
+        binding.pluralEdit.visibility = View.GONE
+        binding.textPlural.visibility = View.GONE
+        binding.particleEdit.visibility = View.GONE
+        binding.textParticle.visibility = View.GONE
 
 
         binding.radiogroupPos.setOnCheckedChangeListener { _, checkedId ->
@@ -85,53 +97,6 @@ class NewWordFragment : Fragment() {
             }
         }
 
-//        binding.radiogroupPos.setOnCheckedChangeListener {
-//
-//            Timber.d("Pos radio group clicked")
-//
-//            if (it is RadioButton) {
-//                Timber.d("The view is a radio button")
-//
-//                val checked = it.isChecked
-//
-//                when (it.id) {
-//                    R.id.radiobutton_verb -> {
-//                        if (checked) {
-//                            Timber.d("Verb radiobutton checked")
-//                            binding.pastEdit.visibility = View.VISIBLE
-//                            binding.nonpastEdit.visibility = View.VISIBLE
-//                            binding.verbnounEdit.visibility = View.VISIBLE
-//                            binding.singularEdit.visibility = View.INVISIBLE
-//                            binding.pluralEdit.visibility = View.INVISIBLE
-//                            binding.verbnounEdit.visibility = View.INVISIBLE
-//                        }
-//                    }
-//                    R.id.radiobutton_noun -> {
-//                        if (checked) {
-//                            Timber.d("Noun radiobutton checked")
-//                            binding.pastEdit.visibility = View.INVISIBLE
-//                            binding.nonpastEdit.visibility = View.INVISIBLE
-//                            binding.verbnounEdit.visibility = View.INVISIBLE
-//                            binding.singularEdit.visibility = View.VISIBLE
-//                            binding.pluralEdit.visibility = View.VISIBLE
-//                            binding.verbnounEdit.visibility = View.INVISIBLE
-//                        }
-//                    }
-//                    R.id.radiobutton_particle -> {
-//                        if (checked) {
-//                            Timber.d("Particle radiobutton checked")
-//                            binding.pastEdit.visibility = View.INVISIBLE
-//                            binding.nonpastEdit.visibility = View.INVISIBLE
-//                            binding.verbnounEdit.visibility = View.INVISIBLE
-//                            binding.singularEdit.visibility = View.INVISIBLE
-//                            binding.pluralEdit.visibility = View.INVISIBLE
-//                            binding.verbnounEdit.visibility = View.VISIBLE
-//                        }
-//                    }
-//                }
-//
-//            }
-//        }
 
         return binding.root
 
