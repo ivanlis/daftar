@@ -101,6 +101,13 @@ class LessonDetailsFragment : Fragment() {
         })
         binding.lifecycleOwner = this
 
+
+        binding.buttonNew.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(
+                LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNewWordFragment()
+            )
+        }
+
         return binding.root
 
     }

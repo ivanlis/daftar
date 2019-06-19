@@ -21,4 +21,7 @@
     <string name="translation">Translation</string>
     <string name="label_particle">Particle</string>
     <string name="particle">Particle</string>
+    <string name="verb">Verb</string>
+    <string name="noun">Noun</string>
+    <string name="new_word">New</string>
 </resources>
