@@ -32,5 +32,7 @@
         <argument android:name="wordId" app:argType="long"/>
     </fragment>
     <fragment android:id="@+id/newWordFragment" android:name="bilbao.ivanlis.kobeta.NewWordFragment"
-              android:label="NewWordFragment"/>
+              android:label="NewWordFragment">
+        <argument android:name="lessonId" app:argType="long"/>
+    </fragment>
 </navigation>

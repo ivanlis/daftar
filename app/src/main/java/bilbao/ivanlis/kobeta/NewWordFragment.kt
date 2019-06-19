@@ -32,6 +32,14 @@ class NewWordFragment : Fragment() {
         val binding: FragmentNewWordBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_word,
             container, false)
 
+        val args = arguments
+        val lessonId = requireNotNull(when(args != null) {
+            true -> NewWordFragmentArgs.fromBundle(args).lessonId
+            false -> null
+        })
+
+        Timber.d("Fragment to add a word to lesson $lessonId")
+
         binding.pastEdit.visibility = View.GONE
         binding.textPast.visibility = View.GONE
         binding.nonpastEdit.visibility = View.GONE

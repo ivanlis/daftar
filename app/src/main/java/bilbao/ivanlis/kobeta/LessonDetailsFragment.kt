@@ -104,7 +104,7 @@ class LessonDetailsFragment : Fragment() {
 
         binding.buttonNew.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(
-                LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNewWordFragment()
+                LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNewWordFragment(lessonId)
             )
         }
 
