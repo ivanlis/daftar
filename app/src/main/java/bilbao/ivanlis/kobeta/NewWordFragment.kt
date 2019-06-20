@@ -134,7 +134,7 @@ class NewWordFragment : Fragment() {
                 if (posSelected != null) {
                     val userInput = WordFormInput(
                         lessonId, posSelected,
-                        binding.pastEdit.text.toString(), binding.nonpastEdit.toString(),
+                        binding.pastEdit.text.toString(), binding.nonpastEdit.text.toString(),
                         binding.verbnounEdit.text.toString(),
                         binding.singularEdit.text.toString(), binding.pluralEdit.text.toString(),
                         binding.particleEdit.text.toString(), binding.translationEdit.text.toString()
