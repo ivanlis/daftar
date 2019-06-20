@@ -34,5 +34,7 @@
     <fragment android:id="@+id/newWordFragment" android:name="bilbao.ivanlis.kobeta.NewWordFragment"
               android:label="NewWordFragment">
         <argument android:name="lessonId" app:argType="long"/>
+        <action android:id="@+id/action_newWordFragment_to_lessonDetailsFragment"
+                app:destination="@id/lessonDetailsFragment"/>
     </fragment>
 </navigation>

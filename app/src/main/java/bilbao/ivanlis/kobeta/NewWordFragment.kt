@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.kobeta.databinding.FragmentNewWordBinding
 import timber.log.Timber
 
@@ -53,6 +56,8 @@ class NewWordFragment : Fragment() {
         binding.particleEdit.visibility = View.GONE
         binding.textParticle.visibility = View.GONE
 
+        binding.posSelected = ""
+
 
         binding.radiogroupPos.setOnCheckedChangeListener { _, checkedId ->
 
@@ -71,6 +76,8 @@ class NewWordFragment : Fragment() {
                     binding.textPlural.visibility = View.GONE
                     binding.particleEdit.visibility = View.GONE
                     binding.textParticle.visibility = View.GONE
+
+                    binding.posSelected = POS_VERB
                 }
                 R.id.radiobutton_noun -> {
                     Timber.d("Noun radiobutton checked")
@@ -86,6 +93,8 @@ class NewWordFragment : Fragment() {
                     binding.textPlural.visibility = View.VISIBLE
                     binding.particleEdit.visibility = View.GONE
                     binding.textParticle.visibility = View.GONE
+
+                    binding.posSelected = POS_NOUN
                 }
                 R.id.radiobutton_particle -> {
                     Timber.d("Particle radiobutton checked")
@@ -101,10 +110,49 @@ class NewWordFragment : Fragment() {
                     binding.textPlural.visibility = View.GONE
                     binding.particleEdit.visibility = View.VISIBLE
                     binding.textParticle.visibility = View.VISIBLE
+
+                    binding.posSelected = POS_PARTICLE
                 }
             }
         }
 
+
+        val application = requireNotNull(this.activity).application
+        val viewModelFactory = NewWordViewModelFactory(application, lessonId)
+
+        val viewModel = ViewModelProviders
+            .of(this, viewModelFactory)
+            .get(NewWordViewModel::class.java)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+
+        viewModel.saveData.observe(this, Observer {
+            if (it) {
+                val posSelected = binding.posSelected
+                if (posSelected != null) {
+                    val userInput = WordFormInput(
+                        lessonId, posSelected,
+                        binding.pastEdit.text.toString(), binding.nonpastEdit.toString(),
+                        binding.verbnounEdit.text.toString(),
+                        binding.singularEdit.text.toString(), binding.pluralEdit.text.toString(),
+                        binding.particleEdit.text.toString(), binding.translationEdit.text.toString()
+                    )
+
+                    viewModel.onSaveData(userInput)
+
+                    NavHostFragment.findNavController(this).navigate(
+                        NewWordFragmentDirections.actionNewWordFragmentToLessonDetailsFragment(lessonId)
+                    )
+
+                }
+            }
+        })
+
+        binding.buttonSave.setOnClickListener {
+            viewModel.onSaveClicked()
+        }
 
         return binding.root
 

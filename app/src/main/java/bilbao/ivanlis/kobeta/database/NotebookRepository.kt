@@ -66,4 +66,9 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     @WorkerThread
     suspend fun updateScore(score: Score) { notebookDao.updateScore(score) }
 
+
+    @WorkerThread
+    fun registerWordRecord(wordId: Long, languageName: String, formName: String, spelling: String)
+            = notebookDao.registerWordRecord(wordId, languageName, formName, spelling)
+
 }
