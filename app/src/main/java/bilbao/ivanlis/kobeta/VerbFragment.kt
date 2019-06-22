@@ -57,7 +57,7 @@ class VerbFragment : Fragment() {
                     verbnounForm = binding.verbnounEdit.text.toString(),
                     translation = binding.translationEdit.text.toString()))
             }
-            Toast.makeText(this.context, "Saved!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this.context, getString(R.string.saved_exclamation), Toast.LENGTH_LONG).show()
         })
 
         return binding.root

@@ -14,28 +14,12 @@ import timber.log.Timber
 
 
 class VerbFragmentViewModel(application: Application, wordId: Long):
-        AndroidViewModel(application) {
+        WordViewModel(application, wordId) {
 
-    var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
-    private val wordId = wordId
+
     val verbForms = repository.extractArabicVerbForms(wordId)
 
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    private val _saveData = MutableLiveData<Boolean>()
-    val saveData: MutableLiveData<Boolean>
-        get() = _saveData
-
-    init {
-        _saveData.value = false
-    }
-
-    fun onSaveClicked() {
-        _saveData.value = true
-    }
-
-    fun onSaveData(userInput: WordFormInput) {
+    override fun onSaveData(userInput: WordFormInput) {
 
         if (verbForms.value == null)
             return
@@ -62,7 +46,6 @@ class VerbFragmentViewModel(application: Application, wordId: Long):
         onSaveDataComplete()
     }
 
-    private fun onSaveDataComplete() { _saveData.value = false }
 }
 
 class VerbFragmentViewModelFactory(private val application: Application, private val wordId: Long): ViewModelProvider.Factory {
