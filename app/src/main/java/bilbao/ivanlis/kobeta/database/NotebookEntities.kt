@@ -126,7 +126,7 @@ data class Score(
 )
 data class WordRecord(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0L,
     @ColumnInfo(name = "word_id")
     val wordId: Long,
     @ColumnInfo(name = "form_id")
@@ -165,15 +165,21 @@ data class ArabicVerbForms(val wordId: Long,
                            val translation: String,
                            val pastForm: String,
                            val nonpastForm: String = "",
-                           val verbalNounForm: String = "")
+                           val verbalNounForm: String = "",
+                           val pastFormId: Long,
+                           val nonpastFormId: Long,
+                           val verbalNounFormId: Long)
 
 // Noun forms for Arabic
 data class ArabicNounForms(val wordId: Long,
                            val translation: String,
                            val singularForm: String,
-                           val pluralForm: String = "")
+                           val pluralForm: String = "",
+                           val singularFormId: Long,
+                           val pluralFormId: Long)
 
 
 data class ArabicParticleForms(val wordId: Long,
                                val translation: String,
-                               val particleForm: String)
+                               val particleForm: String,
+                               val particleFormId: Long)

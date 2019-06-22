@@ -83,6 +83,15 @@ interface NotebookDao {
     @Update
     fun updateWord(word: Word)
 
+    @Query(
+        """
+            UPDATE word
+            SET translation = :translation
+            WHERE id = :wordId
+        """
+    )
+    fun updateWordById(wordId: Long, translation: String)
+
     // word_record
 
     @Insert
@@ -91,8 +100,14 @@ interface NotebookDao {
     @Delete
     fun deleteWordRecord(wordRecord: WordRecord)
 
-    @Update
-    fun updateWordRecord(wordRecord: WordRecord)
+    @Query(
+        """
+            UPDATE word_record
+            SET spelling = :spelling
+            WHERE word_id = :wordId AND form_id = :formId
+        """
+    )
+    fun updateWordRecordByWordAndForm(wordId: Long, formId: Long, spelling: String)
 
     @Query("""
         INSERT INTO word_record (word_id, form_id, spelling)
@@ -103,6 +118,7 @@ interface NotebookDao {
         WHERE l.english_name = :languageName AND f.english_name = :formName
     """)
     fun registerWordRecord(wordId: Long, languageName: String, formName: String, spelling: String): Long
+
 
     // score
 
@@ -131,17 +147,19 @@ interface NotebookDao {
     @Query(
         """SELECT :wordId AS wordId, sel0.translation AS translation,
             sel1.spelling AS pastForm, sel2.spelling AS nonpastForm,
-            sel3.spelling AS verbalNounForm
+            sel3.spelling AS verbalNounForm,
+            sel1.form_id AS pastFormId, sel2.form_id AS nonpastFormId,
+            sel3.form_id AS verbalNounFormId
                 FROM
             (SELECT w.translation AS translation FROM word AS w WHERE w.id = :wordId) AS sel0
             LEFT JOIN
-            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+            (SELECT wr.spelling AS spelling, wr.form_id AS form_id FROM word_record AS wr INNER JOIN form AS f
                 ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_PAST") AS sel1
             LEFT JOIN
-            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+            (SELECT wr.spelling AS spelling, wr.form_id AS form_id FROM word_record AS wr INNER JOIN form AS f
                 ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_NONPAST") AS sel2
             LEFT JOIN
-            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+            (SELECT wr.spelling AS spelling, wr.form_id AS form_id FROM word_record AS wr INNER JOIN form AS f
                 ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_VERBALNOUN") AS sel3
         """
     )
@@ -151,14 +169,15 @@ interface NotebookDao {
     //TODO: extract constant literals as constants
     @Query(
         """SELECT :wordId AS wordId, sel0.translation AS translation,
-            sel1.spelling AS singularForm, sel2.spelling AS pluralForm
+            sel1.spelling AS singularForm, sel2.spelling AS pluralForm,
+            sel1.form_id AS singularFormId, sel2.form_id AS pluralFormId
                 FROM
             (SELECT w.translation AS translation FROM word AS w WHERE w.id = :wordId) AS sel0
             LEFT JOIN
-            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+            (SELECT wr.spelling AS spelling, wr.form_id AS form_id FROM word_record AS wr INNER JOIN form AS f
                 ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_SINGULAR") AS sel1
             LEFT JOIN
-            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+            (SELECT wr.spelling AS spelling, wr.form_id AS form_id FROM word_record AS wr INNER JOIN form AS f
                 ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_PLURAL") AS sel2
 
         """
@@ -169,11 +188,11 @@ interface NotebookDao {
     //TODO: extract constant literals as constants
     @Query(
         """SELECT :wordId AS wordId, sel0.translation AS translation,
-            sel1.spelling as particleForm
+            sel1.spelling AS particleForm, sel1.form_id AS particleFormId
             FROM
             (SELECT w.translation AS translation FROM word AS w WHERE w.id = :wordId) AS sel0
             LEFT JOIN
-            (SELECT wr.spelling AS spelling FROM word_record AS wr INNER JOIN form AS f
+            (SELECT wr.spelling AS spelling, wr.form_id AS form_id FROM word_record AS wr INNER JOIN form AS f
                 ON wr.form_id = f.id AND wr.word_id = :wordId AND f.english_name="$FORM_PARTICLE") AS sel1
         """
     )

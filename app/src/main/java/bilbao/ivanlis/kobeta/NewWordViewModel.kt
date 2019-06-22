@@ -11,15 +11,15 @@ import timber.log.Timber
 
 
 data class WordFormInput(
-    val lessonId: Long,
-    val posChosen: String,
-    val pastForm: String,
-    val nonpastForm: String,
-    val verbnounForm: String,
-    val singularForm: String,
-    val pluralForm: String,
-    val particleForm: String,
-    val translation: String
+    val lessonId: Long = 0L,
+    val posChosen: String = "",
+    val pastForm: String = "",
+    val nonpastForm: String = "",
+    val verbnounForm: String = "",
+    val singularForm: String = "",
+    val pluralForm: String = "",
+    val particleForm: String = "",
+    val translation: String = ""
 )
 
 class NewWordViewModel(application: Application, lessonId: Long) :

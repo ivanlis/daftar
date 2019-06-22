@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import bilbao.ivanlis.kobeta.databinding.FragmentVerbBinding
 import timber.log.Timber
@@ -46,6 +48,17 @@ class VerbFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        viewModel.saveData.observe(this, Observer {
+            it?.let {
+                viewModel.onSaveData(WordFormInput(
+                    pastForm = binding.pastEdit.text.toString(),
+                    nonpastForm = binding.nonpastEdit.text.toString(),
+                    verbnounForm = binding.verbnounEdit.text.toString(),
+                    translation = binding.translationEdit.text.toString()))
+            }
+            Toast.makeText(this.context, "Saved!", Toast.LENGTH_LONG).show()
+        })
 
         return binding.root
     }

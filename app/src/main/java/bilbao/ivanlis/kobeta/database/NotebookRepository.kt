@@ -42,6 +42,8 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     suspend fun deleteWord(word: Word) { notebookDao.deleteWord(word) }
     @WorkerThread
     suspend fun updateWord(word: Word) { notebookDao.updateWord(word) }
+    @WorkerThread
+    fun updateWordById(wordId: Long, translation: String) { notebookDao.updateWordById(wordId, translation) }
 
     @WorkerThread
     fun extractInitialFormsForLesson(lessonId: Long) = notebookDao.extractInitialFormsForLesson(lessonId)
@@ -57,7 +59,9 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     @WorkerThread
     suspend fun deleteWordRecord(wordRecord: WordRecord) { notebookDao.deleteWordRecord(wordRecord) }
     @WorkerThread
-    suspend fun updateWordRecord(wordRecord: WordRecord) { notebookDao.updateWordRecord(wordRecord) }
+    suspend fun updateWordRecordByWordAndForm(wordId: Long, formId: Long, spelling: String) {
+        notebookDao.updateWordRecordByWordAndForm(wordId, formId, spelling)
+    }
 
     @WorkerThread
     suspend fun insertScore(score: Score) = notebookDao.insertScore(score)
