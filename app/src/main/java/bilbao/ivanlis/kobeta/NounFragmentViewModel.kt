@@ -8,12 +8,14 @@ import bilbao.ivanlis.kobeta.database.NotebookDb
 import bilbao.ivanlis.kobeta.database.NotebookRepository
 
 class NounFragmentViewModel(application: Application, wordId: Long):
-    AndroidViewModel(application) {
+    WordViewModel(application, wordId) {
 
-    var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
     //private val wordId = wordId
     val nounForms = repository.extractArabicNounForms(wordId)
 
+    override suspend fun executeSave(userInput: WordFormInput) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
 
 class NounFragmentViewModelFactory(private val application: Application, private val wordId: Long):

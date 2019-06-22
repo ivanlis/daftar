@@ -1,14 +1,8 @@
 package bilbao.ivanlis.kobeta
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import bilbao.ivanlis.kobeta.database.NotebookDb
-import bilbao.ivanlis.kobeta.database.NotebookRepository
-import bilbao.ivanlis.kobeta.database.Word
-import bilbao.ivanlis.kobeta.database.WordRecord
 import kotlinx.coroutines.*
 import timber.log.Timber
 
@@ -19,33 +13,13 @@ class VerbFragmentViewModel(application: Application, wordId: Long):
 
     val verbForms = repository.extractArabicVerbForms(wordId)
 
-    override fun onSaveData(userInput: WordFormInput) {
-
-        if (verbForms.value == null)
-            return
-
-        _saveData.value?.let {
-            if (!it)
-                return
+    override suspend fun executeSave(userInput: WordFormInput) {
+        verbForms.value?.let { verbFormsVal ->
+            repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.pastFormId, userInput.pastForm)
+            repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.nonpastFormId, userInput.nonpastForm)
+            repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.verbalNounFormId, userInput.verbnounForm)
         }
-
-        Timber.d("onSaveData()")
-
-        uiScope.launch {
-
-            withContext(Dispatchers.IO) {
-                repository.updateWordById(wordId, userInput.translation)
-
-                verbForms.value?.let {verbFormsVal ->
-                    repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.pastFormId, userInput.pastForm)
-                    repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.nonpastFormId, userInput.nonpastForm)
-                    repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.verbalNounFormId, userInput.verbnounForm)
-                }
-            }
-        }
-        onSaveDataComplete()
     }
-
 }
 
 class VerbFragmentViewModelFactory(private val application: Application, private val wordId: Long): ViewModelProvider.Factory {

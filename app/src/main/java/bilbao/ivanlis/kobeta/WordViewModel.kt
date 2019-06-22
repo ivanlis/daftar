@@ -5,9 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import bilbao.ivanlis.kobeta.database.NotebookDb
 import bilbao.ivanlis.kobeta.database.NotebookRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
+import timber.log.Timber
 
 abstract class WordViewModel(application: Application, wordId: Long):
     AndroidViewModel(application) {
@@ -30,7 +29,31 @@ abstract class WordViewModel(application: Application, wordId: Long):
         _saveData.value = true
     }
 
-    abstract fun onSaveData(userInput: WordFormInput)
+    fun onSaveData(userInput: WordFormInput) {
+
+        _saveData.value?.let {
+            if (!it)
+                return
+        }
+
+        Timber.d("onSaveData()")
+
+        uiScope.launch {
+
+            withContext(Dispatchers.IO) {
+                repository.updateWordById(wordId, userInput.translation)
+
+//                verbForms.value?.let {verbFormsVal ->
+//                    repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.pastFormId, userInput.pastForm)
+//                    repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.nonpastFormId, userInput.nonpastForm)
+//                    repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.verbalNounFormId, userInput.verbnounForm)
+                executeSave(userInput)
+            }
+        }
+
+        onSaveDataComplete()
+    }
 
     protected fun onSaveDataComplete() { _saveData.value = false }
+    protected abstract suspend fun executeSave(userInput: WordFormInput)
 }
