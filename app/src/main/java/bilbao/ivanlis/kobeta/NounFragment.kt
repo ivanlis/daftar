@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import bilbao.ivanlis.kobeta.databinding.FragmentNounBinding
 import timber.log.Timber
@@ -46,6 +47,16 @@ class NounFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        viewModel.saveData.observe(this, Observer {
+            it?.let {
+                viewModel.onSaveData(WordFormInput(
+                    singularForm = binding.singularEdit.text.toString(),
+                    pluralForm = binding.singularEdit.text.toString(),
+                    translation = binding.translationEdit.text.toString()
+                ))
+            }
+        })
 
         return binding.root
     }

@@ -1,6 +1,7 @@
 package bilbao.ivanlis.kobeta
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import bilbao.ivanlis.kobeta.database.NotebookDb
@@ -42,18 +43,15 @@ abstract class WordViewModel(application: Application, wordId: Long):
 
             withContext(Dispatchers.IO) {
                 repository.updateWordById(wordId, userInput.translation)
-
-//                verbForms.value?.let {verbFormsVal ->
-//                    repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.pastFormId, userInput.pastForm)
-//                    repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.nonpastFormId, userInput.nonpastForm)
-//                    repository.updateWordRecordByWordAndForm(wordId, verbFormsVal.verbalNounFormId, userInput.verbnounForm)
                 executeSave(userInput)
             }
         }
 
+        Toast.makeText(this.getApplication(), R.string.saved_exclamation, Toast.LENGTH_LONG).show()
+
         onSaveDataComplete()
     }
 
-    protected fun onSaveDataComplete() { _saveData.value = false }
+    private fun onSaveDataComplete() { _saveData.value = false }
     protected abstract suspend fun executeSave(userInput: WordFormInput)
 }

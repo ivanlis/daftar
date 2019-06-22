@@ -3,8 +3,6 @@ package bilbao.ivanlis.kobeta
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.coroutines.*
-import timber.log.Timber
 
 
 class VerbFragmentViewModel(application: Application, wordId: Long):

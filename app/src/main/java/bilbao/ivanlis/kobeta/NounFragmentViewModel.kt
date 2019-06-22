@@ -1,20 +1,20 @@
 package bilbao.ivanlis.kobeta
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import bilbao.ivanlis.kobeta.database.NotebookDb
-import bilbao.ivanlis.kobeta.database.NotebookRepository
+
 
 class NounFragmentViewModel(application: Application, wordId: Long):
     WordViewModel(application, wordId) {
 
-    //private val wordId = wordId
     val nounForms = repository.extractArabicNounForms(wordId)
 
     override suspend fun executeSave(userInput: WordFormInput) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        nounForms.value?.let {nounFormsVal ->
+            repository.updateWordRecordByWordAndForm(wordId, nounFormsVal.singularFormId, userInput.singularForm)
+            repository.updateWordRecordByWordAndForm(wordId, nounFormsVal.pluralFormId, userInput.pluralForm)
+        }
     }
 }
 
