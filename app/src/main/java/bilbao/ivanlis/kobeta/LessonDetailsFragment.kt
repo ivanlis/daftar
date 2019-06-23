@@ -99,6 +99,20 @@ class LessonDetailsFragment : Fragment() {
                 adapter.submitList(it1)
             }
         })
+
+        viewModel.navigateToLessonDescription.observe(viewLifecycleOwner, Observer {
+            it?.let {navigateFlag ->
+                if (navigateFlag) {
+                    Timber.d("Navigating to lesson description, id = $lessonId")
+
+                    NavHostFragment.findNavController(this).navigate(
+                        LessonDetailsFragmentDirections.actionLessonDetailsFragmentToLessonDescriptionFragment(lessonId)
+                    )
+                    viewModel.onNavigateToLessonDescriptionComplete()
+                }
+            }
+        })
+
         binding.lifecycleOwner = this
 
 

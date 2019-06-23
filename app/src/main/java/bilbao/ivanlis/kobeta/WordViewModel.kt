@@ -3,6 +3,7 @@ package bilbao.ivanlis.kobeta
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import bilbao.ivanlis.kobeta.database.NotebookDb
 import bilbao.ivanlis.kobeta.database.NotebookRepository
@@ -19,7 +20,7 @@ abstract class WordViewModel(application: Application, wordId: Long):
     protected val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     protected val _saveData = MutableLiveData<Boolean>()
-    val saveData: MutableLiveData<Boolean>
+    val saveData: LiveData<Boolean>
         get() = _saveData
 
     init {

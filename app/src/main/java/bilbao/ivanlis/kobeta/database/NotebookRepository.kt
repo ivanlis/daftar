@@ -9,6 +9,9 @@ import timber.log.Timber
 class NotebookRepository(private val notebookDao: NotebookDao) {
 
     @WorkerThread
+    fun getLesson(lessonId: Long) = notebookDao.getLesson(lessonId)
+
+    @WorkerThread
     fun getLessonName(lessonId: Long): LiveData<String> = notebookDao.getLessonName(lessonId)
 
     @WorkerThread

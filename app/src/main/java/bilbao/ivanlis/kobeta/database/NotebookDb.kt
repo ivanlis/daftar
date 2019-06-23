@@ -16,7 +16,7 @@ import timber.log.Timber
         PartOfSpeech::class, Form::class, Lesson::class,
         Word::class, Score::class, WordRecord::class],
     views = [LessonItemForList::class],
-    version = 3, exportSchema = false)
+    version = 4, exportSchema = false)
 abstract class NotebookDb : RoomDatabase() {
 
     abstract fun notebookDao(): NotebookDao

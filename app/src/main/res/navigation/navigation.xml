@@ -45,6 +45,6 @@
               android:label="LessonDescriptionFragment">
         <action android:id="@+id/action_lessonDescriptionFragment_to_lessonDetailsFragment"
                 app:destination="@id/lessonDetailsFragment"/>
-        <argument android:name="lessonId" app:argType="string" app:nullable="true"/>
+        <argument android:name="lessonId" app:argType="long" android:defaultValue="-1L"/>
     </fragment>
 </navigation>

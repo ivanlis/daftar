@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import bilbao.ivanlis.kobeta.databinding.FragmentLessonDescriptionBinding
+import timber.log.Timber
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,8 +27,31 @@ class LessonDescriptionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lesson_description, container, false)
+
+
+        val binding: FragmentLessonDescriptionBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_lesson_description, container, false)
+
+        val args = arguments
+        val lessonId = requireNotNull(when(args != null) {
+            true -> LessonDetailsFragmentArgs.fromBundle(args).lessonId
+            false -> null
+        })
+
+        Timber.d("lessonId = $lessonId")
+
+        val application = requireNotNull(this.activity).application
+        val viewModelFactory = LessonDescriptionViewModelFactory(application, lessonId)
+
+        val viewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(LessonDescriptionViewModel::class.java)
+
+        binding.viewModel = viewModel
+
+        binding.lifecycleOwner = this
+
+        return binding.root
+
     }
 
 

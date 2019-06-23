@@ -2,7 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+                name="viewModel"
+                type="bilbao.ivanlis.kobeta.LessonDescriptionViewModel"
+        />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
                                                        android:layout_height="match_parent"
@@ -19,8 +22,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/text_lesson_description"
-                android:text="@string/label_lesson_description" android:layout_marginTop="4dp"
-                app:layout_constraintTop_toBottomOf="@+id/lesson_name_edit" app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/label_lesson_description"
+                android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@+id/lesson_name_edit"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp"/>
         <EditText
                 android:layout_width="0dp"
@@ -28,10 +33,15 @@
                 android:inputType="text"
                 android:ems="10"
                 android:id="@+id/lesson_name_edit" android:layout_marginStart="8dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/text_lesson_name" app:layout_constraintHorizontal_bias="0.0"
-                android:hint="@string/lesson_name"/>
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/text_lesson_name"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:hint="@string/lesson_name"
+                android:text="@{viewModel.lesson.name}"
+        />
         <Button
                 android:text="@string/save"
                 android:layout_width="wrap_content"
@@ -49,6 +59,8 @@
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/text_lesson_description"
-                android:hint="@string/lesson_description"/>
+                android:hint="@string/lesson_description"
+                android:text="@{viewModel.lesson.description}"
+        />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

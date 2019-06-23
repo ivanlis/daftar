@@ -1,9 +1,7 @@
 package bilbao.ivanlis.kobeta
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import bilbao.ivanlis.kobeta.database.NotebookDb
 import bilbao.ivanlis.kobeta.database.NotebookRepository
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +17,22 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     val initialForms = repository.extractInitialFormsForLesson(lessonId)
 
     val lessonName = repository.getLessonName(lessonId)
+
+    private val _navigateToLessonDescription = MutableLiveData<Boolean>()
+    val navigateToLessonDescription: LiveData<Boolean>
+        get() = _navigateToLessonDescription
+
+    init {
+        _navigateToLessonDescription.value = false
+    }
+
+    fun onNavigateToLessonDescription() {
+        _navigateToLessonDescription.value = true
+    }
+
+    fun onNavigateToLessonDescriptionComplete() {
+        _navigateToLessonDescription.value = false
+    }
 
     //private var viewModelJob = Job()
     //private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)

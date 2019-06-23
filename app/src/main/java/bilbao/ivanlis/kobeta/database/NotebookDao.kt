@@ -44,6 +44,8 @@ interface NotebookDao {
 
 
     // lesson
+    @Query("SELECT * FROM lesson WHERE id = :lessonId")
+    fun getLesson(lessonId: Long): LiveData<Lesson>
 
     @Query("SELECT name FROM lesson WHERE id = :lessonId")
     fun getLessonName(lessonId: Long): LiveData<String>
