@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.kobeta.databinding.FragmentLessonsListBinding
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -77,6 +78,24 @@ class LessonsListFragment : Fragment() {
                 adapter.submitList(it1)
             }
         })
+
+
+        binding.newLessonButton.setOnClickListener {
+            lessonsListViewModel.onNewLessonClicked()
+        }
+
+        lessonsListViewModel.navigateToNewLesson.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    NavHostFragment.findNavController(this).navigate(
+                        LessonsListFragmentDirections.actionLessonsListFragmentToLessonDescriptionFragment()
+                    )
+                    lessonsListViewModel.onNewLessonNavigateComplete()
+                }
+            }
+        })
+
+
         binding.lifecycleOwner = this
 
 //        //TODO: substitute by the recycler view

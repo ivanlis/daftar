@@ -1,9 +1,7 @@
 package bilbao.ivanlis.kobeta
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import bilbao.ivanlis.kobeta.database.NotebookDb
 import bilbao.ivanlis.kobeta.database.NotebookRepository
 import kotlinx.coroutines.CoroutineScope
@@ -14,31 +12,29 @@ import timber.log.Timber
 class LessonsListViewModel (application: Application):
         AndroidViewModel(application) {
 
-    var repository: NotebookRepository //= NotebookRepository(NotebookDb.getInstance(application).notebookDao())
+    private val repository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    private val _navigateToNewLesson = MutableLiveData<Boolean>()
+    val navigateToNewLesson: LiveData<Boolean>
+        get() = _navigateToNewLesson
+
     init {
-        //d("LessonsListViewModel", "Creating repository...")
-        Timber.d("Creating repository...")
-        repository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
-        //d("LessonsListViewModel", "Repository ready.")
-        Timber.d("Repository ready.")
-//        uiScope.launch {
-//            repository.insertLesson(Lesson(name = "Really fake lesson", creationDateTime = System.currentTimeMillis()))
-//        }
+        _navigateToNewLesson.value = false
     }
 
-
-
-    //val lessons = repository.getAllLessons()
     val lessonItemsForList = repository.getLessonItemsForList()
 
-//    val lessonStrings = Transformations.map(lessons) { lessons->
-//        formatLessons(lessons, application.resources)
-//    }
 
+    fun onNewLessonClicked() {
+        _navigateToNewLesson.value = true
+    }
+
+    fun onNewLessonNavigateComplete() {
+        _navigateToNewLesson.value = false
+    }
 }
 
 class LessonListViewModelFactory(
