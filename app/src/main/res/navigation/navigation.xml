@@ -8,6 +8,8 @@
               android:label="fragment_lessons_list" tools:layout="@layout/fragment_lessons_list">
         <action android:id="@+id/action_lessonsListFragment_to_lessonDetailsFragment"
                 app:destination="@id/lessonDetailsFragment"/>
+        <action android:id="@+id/action_lessonsListFragment_to_lessonDescriptionFragment"
+                app:destination="@id/lessonDescriptionFragment"/>
     </fragment>
     <fragment android:id="@+id/lessonDetailsFragment" android:name="bilbao.ivanlis.kobeta.LessonDetailsFragment"
               android:label="fragment_lesson_details" tools:layout="@layout/fragment_lesson_details">
@@ -18,6 +20,8 @@
                 app:destination="@id/particleFragment"/>
         <action android:id="@+id/action_lessonDetailsFragment_to_newWordFragment"
                 app:destination="@id/newWordFragment"/>
+        <action android:id="@+id/action_lessonDetailsFragment_to_lessonDescriptionFragment"
+                app:destination="@id/lessonDescriptionFragment"/>
     </fragment>
     <fragment android:id="@+id/verbFragment" android:name="bilbao.ivanlis.kobeta.VerbFragment"
               android:label="VerbFragment">
@@ -36,5 +40,11 @@
         <argument android:name="lessonId" app:argType="long"/>
         <action android:id="@+id/action_newWordFragment_to_lessonDetailsFragment"
                 app:destination="@id/lessonDetailsFragment"/>
+    </fragment>
+    <fragment android:id="@+id/lessonDescriptionFragment" android:name="bilbao.ivanlis.kobeta.LessonDescriptionFragment"
+              android:label="LessonDescriptionFragment">
+        <action android:id="@+id/action_lessonDescriptionFragment_to_lessonDetailsFragment"
+                app:destination="@id/lessonDetailsFragment"/>
+        <argument android:name="lessonId" app:argType="string" app:nullable="true"/>
     </fragment>
 </navigation>

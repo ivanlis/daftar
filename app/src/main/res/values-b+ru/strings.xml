@@ -25,4 +25,8 @@
     <string name="noun">имя</string>
     <string name="new_word">Добавить</string>
     <string name="saved_exclamation">Сохранено!</string>
+    <string name="label_lesson_name">Lesson name</string>
+    <string name="label_lesson_description">Description</string>
+    <string name="lesson_name">Lesson name</string>
+    <string name="lesson_description">Description</string>
 </resources>

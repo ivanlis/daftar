@@ -64,7 +64,9 @@ data class Lesson(
     @ColumnInfo(name = "name")
     var name: String,
     @ColumnInfo(name = "creation_date_time")
-    var creationDateTime: Long = System.currentTimeMillis()
+    var creationDateTime: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "description")
+    val description: String = ""
 )
 
 
