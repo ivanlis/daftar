@@ -20,7 +20,9 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
     private val lessonId = lessonId
     // lesson to go to after finishing
-    private var destinationLessonId = lessonId
+    private var _destinationLessonId = lessonId
+    val destinationLessonId: Long
+        get() = _destinationLessonId
 
     val lesson = repository.getLesson(lessonId)
 
@@ -60,6 +62,7 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
             lesson.value?.let {
                 val updatedLesson = Lesson(id = it.id, name = userInput.name, creationDateTime = it.creationDateTime,
                     description = userInput.description)
+                Timber.d("Updating lesson ${it.id}")
                 uiScope.launch {
                     withContext(Dispatchers.IO) {
                         repository.updateLesson(updatedLesson)
@@ -69,12 +72,14 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
             //TODO: if null, exception
         }
         else {
+            Timber.d("Inserting new lesson...")
             uiScope.launch {
-                destinationLessonId = withContext(Dispatchers.IO) {
+                _destinationLessonId = withContext(Dispatchers.IO) {
                     repository.insertLesson(
                         Lesson(name = userInput.name, description = userInput.description))
                 }
             }
+            Timber.d("Inserted lesson id = $destinationLessonId")
         }
 
         onSaveDataComplete()
@@ -86,7 +91,7 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
 
     private fun onSaveDataComplete() { _saveData.value = false }
 
-    private fun onNavigateToLessonDetailComplete() { _navigateToLessonDetails.value = false }
+    fun onNavigateToLessonDetailComplete() { _navigateToLessonDetails.value = false }
 }
 
 class LessonDescriptionViewModelFactory(

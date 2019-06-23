@@ -6,8 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.kobeta.databinding.FragmentLessonDescriptionBinding
 import timber.log.Timber
 
@@ -47,6 +51,42 @@ class LessonDescriptionFragment : Fragment() {
             .get(LessonDescriptionViewModel::class.java)
 
         binding.viewModel = viewModel
+
+
+        binding.saveButton.setOnClickListener {
+            viewModel.onSaveClicked()
+        }
+
+        viewModel.saveData.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue)
+                {
+                    val userInput = LessonDescriptionUserInput(
+                        name = binding.lessonNameEdit.text.toString(),
+                        description = binding.descriptionEdit.text.toString()
+                    )
+                    viewModel.onSaveData(userInput)
+                }
+            }
+        })
+
+        viewModel.navigateToLessonDetails.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    Timber.d("Navigating to lesson details for ${viewModel.destinationLessonId}")
+
+                    Toast.makeText(this.context, R.string.saved_exclamation, Toast.LENGTH_SHORT).show()
+
+                    NavHostFragment.findNavController(this).navigate(
+                        LessonDescriptionFragmentDirections.actionLessonDescriptionFragmentToLessonDetailsFragment(
+                            viewModel.destinationLessonId
+                        )
+                    )
+                    viewModel.onNavigateToLessonDetailComplete()
+                }
+            }
+        })
+
 
         binding.lifecycleOwner = this
 
