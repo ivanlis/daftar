@@ -23,12 +23,21 @@ abstract class WordViewModel(application: Application, wordId: Long):
     val saveData: LiveData<Boolean>
         get() = _saveData
 
+    protected val _deleteRecord = MutableLiveData<Boolean>()
+    val deleteRecord: LiveData<Boolean>
+        get() = _deleteRecord
+
     init {
         _saveData.value = false
+        _deleteRecord.value = false
     }
 
     fun onSaveClicked() {
         _saveData.value = true
+    }
+
+    fun onDeleteRequest() {
+        _deleteRecord.value = true
     }
 
     fun onSaveData(userInput: WordFormInput) {
@@ -37,6 +46,8 @@ abstract class WordViewModel(application: Application, wordId: Long):
             if (!it)
                 return
         }
+
+        onSaveDataComplete()
 
         Timber.d("onSaveData()")
 
@@ -49,10 +60,10 @@ abstract class WordViewModel(application: Application, wordId: Long):
         }
 
         Toast.makeText(this.getApplication(), R.string.saved_exclamation, Toast.LENGTH_LONG).show()
-
-        onSaveDataComplete()
     }
 
     private fun onSaveDataComplete() { _saveData.value = false }
+    private fun onDeleteRecordComplete() { _deleteRecord.value = false }
+
     protected abstract suspend fun executeSave(userInput: WordFormInput)
 }
