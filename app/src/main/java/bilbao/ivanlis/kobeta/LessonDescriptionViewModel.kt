@@ -21,7 +21,7 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
     private val lessonId = lessonId
     // lesson to go to after finishing
     private var _destinationLessonId = lessonId
-    val destinationLessonId: Long
+    val destinationLessonId
         get() = _destinationLessonId
 
     val lesson = repository.getLesson(lessonId)
@@ -53,6 +53,8 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
 
     fun onSaveData(userInput: LessonDescriptionUserInput) {
 
+        onSaveDataComplete()
+
         if (userInput.name.isEmpty()) {
             //TODO: exception!!!
             return
@@ -67,7 +69,10 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
                     withContext(Dispatchers.IO) {
                         repository.updateLesson(updatedLesson)
                     }
+                }.invokeOnCompletion {
+                    onNavigateToLessonDetail()
                 }
+                //onSaveDataComplete()
             }
             //TODO: if null, exception
         }
@@ -78,14 +83,15 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
                     repository.insertLesson(
                         Lesson(name = userInput.name, description = userInput.description))
                 }
+
+            }.invokeOnCompletion {
+                Timber.d("Inserted lesson id = $destinationLessonId")
+                // once done, navigate to the lesson's word list
+                onNavigateToLessonDetail()
             }
-            Timber.d("Inserted lesson id = $destinationLessonId")
+            //onSaveDataComplete()
         }
 
-        onSaveDataComplete()
-
-        // once done, navigate to the lesson's word list
-        onNavigateToLessonDetail()
     }
 
 

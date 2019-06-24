@@ -22,6 +22,8 @@
                 app:destination="@id/newWordFragment"/>
         <action android:id="@+id/action_lessonDetailsFragment_to_lessonDescriptionFragment"
                 app:destination="@id/lessonDescriptionFragment"/>
+        <action android:id="@+id/action_lessonDetailsFragment_to_lessonsListFragment"
+                app:destination="@id/lessonsListFragment"/>
     </fragment>
     <fragment android:id="@+id/verbFragment" android:name="bilbao.ivanlis.kobeta.VerbFragment"
               android:label="VerbFragment">

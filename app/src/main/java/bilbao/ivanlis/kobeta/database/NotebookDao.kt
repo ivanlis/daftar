@@ -68,6 +68,9 @@ interface NotebookDao {
     @Delete
     fun deleteLesson(lesson: Lesson)
 
+    @Query("DELETE FROM lesson WHERE id = :lessonId")
+    fun deleteLessonById(lessonId: Long)
+
     @Query("DELETE FROM lesson")
     fun deleteAllLessons()
 

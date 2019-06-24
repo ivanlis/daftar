@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -113,10 +114,27 @@ class LessonDetailsFragment : Fragment() {
             }
         })
 
+        viewModel.showDeletionDialog.observe(viewLifecycleOwner, Observer {
+            it?.let {flagValue ->
+                if (flagValue) {
+                    //TODO: show dialog
+                    val dialogResult = true
+
+                    viewModel.onNavigateToLessonDescriptionComplete()
+                    viewModel.processDeletionDialogResult(dialogResult)
+                    // navigate to lessons list
+                    NavHostFragment.findNavController(this).navigate(
+                        LessonDetailsFragmentDirections.actionLessonDetailsFragmentToLessonsListFragment())
+                    Toast.makeText(this.context,"Lesson deleted", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
         binding.lifecycleOwner = this
 
 
         binding.buttonNew.setOnClickListener {
+            Timber.d("Navigating to new word, lesson id $lessonId")
             NavHostFragment.findNavController(this).navigate(
                 LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNewWordFragment(lessonId)
             )

@@ -15,13 +15,11 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     fun getLessonName(lessonId: Long): LiveData<String> = notebookDao.getLessonName(lessonId)
 
     @WorkerThread
-    suspend fun insertLesson(lesson: Lesson): Long {
-        return withContext(Dispatchers.IO) {
-            notebookDao.insertLesson(lesson)
-        }
-    }
+    fun insertLesson(lesson: Lesson): Long = notebookDao.insertLesson(lesson)
     @WorkerThread
     suspend fun deleteLesson(lesson: Lesson) { notebookDao.deleteLesson(lesson) }
+    @WorkerThread
+    fun deleteLessonById(lessonId: Long) { notebookDao.deleteLessonById(lessonId) }
     @WorkerThread
     suspend fun updateLesson(lesson: Lesson) { notebookDao.updateLesson(lesson) }
     @WorkerThread
