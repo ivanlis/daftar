@@ -46,6 +46,8 @@ class NewWordViewModel(application: Application, lessonId: Long) :
 
     fun onSaveData(userInput: WordFormInput) {
 
+        onSaveComplete()
+
         uiScope.launch {
 
             Timber.d("onSaveData()")
@@ -79,8 +81,6 @@ class NewWordViewModel(application: Application, lessonId: Long) :
                 //TODO: else: exception
             }
         }
-
-        onSaveComplete()
     }
 
     fun onSaveComplete() {
