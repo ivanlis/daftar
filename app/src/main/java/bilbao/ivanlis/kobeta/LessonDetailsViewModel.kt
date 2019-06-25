@@ -24,9 +24,14 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     val showDeletionDialog: LiveData<Boolean>
         get() = _showDeletionDialog
 
+    private val _executeDelete = MutableLiveData<Boolean>()
+    val executeDelete: LiveData<Boolean>
+        get() = _executeDelete
+
     init {
         _navigateToLessonDescription.value = false
         _showDeletionDialog.value = false
+        _executeDelete.value = false
     }
 
     fun onNavigateToLessonDescription() {
@@ -43,6 +48,14 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
 
     fun onShowDeletionDialogComplete() {
         _showDeletionDialog.value = false
+    }
+
+    fun onExecuteDelete() {
+        _executeDelete.value = true
+    }
+
+    fun onExecuteDeleteComplete() {
+        _executeDelete.value = false
     }
 
 
