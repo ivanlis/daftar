@@ -38,4 +38,5 @@
     <string name="choice_no">Нет</string>
     <string name="delete_word">Удалить слово</string>
     <string name="message_word_deleted">Слово удалено</string>
+    <string name="do_you_want_to_delete_this_word">Удалить это слово?</string>
 </resources>

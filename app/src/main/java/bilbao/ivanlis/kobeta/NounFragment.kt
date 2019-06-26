@@ -92,7 +92,7 @@ class NounFragment : Fragment() {
     }
 
     private fun showDeletionDialog(vm: DeletionDialogFragment.DeletionDialogListener) {
-        val deletionDialogFragment = DeletionDialogFragment("Do you want to delete this word?",
+        val deletionDialogFragment = DeletionDialogFragment(getString(R.string.do_you_want_to_delete_this_word),
             getString(R.string.choice_yes), getString(R.string.choice_no), vm)
 
         deletionDialogFragment.show(fragmentManager!!, "lesson_deletion_dialog")
