@@ -42,6 +42,8 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     @WorkerThread
     suspend fun deleteWord(word: Word) { notebookDao.deleteWord(word) }
     @WorkerThread
+    fun deleteWordById(wordId: Long) { notebookDao.deleteWordById(wordId) }
+    @WorkerThread
     suspend fun updateWord(word: Word) { notebookDao.updateWord(word) }
     @WorkerThread
     fun updateWordById(wordId: Long, translation: String) { notebookDao.updateWordById(wordId, translation) }

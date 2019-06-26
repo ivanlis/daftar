@@ -35,4 +35,6 @@
     <string name="do_you_want_to_delete_this_lesson">Do you want to delete this lesson?</string>
     <string name="choice_yes">Yes</string>
     <string name="choice_no">No</string>
+    <string name="delete_word">Delete Word</string>
+    <string name="message_word_deleted">Word deleted</string>
 </resources>

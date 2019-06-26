@@ -85,6 +85,9 @@ interface NotebookDao {
     @Delete
     fun deleteWord(word: Word)
 
+    @Query("DELETE FROM word WHERE id = :wordId")
+    fun deleteWordById(wordId: Long)
+
     @Update
     fun updateWord(word: Word)
 

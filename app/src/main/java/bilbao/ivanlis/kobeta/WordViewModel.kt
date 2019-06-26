@@ -7,11 +7,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import bilbao.ivanlis.kobeta.database.NotebookDb
 import bilbao.ivanlis.kobeta.database.NotebookRepository
+import bilbao.ivanlis.kobeta.dialog.DeletionDialogFragment
 import kotlinx.coroutines.*
 import timber.log.Timber
 
 abstract class WordViewModel(application: Application, wordId: Long):
-    AndroidViewModel(application) {
+    AndroidViewModel(application), DeletionDialogFragment.DeletionDialogListener {
 
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
     protected val wordId = wordId
@@ -23,21 +24,37 @@ abstract class WordViewModel(application: Application, wordId: Long):
     val saveData: LiveData<Boolean>
         get() = _saveData
 
-    protected val _deleteRecord = MutableLiveData<Boolean>()
-    val deleteRecord: LiveData<Boolean>
-        get() = _deleteRecord
+    private val _executeDelete = MutableLiveData<Boolean>()
+    val executeDelete: LiveData<Boolean>
+        get() = _executeDelete
+
+    private val _deleteRequest = MutableLiveData<Boolean>()
+    val deleteRequest: LiveData<Boolean>
+        get() = _deleteRequest
 
     init {
         _saveData.value = false
-        _deleteRecord.value = false
+        _executeDelete.value = false
     }
 
     fun onSaveClicked() {
         _saveData.value = true
     }
 
+    override fun onConfirmedDeleteRequest() {
+        _executeDelete.value = true
+    }
+
+    fun onExecuteDeleteComplete() {
+        _executeDelete.value = false
+    }
+
     fun onDeleteRequest() {
-        _deleteRecord.value = true
+        _deleteRequest.value = true
+    }
+
+    fun onDeleteRequestComplete() {
+        _deleteRequest.value = false
     }
 
     fun onSaveData(userInput: WordFormInput) {
@@ -63,7 +80,18 @@ abstract class WordViewModel(application: Application, wordId: Long):
     }
 
     private fun onSaveDataComplete() { _saveData.value = false }
-    private fun onDeleteRecordComplete() { _deleteRecord.value = false }
+
+    fun onExecuteDeleteWord() {
+
+        onExecuteDeleteComplete()
+
+        Timber.d("Deleting word $wordId...")
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.deleteWordById(wordId)
+            }
+        }
+    }
 
     protected abstract suspend fun executeSave(userInput: WordFormInput)
 }

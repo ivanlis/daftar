@@ -63,10 +63,13 @@ class LessonDetailsFragment : Fragment() {
 
             NavHostFragment.findNavController(this).navigate(
                 when(it.partOfSpeechName) {
-                    "verb" -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToVerbFragment(it.wordId)
-                    "noun" -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNounFragment(it.wordId)
+                    "verb" -> LessonDetailsFragmentDirections
+                        .actionLessonDetailsFragmentToVerbFragment(wordId = it.wordId, lessonId = lessonId)
+                    "noun" -> LessonDetailsFragmentDirections
+                        .actionLessonDetailsFragmentToNounFragment(wordId = it.wordId, lessonId = lessonId)
                     //TODO: exception on unknown part of speech name
-                    else -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToParticleFragment(it.wordId)
+                    else -> LessonDetailsFragmentDirections
+                        .actionLessonDetailsFragmentToParticleFragment(wordId = it.wordId, lessonId = lessonId)
                 }
             )
         })
@@ -95,8 +98,8 @@ class LessonDetailsFragment : Fragment() {
             it?.let {flagValue ->
 
                 if (flagValue) {
-                    showDeletionDialog(viewModel)
                     viewModel.onShowDeletionDialogComplete()
+                    showDeletionDialog(viewModel)
                 }
 
             }

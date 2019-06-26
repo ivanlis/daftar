@@ -6,10 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.kobeta.databinding.FragmentVerbBinding
+import bilbao.ivanlis.kobeta.dialog.DeletionDialogFragment
 import timber.log.Timber
 
 
@@ -36,6 +39,11 @@ class VerbFragment : Fragment() {
             true -> VerbFragmentArgs.fromBundle(args).wordId
             false -> null
         })
+        val lessonId = requireNotNull(when(args != null) {
+            true -> VerbFragmentArgs.fromBundle(args).lessonId
+            false -> null
+        })
+
 
         Timber.d("Verb, wordId = $wordId")
 
@@ -58,6 +66,36 @@ class VerbFragment : Fragment() {
             }
         })
 
+        viewModel.deleteRequest.observe(this, Observer {
+
+            it?.let { flagValue ->
+                if (flagValue) {
+                    viewModel.onDeleteRequestComplete()
+                    showDeletionDialog(viewModel)
+                }
+            }
+        })
+
+        viewModel.executeDelete.observe(this, Observer {
+
+            it?.let {flagValue ->
+                if (flagValue) {
+                    viewModel.onExecuteDeleteWord()
+                    NavHostFragment.findNavController(this).navigate(
+                        VerbFragmentDirections.actionVerbFragmentToLessonDetailsFragment(lessonId)
+                    )
+                    Toast.makeText(this.context, getString(R.string.message_word_deleted), Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
         return binding.root
+    }
+
+    private fun showDeletionDialog(vm: DeletionDialogFragment.DeletionDialogListener) {
+        val deletionDialogFragment = DeletionDialogFragment("Do you want to delete this word?",
+            getString(R.string.choice_yes), getString(R.string.choice_no), vm)
+
+        deletionDialogFragment.show(fragmentManager!!, "lesson_deletion_dialog")
     }
 }
