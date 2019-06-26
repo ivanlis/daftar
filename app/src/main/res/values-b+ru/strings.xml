@@ -31,11 +31,11 @@
     <string name="lesson_description">описание</string>
     <string name="edit_lesson_description">Изменить описание</string>
     <string name="new_lesson">Новый урок</string>
-    <string name="delete_lesson">Delete Lesson</string>
-    <string name="message_lesson_deleted">Lesson deleted</string>
-    <string name="do_you_want_to_delete_this_lesson">Do you want to delete this lesson?</string>
-    <string name="choice_yes">Yes</string>
-    <string name="choice_no">No</string>
-    <string name="delete_word">Delete Word</string>
-    <string name="message_word_deleted">Word deleted</string>
+    <string name="delete_lesson">Удалить урок</string>
+    <string name="message_lesson_deleted">Урок удалён</string>
+    <string name="do_you_want_to_delete_this_lesson">Удалить этот урок?</string>
+    <string name="choice_yes">Да</string>
+    <string name="choice_no">Нет</string>
+    <string name="delete_word">Удалить слово</string>
+    <string name="message_word_deleted">Слово удалено</string>
 </resources>
