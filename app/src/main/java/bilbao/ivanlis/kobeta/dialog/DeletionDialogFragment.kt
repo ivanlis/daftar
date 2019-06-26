@@ -1,14 +1,11 @@
 package bilbao.ivanlis.kobeta.dialog
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import bilbao.ivanlis.kobeta.LessonDetailsViewModel
-import java.lang.ClassCastException
 import java.lang.IllegalStateException
 
 class DeletionDialogFragment(private val message: String = "",
@@ -23,9 +20,9 @@ class DeletionDialogFragment(private val message: String = "",
 //        fun onDialogPositiveClick(dialog: DialogFragment)
 //        fun onDialogNegativeClick(dialog: DialogFragment)
 //    }
-    private var _lastResult: Boolean = false
-    val lastResult: Boolean
-        get() = _lastResult
+//    private var _lastResult: Boolean = false
+//    val lastResult: Boolean
+//        get() = _lastResult
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,14 +42,14 @@ class DeletionDialogFragment(private val message: String = "",
             builder.setMessage(message)
                 .setPositiveButton(positiveMessage) { _, _ -> // instead of dialog, id
                     //listener.onDialogPositiveClick(this)
-                    _lastResult = true
+                    //_lastResult = true
 
-                    viewModel.onExecuteDelete()
+                    viewModel.onConfirmedDeleteRequest()
 
                 }
                 .setNegativeButton(negativeMessage) { _, _ ->
                     //listener.onDialogNegativeClick(this)
-                    _lastResult = false
+                    //_lastResult = false
                 }
 
             builder.create()

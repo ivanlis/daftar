@@ -8,8 +8,8 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 
 
-class LessonDetailsViewModel(application: Application, private val lessonId: Long):
-        AndroidViewModel(application) {
+class LessonDetailsViewModel(application: Application, private val lessonId: Long) :
+    AndroidViewModel(application) {
 
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
     val initialForms = repository.extractInitialFormsForLesson(lessonId)
@@ -50,7 +50,7 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
         _showDeletionDialog.value = false
     }
 
-    fun onExecuteDelete() {
+    fun onConfirmedDeleteRequest() {
         _executeDelete.value = true
     }
 
@@ -62,14 +62,14 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun processDeletionDialogResult(choice: Boolean) {
-        if (choice) {
-            //TODO: delete lesson by id
-            Timber.d("Deleting lesson $lessonId...")
-            uiScope.launch {
-                withContext(Dispatchers.IO) {
-                    repository.deleteLessonById(lessonId)
-                }
+    fun onExecuteDeleteLesson() {
+
+        onExecuteDeleteComplete()
+
+        Timber.d("Deleting lesson $lessonId...")
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.deleteLessonById(lessonId)
             }
         }
     }
@@ -82,7 +82,8 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
 }
 
 class LessonDetailsViewModelFactory(
-    private val application: Application, private val lessonId: Long): ViewModelProvider.Factory {
+    private val application: Application, private val lessonId: Long
+) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

@@ -135,8 +135,13 @@ class LessonDetailsFragment : Fragment()/*, DeletionDialogFragment.DeletionDialo
         viewModel.executeDelete.observe(this, Observer {
             it?.let { flagValue ->
                 if (flagValue) {
-                    Toast.makeText(this.context, "DELETE", Toast.LENGTH_SHORT).show()
-                    viewModel.onExecuteDeleteComplete()
+                    //Toast.makeText(this.context, "DELETE", Toast.LENGTH_SHORT).show()
+                    //viewModel.onExecuteDeleteComplete()
+                    viewModel.onExecuteDeleteLesson()
+                    // navigate to lessons list
+                    NavHostFragment.findNavController(this).navigate(
+                        LessonDetailsFragmentDirections.actionLessonDetailsFragmentToLessonsListFragment())
+                    Toast.makeText(this.context, "Lesson deleted", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -160,8 +165,6 @@ class LessonDetailsFragment : Fragment()/*, DeletionDialogFragment.DeletionDialo
             "Yes", "Cancel", vm)
 
         deletionDialogFragment.show(fragmentManager!!, "lesson_deletion_dialog")
-
-        //return deletionDialogFragment.lastResult
     }
 
 //    // the dialog listener implementation
