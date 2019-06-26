@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
@@ -27,10 +26,7 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class LessonDetailsFragment : Fragment()/*, DeletionDialogFragment.DeletionDialogListener */ {
-
-    //private val deletionDialogFragment = DeletionDialogFragment("Do you want to delete this lesson?",
-     //   "Yes", "Cancel")
+class LessonDetailsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +42,6 @@ class LessonDetailsFragment : Fragment()/*, DeletionDialogFragment.DeletionDialo
             false -> null
         })
 
-        //d("LessonDetailsFragment", "lessonId = ${lessonId}")
         Timber.d("lessonId = $lessonId")
 
         val application = requireNotNull(this.activity).application
@@ -58,21 +53,13 @@ class LessonDetailsFragment : Fragment()/*, DeletionDialogFragment.DeletionDialo
 
         //binding.lessonNameText.text = viewModel.lessonName
         viewModel.lessonName.observe(viewLifecycleOwner, Observer {
-            //it?.let {
                 binding.lessonNameText.text = it
-            //}
         })
 
         // prepare recycler view
         binding.initialFormsList.layoutManager = LinearLayoutManager(activity)
         val adapter = InitialFormItemAdapter(InitialFormItemListener {
             Timber.d("Clicked on word: id = ${it.wordId}, part of speech name = ${it.partOfSpeechName}")
-            // the destination depends on the part of speech
-//            when(it.partOfSpeechName) {
-//                "verb" -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToVerbFragment(it.wordId)
-//                "noun" -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNounFragment(it.wordId)
-//                "particle" -> LessonDetailsFragmentDirections.actionLessonDetailsFragmentToParticleFragment(it.wordId)
-//            }
 
             NavHostFragment.findNavController(this).navigate(
                 when(it.partOfSpeechName) {
@@ -112,23 +99,6 @@ class LessonDetailsFragment : Fragment()/*, DeletionDialogFragment.DeletionDialo
                     viewModel.onShowDeletionDialogComplete()
                 }
 
-                // current version
-//                if (flagValue) {
-//
-//                    //TODO: show dialog
-//                    //val dialogResult = showDeletionDialog()
-//                    //Timber.d("dialogResult = $dialogResult")
-//
-//                    val dialogResult = false
-//
-//                    viewModel.onNavigateToLessonDescriptionComplete()
-//                    viewModel.processDeletionDialogResult(dialogResult)
-//                    // navigate to lessons list
-//                    NavHostFragment.findNavController(this).navigate(
-//                        LessonDetailsFragmentDirections.actionLessonDetailsFragmentToLessonsListFragment())
-//                    Toast.makeText(this.context,"Lesson deleted", Toast.LENGTH_LONG).show()
-//                }
-                // end of current version
             }
         })
 
@@ -141,7 +111,7 @@ class LessonDetailsFragment : Fragment()/*, DeletionDialogFragment.DeletionDialo
                     // navigate to lessons list
                     NavHostFragment.findNavController(this).navigate(
                         LessonDetailsFragmentDirections.actionLessonDetailsFragmentToLessonsListFragment())
-                    Toast.makeText(this.context, "Lesson deleted", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, getString(R.string.message_lesson_deleted), Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -161,19 +131,11 @@ class LessonDetailsFragment : Fragment()/*, DeletionDialogFragment.DeletionDialo
     }
 
     private fun showDeletionDialog(vm: LessonDetailsViewModel) {
-        val deletionDialogFragment = DeletionDialogFragment("Do you want to delete this lesson?",
-            "Yes", "Cancel", vm)
+        val deletionDialogFragment = DeletionDialogFragment(getString(R.string.do_you_want_to_delete_this_lesson),
+            getString(R.string.choice_yes), getString(R.string.choice_no), vm)
 
         deletionDialogFragment.show(fragmentManager!!, "lesson_deletion_dialog")
     }
-
-//    // the dialog listener implementation
-//    override fun onDialogPositiveClick(dialog: DialogFragment) {
-//        Toast.makeText(this.context, "You chose the positive", Toast.LENGTH_SHORT).show()
-//    }
-//
-//    override fun onDialogNegativeClick(dialog: DialogFragment) {
-//        Toast.makeText(this.context, "You chose the negative", Toast.LENGTH_SHORT).show()
-//    }
+    
 }
 
