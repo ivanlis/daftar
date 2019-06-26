@@ -4,12 +4,13 @@ import android.app.Application
 import androidx.lifecycle.*
 import bilbao.ivanlis.kobeta.database.NotebookDb
 import bilbao.ivanlis.kobeta.database.NotebookRepository
+import bilbao.ivanlis.kobeta.dialog.DeletionDialogFragment
 import kotlinx.coroutines.*
 import timber.log.Timber
 
 
 class LessonDetailsViewModel(application: Application, private val lessonId: Long) :
-    AndroidViewModel(application) {
+    AndroidViewModel(application), DeletionDialogFragment.DeletionDialogListener {
 
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
     val initialForms = repository.extractInitialFormsForLesson(lessonId)
@@ -50,7 +51,7 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
         _showDeletionDialog.value = false
     }
 
-    fun onConfirmedDeleteRequest() {
+    override fun onConfirmedDeleteRequest() {
         _executeDelete.value = true
     }
 

@@ -2,7 +2,6 @@ package bilbao.ivanlis.kobeta.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import bilbao.ivanlis.kobeta.LessonDetailsViewModel
@@ -11,29 +10,14 @@ import java.lang.IllegalStateException
 class DeletionDialogFragment(private val message: String = "",
                              private val positiveMessage: String = "",
                              private val negativeMessage: String = "",
-                             private val viewModel: LessonDetailsViewModel
+                             private val observer: DeletionDialogListener
                             ): DialogFragment() {
 
-    //internal lateinit var listener: DeletionDialogListener
 
-//    interface DeletionDialogListener {
-//        fun onDialogPositiveClick(dialog: DialogFragment)
-//        fun onDialogNegativeClick(dialog: DialogFragment)
-//    }
-//    private var _lastResult: Boolean = false
-//    val lastResult: Boolean
-//        get() = _lastResult
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-//        try {
-//            listener = context as DeletionDialogListener
-//
-//        } catch (e: ClassCastException) {
-//            throw ClassCastException("$context must implement DeletionDialogListener")
-//        }
+    interface DeletionDialogListener {
+        fun onConfirmedDeleteRequest()
     }
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {fragmentActivity ->
@@ -44,7 +28,7 @@ class DeletionDialogFragment(private val message: String = "",
                     //listener.onDialogPositiveClick(this)
                     //_lastResult = true
 
-                    viewModel.onConfirmedDeleteRequest()
+                    observer.onConfirmedDeleteRequest()
 
                 }
                 .setNegativeButton(negativeMessage) { _, _ ->
