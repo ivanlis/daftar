@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import bilbao.ivanlis.kobeta.database.NotebookDb
 import bilbao.ivanlis.kobeta.database.NotebookRepository
 import bilbao.ivanlis.kobeta.dialog.DeletionDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.*
 import timber.log.Timber
 

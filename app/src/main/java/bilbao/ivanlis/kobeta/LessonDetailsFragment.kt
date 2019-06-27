@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import bilbao.ivanlis.kobeta.databinding.FragmentLessonDetailsBinding
 import bilbao.ivanlis.kobeta.dialog.DeletionDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
 
@@ -112,6 +113,7 @@ class LessonDetailsFragment : Fragment() {
                     //viewModel.onExecuteDeleteComplete()
                     viewModel.onExecuteDeleteLesson()
                     // navigate to lessons list
+                    //Snackbar.make(binding.root, R.string.message_lesson_deleted, Snackbar.LENGTH_SHORT).show()
                     NavHostFragment.findNavController(this).navigate(
                         LessonDetailsFragmentDirections.actionLessonDetailsFragmentToLessonsListFragment())
                     Toast.makeText(this.context, getString(R.string.message_lesson_deleted), Toast.LENGTH_SHORT).show()

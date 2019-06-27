@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.kobeta.databinding.FragmentLessonDescriptionBinding
+import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
 
@@ -75,7 +76,8 @@ class LessonDescriptionFragment : Fragment() {
                 if (flagValue) {
                     Timber.d("Navigating to lesson details for ${viewModel.destinationLessonId}")
 
-                    Toast.makeText(this.context, R.string.saved_exclamation, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this.context, R.string.saved_exclamation, Toast.LENGTH_SHORT).show()
+                    //Snackbar.make(binding.root, R.string.saved_exclamation, Snackbar.LENGTH_SHORT).show()
 
                     NavHostFragment.findNavController(this).navigate(
                         LessonDescriptionFragmentDirections.actionLessonDescriptionFragmentToLessonDetailsFragment(

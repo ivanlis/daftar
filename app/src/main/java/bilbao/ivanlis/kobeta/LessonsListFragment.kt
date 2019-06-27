@@ -80,9 +80,9 @@ class LessonsListFragment : Fragment() {
         })
 
 
-        binding.newLessonButton.setOnClickListener {
-            lessonsListViewModel.onNewLessonClicked()
-        }
+//        binding.newLessonButton.setOnClickListener {
+//            lessonsListViewModel.onNewLessonClicked()
+//        }
 
         lessonsListViewModel.navigateToNewLesson.observe(this, Observer {
             it?.let { flagValue ->
