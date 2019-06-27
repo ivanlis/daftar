@@ -150,9 +150,9 @@ class NewWordFragment : Fragment() {
             }
         })
 
-        binding.buttonSave.setOnClickListener {
-            viewModel.onSaveClicked()
-        }
+//        binding.buttonSave.setOnClickListener {
+//            viewModel.onSaveClicked()
+//        }
 
         return binding.root
 

@@ -9,104 +9,119 @@
                 type="bilbao.ivanlis.kobeta.VerbFragmentViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                       android:layout_height="match_parent"
-                                                       tools:context="VerbFragment">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
+                                                         android:layout_height="match_parent"
+                                                         android:id="@+id/coordinator">
+
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                           android:layout_height="match_parent"
+                                                           tools:context="VerbFragment">
 
 
-        <Button
-                android:text="@string/save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/save_button"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:onClick="@{() -> viewModel.onSaveClicked()}"
-        />
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/past_edit" android:layout_marginTop="4dp"
-                android:hint="@string/past_form"
-                android:text="@{viewModel.verbForms.pastForm}"
-                app:layout_constraintTop_toBottomOf="@+id/save_button"
-                app:layout_constraintStart_toEndOf="@+id/text_past" android:layout_marginStart="8dp"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/nonpast_edit"
-                android:hint="@string/nonpast_form"
-                android:text="@{viewModel.verbForms.nonpastForm}"
-                app:layout_constraintTop_toBottomOf="@+id/past_edit" android:layout_marginTop="16dp"
-                app:layout_constraintStart_toEndOf="@+id/text_nonpast" android:layout_marginStart="8dp"/>
-        <TextView
-                android:text="@string/label_past"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_past"
-                app:layout_constraintTop_toTopOf="@+id/past_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/past_edit"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"/>
-        <TextView
-                android:text="@string/label_nonpast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_nonpast"
-                app:layout_constraintBottom_toBottomOf="@+id/nonpast_edit"
-                app:layout_constraintTop_toTopOf="@+id/nonpast_edit" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/verbnoun_edit"
-                android:hint="@string/verbal_nout"
-                android:text="@{viewModel.verbForms.verbalNounForm}"
-                app:layout_constraintStart_toEndOf="@+id/text_verbnoun" android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/nonpast_edit"/>
-        <TextView
-                android:text="@string/label_verbnoun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_verbnoun" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintTop_toTopOf="@+id/verbnoun_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/verbnoun_edit"/>
-        <TextView
-                android:text="@string/label_translation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_translation"
-                app:layout_constraintTop_toTopOf="@+id/translation_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/translation_edit"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:text="@{viewModel.verbForms.translation}"
-                android:ems="10"
-                android:id="@+id/translation_edit"
-                android:hint="@string/translation"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/verbnoun_edit"
-                app:layout_constraintStart_toEndOf="@+id/text_translation"
-                android:layout_marginStart="8dp"/>
-        <Button
-                android:text="@string/delete_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/delete_button" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:onClick="@{() -> viewModel.onDeleteRequest()}"
-        />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                    android:text="@string/save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/save_button"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="@{() -> viewModel.onSaveClicked()}"
+            />
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:inputType="text"
+                    android:ems="10"
+                    android:id="@+id/past_edit" android:layout_marginTop="4dp"
+                    android:hint="@string/past_form"
+                    android:text="@{viewModel.verbForms.pastForm}"
+                    app:layout_constraintTop_toBottomOf="@+id/save_button"
+                    app:layout_constraintStart_toEndOf="@+id/text_past" android:layout_marginStart="8dp"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:inputType="text"
+                    android:ems="10"
+                    android:id="@+id/nonpast_edit"
+                    android:hint="@string/nonpast_form"
+                    android:text="@{viewModel.verbForms.nonpastForm}"
+                    app:layout_constraintTop_toBottomOf="@+id/past_edit" android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toEndOf="@+id/text_nonpast" android:layout_marginStart="8dp"/>
+            <TextView
+                    android:text="@string/label_past"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_past"
+                    app:layout_constraintTop_toTopOf="@+id/past_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/past_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
+            <TextView
+                    android:text="@string/label_nonpast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_nonpast"
+                    app:layout_constraintBottom_toBottomOf="@+id/nonpast_edit"
+                    app:layout_constraintTop_toTopOf="@+id/nonpast_edit" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:ems="10"
+                    android:id="@+id/verbnoun_edit"
+                    android:hint="@string/verbal_nout"
+                    android:text="@{viewModel.verbForms.verbalNounForm}"
+                    app:layout_constraintStart_toEndOf="@+id/text_verbnoun" android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/nonpast_edit"/>
+            <TextView
+                    android:text="@string/label_verbnoun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_verbnoun" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp" app:layout_constraintTop_toTopOf="@+id/verbnoun_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/verbnoun_edit"/>
+            <TextView
+                    android:text="@string/label_translation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_translation"
+                    app:layout_constraintTop_toTopOf="@+id/translation_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/translation_edit"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@{viewModel.verbForms.translation}"
+                    android:ems="10"
+                    android:id="@+id/translation_edit"
+                    android:hint="@string/translation"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/verbnoun_edit"
+                    app:layout_constraintStart_toEndOf="@+id/text_translation"
+                    android:layout_marginStart="8dp"/>
+            <Button
+                    android:text="@string/delete_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/delete_button" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="@{() -> viewModel.onDeleteRequest()}"
+            />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true" app:srcCompat="@android:drawable/checkbox_on_background"
+                    android:id="@+id/save_fab" android:focusable="true" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:onClick="@{() -> viewModel.onSaveClicked()}"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

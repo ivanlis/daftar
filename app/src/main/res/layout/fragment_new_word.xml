@@ -10,158 +10,174 @@
                 type="String"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                       android:layout_height="match_parent"
-                                                       tools:context="VerbFragment">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
+                                                         android:layout_height="match_parent"
+                                                         android:id="@+id/coordinator">
+
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                           android:layout_height="match_parent"
+                                                           tools:context="VerbFragment">
 
 
-        <RadioGroup
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="4dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="4dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/radiogroup_pos">
-            <RadioButton
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" android:id="@+id/radiobutton_verb" android:layout_weight="1"
-                    android:text="@string/verb"/>
-            <RadioButton
-                    android:text="@string/noun"
+            <RadioGroup
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/radiobutton_noun" android:layout_weight="1"/>
-            <RadioButton
-                    android:text="@string/particle"
-                    android:layout_width="0dp"
+                    android:orientation="horizontal" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="4dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="4dp" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/radiogroup_pos">
+                <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:id="@+id/radiobutton_verb"
+                        android:layout_weight="1"
+                        android:text="@string/verb"/>
+                <RadioButton
+                        android:text="@string/noun"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/radiobutton_noun" android:layout_weight="1"/>
+                <RadioButton
+                        android:text="@string/particle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/radiobutton_particle" android:layout_weight="1"/>
+            </RadioGroup>
+            <TextView
+                    android:text="@string/label_past"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/radiobutton_particle" android:layout_weight="1"/>
-        </RadioGroup>
-        <TextView
-                android:text="@string/label_past"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_past"
-                app:layout_constraintTop_toTopOf="@+id/past_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/past_edit" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/past_edit" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/radiogroup_pos"
-                app:layout_constraintStart_toEndOf="@+id/text_past" android:layout_marginStart="8dp"
-                android:hint="@string/past_form"/>
-        <TextView
-                android:text="@string/label_nonpast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_nonpast"
-                app:layout_constraintTop_toTopOf="@+id/nonpast_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/nonpast_edit" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/nonpast_edit" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/past_edit"
-                app:layout_constraintStart_toEndOf="@+id/text_nonpast" android:layout_marginStart="8dp"
-                android:hint="@string/nonpast_form"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/verbnoun_edit" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/nonpast_edit"
-                app:layout_constraintStart_toEndOf="@+id/text_verbnoun" android:layout_marginStart="8dp"
-                android:hint="@string/verbal_nout"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/singular_edit" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/verbnoun_edit"
-                app:layout_constraintStart_toEndOf="@+id/text_singular" android:layout_marginStart="8dp"
-                android:hint="@string/noun_singular"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/plural_edit" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/singular_edit"
-                app:layout_constraintStart_toEndOf="@+id/text_plural" android:layout_marginStart="8dp"
-                android:hint="@string/noun_plural"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/particle_edit" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/plural_edit"
-                app:layout_constraintStart_toEndOf="@+id/text_particle" android:layout_marginStart="8dp"
-                android:hint="@string/particle"/>
-        <TextView
-                android:text="@string/label_verbnoun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_verbnoun"
-                app:layout_constraintTop_toTopOf="@+id/verbnoun_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/verbnoun_edit" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"/>
-        <TextView
-                android:text="@string/label_singular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_singular"
-                app:layout_constraintTop_toTopOf="@+id/singular_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/singular_edit" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"/>
-        <TextView
-                android:text="@string/label_plural"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_plural"
-                app:layout_constraintTop_toTopOf="@+id/plural_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/plural_edit" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"/>
-        <TextView
-                android:text="@string/label_particle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_particle"
-                app:layout_constraintTop_toTopOf="@+id/particle_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/particle_edit" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"/>
-        <TextView
-                android:text="@string/label_translation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_translation" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@+id/translation_edit"
-                app:layout_constraintBottom_toBottomOf="@+id/translation_edit"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/translation_edit"
-                app:layout_constraintStart_toEndOf="@+id/text_translation" android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/particle_edit"
-                android:hint="@string/translation"/>
-        <Button
-                android:text="@string/save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/translation_edit" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" android:id="@+id/button_save"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:id="@+id/text_past"
+                    app:layout_constraintTop_toTopOf="@+id/past_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/past_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/past_edit" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/radiogroup_pos"
+                    app:layout_constraintStart_toEndOf="@+id/text_past" android:layout_marginStart="8dp"
+                    android:hint="@string/past_form"/>
+            <TextView
+                    android:text="@string/label_nonpast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_nonpast"
+                    app:layout_constraintTop_toTopOf="@+id/nonpast_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/nonpast_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/nonpast_edit" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/past_edit"
+                    app:layout_constraintStart_toEndOf="@+id/text_nonpast" android:layout_marginStart="8dp"
+                    android:hint="@string/nonpast_form"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/verbnoun_edit" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/nonpast_edit"
+                    app:layout_constraintStart_toEndOf="@+id/text_verbnoun" android:layout_marginStart="8dp"
+                    android:hint="@string/verbal_nout"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/singular_edit" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/verbnoun_edit"
+                    app:layout_constraintStart_toEndOf="@+id/text_singular" android:layout_marginStart="8dp"
+                    android:hint="@string/noun_singular"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/plural_edit" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/singular_edit"
+                    app:layout_constraintStart_toEndOf="@+id/text_plural" android:layout_marginStart="8dp"
+                    android:hint="@string/noun_plural"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/particle_edit" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/plural_edit"
+                    app:layout_constraintStart_toEndOf="@+id/text_particle" android:layout_marginStart="8dp"
+                    android:hint="@string/particle"/>
+            <TextView
+                    android:text="@string/label_verbnoun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_verbnoun"
+                    app:layout_constraintTop_toTopOf="@+id/verbnoun_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/verbnoun_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
+            <TextView
+                    android:text="@string/label_singular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_singular"
+                    app:layout_constraintTop_toTopOf="@+id/singular_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/singular_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
+            <TextView
+                    android:text="@string/label_plural"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_plural"
+                    app:layout_constraintTop_toTopOf="@+id/plural_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/plural_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
+            <TextView
+                    android:text="@string/label_particle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_particle"
+                    app:layout_constraintTop_toTopOf="@+id/particle_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/particle_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"/>
+            <TextView
+                    android:text="@string/label_translation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_translation" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/translation_edit"
+                    app:layout_constraintBottom_toBottomOf="@+id/translation_edit"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/translation_edit"
+                    app:layout_constraintStart_toEndOf="@+id/text_translation" android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/particle_edit"
+                    android:hint="@string/translation"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true" app:srcCompat="@android:drawable/checkbox_on_background"
+                    android:id="@+id/save_fab" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent" android:focusable="true"
+                    android:onClick="@{() -> viewModel.onSaveClicked()}"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
