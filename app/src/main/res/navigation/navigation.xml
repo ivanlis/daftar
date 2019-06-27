@@ -23,7 +23,7 @@
         <action android:id="@+id/action_lessonDetailsFragment_to_lessonDescriptionFragment"
                 app:destination="@id/lessonDescriptionFragment"/>
         <action android:id="@+id/action_lessonDetailsFragment_to_lessonsListFragment"
-                app:destination="@id/lessonsListFragment"/>
+                app:destination="@id/lessonsListFragment" app:popUpTo="@+id/lessonsListFragment"/>
     </fragment>
     <fragment android:id="@+id/verbFragment" android:name="bilbao.ivanlis.kobeta.VerbFragment"
               android:label="VerbFragment">
@@ -55,7 +55,7 @@
     <fragment android:id="@+id/lessonDescriptionFragment" android:name="bilbao.ivanlis.kobeta.LessonDescriptionFragment"
               android:label="LessonDescriptionFragment">
         <action android:id="@+id/action_lessonDescriptionFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"/>
         <argument android:name="lessonId" app:argType="long" android:defaultValue="-1L"/>
     </fragment>
 </navigation>
