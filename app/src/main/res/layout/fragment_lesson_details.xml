@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_gravity="end|bottom"
-                app:srcCompat="@android:drawable/ic_menu_add"
+                app:srcCompat="@drawable/ic_add_mod_white_24dp"
                 android:id="@+id/new_word_fab"
         />
 

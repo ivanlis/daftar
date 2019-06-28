@@ -59,7 +59,7 @@ class NounFragment : Fragment() {
             it?.let {
                 viewModel.onSaveData(WordFormInput(
                     singularForm = binding.singularEdit.text.toString(),
-                    pluralForm = binding.singularEdit.text.toString(),
+                    pluralForm = binding.pluralEdit.text.toString(),
                     translation = binding.translationEdit.text.toString()
                 ))
             }

@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_gravity="end|bottom"
-                app:srcCompat="@android:drawable/checkbox_on_background"
+                app:srcCompat="@drawable/ic_check_mod_white_24dp"
                 android:id="@+id/save_fab"
                 android:onClick="@{() -> viewModel.onSaveClicked()}"
         />
