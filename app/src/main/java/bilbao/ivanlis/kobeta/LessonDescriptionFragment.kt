@@ -54,9 +54,9 @@ class LessonDescriptionFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        binding.saveButton.setOnClickListener {
-            viewModel.onSaveClicked()
-        }
+//        binding.saveButton.setOnClickListener {
+//            viewModel.onSaveClicked()
+//        }
 
         viewModel.saveData.observe(this, Observer {
             it?.let { flagValue ->
