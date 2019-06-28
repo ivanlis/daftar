@@ -11,57 +11,49 @@
                 type="bilbao.ivanlis.kobeta.LessonsListViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                       android:layout_height="match_parent"
-                                                       tools:context="LessonsListFragment">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
+                                                         android:layout_height="match_parent"
+                                                         android:id="@+id/coordinator">
 
-        <TextView
-                android:text="@string/lessons_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/lessons_list"/>
-        <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="688dp"-->
-        <!--android:id="@+id/tempLessonList"-->
-        <!--tools:layout_editor_absoluteX="8dp" android:layout_marginTop="8dp"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/textView">-->
-        <!--<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical" android:id="@+id/layout">-->
-        <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
-        <!--android:text="@{lessonsListViewModel.lessonStrings}"-->
-        <!--android:id="@+id/lessonItem"/>-->
-        <!--</LinearLayout>-->
-        <!--</ScrollView>-->
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                           android:layout_height="match_parent"
+                                                           tools:context="LessonsListFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lessons_list"
-                android:layout_width="0dp"
-                android:layout_height="0dp" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/new_lesson_button"/>
-        <Button
-                android:text="@string/new_lesson"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/new_lesson_button" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:onClick="@{() -> lessonsListViewModel.onNewLessonClicked()}"
-        />
+            <TextView
+                    android:text="@string/lessons_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/lessons_list"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lessons_list"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/new_lesson_button"/>
+            <Button
+                    android:text="@string/new_lesson"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/new_lesson_button" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="@{() -> lessonsListViewModel.onNewLessonClicked()}"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true" app:srcCompat="@drawable/ic_add_mod_white_24dp"
-                android:id="@+id/new_lesson_fab" android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent" android:focusable="true"
-                android:onClick="@{() -> lessonsListViewModel.onNewLessonClicked()}"/>
+                android:layout_margin="16dp"
+                android:layout_gravity="end|bottom"
+                android:id="@+id/new_lesson_fab"
+                android:onClick="@{() -> lessonsListViewModel.onNewLessonClicked()}"
+                app:srcCompat="@drawable/ic_add_mod_white_24dp"/>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

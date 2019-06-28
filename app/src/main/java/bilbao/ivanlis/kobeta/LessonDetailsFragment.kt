@@ -124,7 +124,7 @@ class LessonDetailsFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
-        binding.buttonNew.setOnClickListener {
+        binding.newWordFab.setOnClickListener {
             Timber.d("Navigating to new word, lesson id $lessonId")
             NavHostFragment.findNavController(this).navigate(
                 LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNewWordFragment(lessonId)

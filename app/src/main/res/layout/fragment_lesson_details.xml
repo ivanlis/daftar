@@ -20,7 +20,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/lessonNameText"
-                    android:text="xxx"
+                    android:text="@{lessonDetailsViewModel.lessonName}"
                     tools:text="Lesson Name" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toTopOf="@+id/initialFormsList"/>
@@ -61,6 +61,15 @@
             />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@android:drawable/ic_menu_add"
+                android:id="@+id/new_word_fab"
+        />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
