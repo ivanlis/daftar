@@ -67,16 +67,17 @@
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp"
                     android:onClick="@{() -> viewModel.onDeleteRequest()}"/>
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true" app:srcCompat="@android:drawable/checkbox_on_background"
-                    android:id="@+id/save_fab" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp"
-                    android:focusable="true"
-                    android:onClick="@{() -> viewModel.onSaveClicked()}"
-                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@android:drawable/checkbox_on_background"
+                android:id="@+id/save_fab"
+                android:onClick="@{() -> viewModel.onSaveClicked()}"
+        />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
