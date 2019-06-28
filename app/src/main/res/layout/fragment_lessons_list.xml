@@ -55,7 +55,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true" app:srcCompat="@android:drawable/ic_menu_add"
+                android:clickable="true" app:srcCompat="@drawable/ic_add_mod_white_24dp"
                 android:id="@+id/new_lesson_fab" android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent" android:focusable="true"

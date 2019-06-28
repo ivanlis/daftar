@@ -24,6 +24,10 @@ android {
             enabled = true
         }
 
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+
     }
     buildTypes {
         release {
