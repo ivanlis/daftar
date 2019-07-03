@@ -26,6 +26,25 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
 
     val lesson = repository.getLesson(lessonId)
 
+    val lessonName = MediatorLiveData<String>()
+    val lessonDescription = MediatorLiveData<String>()
+
+    init {
+        lessonName.addSource(lesson) {
+            if (lessonName.value == null)
+                it?.let { lss ->
+                    lessonName.value = lss.name
+                }
+        }
+
+        lessonDescription.addSource(lesson) {
+            if (lessonDescription.value == null)
+                it?.let { lss ->
+                    lessonDescription.value = lss.description
+                }
+        }
+    }
+
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
