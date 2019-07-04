@@ -1,6 +1,7 @@
 package bilbao.ivanlis.kobeta
 
 import android.app.Application
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
@@ -9,6 +10,31 @@ class NounFragmentViewModel(application: Application, wordId: Long):
     WordViewModel(application, wordId) {
 
     val nounForms = repository.extractArabicNounForms(wordId)
+
+    val nounTranslation = MediatorLiveData<String>()
+    val nounSingular = MediatorLiveData<String>()
+    val nounPlural = MediatorLiveData<String>()
+
+    init {
+        nounTranslation.addSource(nounForms) {
+            if (nounTranslation.value == null)
+                it?.let { nForms ->
+                    nounTranslation.value = nForms.translation
+                }
+        }
+        nounSingular.addSource(nounForms) {
+            if (nounSingular.value == null)
+                it.let { nForms ->
+                    nounSingular.value = nForms.singularForm
+                }
+        }
+        nounPlural.addSource(nounForms) {
+            if (nounPlural.value == null)
+                it.let { nForms ->
+                    nounPlural.value = nForms.pluralForm
+                }
+        }
+    }
 
     override suspend fun executeSave(userInput: WordFormInput) {
         nounForms.value?.let {nounFormsVal ->
