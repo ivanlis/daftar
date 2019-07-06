@@ -42,4 +42,5 @@
     <string name="tip_add_new_word">Add new word</string>
     <string name="tip_add_new_lesson">Add new lesson</string>
     <string name="tip_save_word">Save word</string>
+    <string name="menu_go_to_lessons_list">Go to lessons list</string>
 </resources>
