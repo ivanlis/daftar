@@ -69,6 +69,7 @@
                 android:layout_gravity="end|bottom"
                 app:srcCompat="@drawable/ic_check_mod_white_24dp"
                 android:id="@+id/save_fab"
+                android:tooltipText="@string/tip_apply_changes"
                 android:onClick="@{() -> viewModel.onSaveClicked()}"
         />
 

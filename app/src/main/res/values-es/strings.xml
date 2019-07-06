@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tip_apply_changes">Guardar los cambios</string>
+    <string name="tip_add_new_word">Añadir una palabra</string>
+    <string name="tip_add_new_lesson">Nueva clase</string>
+    <string name="tip_save_word">Guardar la palabra</string>
+</resources>

@@ -178,6 +178,7 @@
                 app:srcCompat="@drawable/ic_check_mod_white_24dp"
                 android:id="@+id/save_fab"
                 android:onClick="@{() -> viewModel.onSaveClicked()}"
+                android:tooltipText="@string/tip_save_word"
         />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tip_apply_changes">Сохранить изменения</string>
+    <string name="tip_add_new_word">Добавить слово</string>
+    <string name="tip_add_new_lesson">Новый урок</string>
+    <string name="tip_save_word">Сохранить слово</string>
+</resources>

@@ -43,7 +43,9 @@
                 android:layout_gravity="end|bottom"
                 android:id="@+id/new_lesson_fab"
                 android:onClick="@{() -> lessonsListViewModel.onNewLessonClicked()}"
-                app:srcCompat="@drawable/ic_add_mod_white_24dp"/>
+                app:srcCompat="@drawable/ic_add_mod_white_24dp"
+                android:tooltipText="@string/tip_add_new_lesson"
+        />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
