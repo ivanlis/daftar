@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,10 +20,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?) = when(item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem?) = when(item!!.itemId) {
         R.id.action_to_lessons_list -> {
-            //TODO: navigate to the lessons list fragment
-            //supportFragmentManager.beginTransaction()
+            val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+            navController.navigate(R.id.lessonsListFragment)
+
             true
         }
         else -> {

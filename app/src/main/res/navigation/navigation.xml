@@ -5,7 +5,7 @@
             app:startDestination="@id/lessonsListFragment">
 
     <fragment android:id="@+id/lessonsListFragment" android:name="bilbao.ivanlis.kobeta.LessonsListFragment"
-              android:label="fragment_lessons_list" tools:layout="@layout/fragment_lessons_list">
+              android:label="fragment_lessons_list">
         <action android:id="@+id/action_lessonsListFragment_to_lessonDetailsFragment"
                 app:destination="@id/lessonDetailsFragment"/>
         <action android:id="@+id/action_lessonsListFragment_to_lessonDescriptionFragment"
