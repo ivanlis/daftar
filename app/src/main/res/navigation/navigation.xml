@@ -29,28 +29,28 @@
               android:label="VerbFragment">
         <argument android:name="wordId" app:argType="long"/>
         <action android:id="@+id/action_verbFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonDetailsFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"/>
         <argument android:name="lessonId" app:argType="long"/>
     </fragment>
     <fragment android:id="@+id/nounFragment" android:name="bilbao.ivanlis.kobeta.NounFragment"
               android:label="fragment_noun" tools:layout="@layout/fragment_noun">
         <argument android:name="wordId" app:argType="long"/>
         <action android:id="@+id/action_nounFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonDetailsFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"/>
         <argument android:name="lessonId" app:argType="long"/>
     </fragment>
     <fragment android:id="@+id/particleFragment" android:name="bilbao.ivanlis.kobeta.ParticleFragment"
               android:label="fragment_particle" tools:layout="@layout/fragment_particle">
         <argument android:name="wordId" app:argType="long"/>
         <action android:id="@+id/action_particleFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonDetailsFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"/>
         <argument android:name="lessonId" app:argType="long"/>
     </fragment>
     <fragment android:id="@+id/newWordFragment" android:name="bilbao.ivanlis.kobeta.NewWordFragment"
               android:label="NewWordFragment">
         <argument android:name="lessonId" app:argType="long"/>
         <action android:id="@+id/action_newWordFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"/>
     </fragment>
     <fragment android:id="@+id/lessonDescriptionFragment" android:name="bilbao.ivanlis.kobeta.LessonDescriptionFragment"
               android:label="LessonDescriptionFragment">
