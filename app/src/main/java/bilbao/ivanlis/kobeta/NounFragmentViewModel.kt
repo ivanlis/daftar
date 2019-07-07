@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 class NounFragmentViewModel(application: Application, wordId: Long):
     WordViewModel(application, wordId) {
 
-    val nounForms = repository.extractArabicNounForms(wordId)
+    private val nounForms = repository.extractArabicNounForms(wordId)
 
     val nounTranslation = MediatorLiveData<String>()
     val nounSingular = MediatorLiveData<String>()

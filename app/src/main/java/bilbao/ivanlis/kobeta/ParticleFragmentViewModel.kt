@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 class ParticleFragmentViewModel(application: Application, wordId: Long):
         WordViewModel(application, wordId) {
 
-    val particleForms = repository.extractArabicParticleForms(wordId)
+    private val particleForms = repository.extractArabicParticleForms(wordId)
 
     val particleTranslation = MediatorLiveData<String>()
     val particleParticle = MediatorLiveData<String>()

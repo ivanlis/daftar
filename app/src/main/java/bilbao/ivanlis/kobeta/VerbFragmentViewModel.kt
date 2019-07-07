@@ -10,7 +10,7 @@ class VerbFragmentViewModel(application: Application, wordId: Long):
         WordViewModel(application, wordId) {
 
 
-    val verbForms = repository.extractArabicVerbForms(wordId)
+    private val verbForms = repository.extractArabicVerbForms(wordId)
 
     val verbTranslation = MediatorLiveData<String>()
     val verbPast = MediatorLiveData<String>()
