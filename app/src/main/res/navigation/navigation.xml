@@ -7,55 +7,81 @@
     <fragment android:id="@+id/lessonsListFragment" android:name="bilbao.ivanlis.kobeta.LessonsListFragment"
               android:label="fragment_lessons_list">
         <action android:id="@+id/action_lessonsListFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action android:id="@+id/action_lessonsListFragment_to_lessonDescriptionFragment"
-                app:destination="@id/lessonDescriptionFragment"/>
+                app:destination="@id/lessonDescriptionFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/lessonDetailsFragment" android:name="bilbao.ivanlis.kobeta.LessonDetailsFragment"
               android:label="fragment_lesson_details" tools:layout="@layout/fragment_lesson_details">
         <argument android:name="lessonId" app:argType="long" android:defaultValue="-1L"/>
-        <action android:id="@+id/action_lessonDetailsFragment_to_verbFragment" app:destination="@id/verbFragment"/>
-        <action android:id="@+id/action_lessonDetailsFragment_to_nounFragment" app:destination="@id/nounFragment"/>
+        <action android:id="@+id/action_lessonDetailsFragment_to_verbFragment" app:destination="@id/verbFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action android:id="@+id/action_lessonDetailsFragment_to_nounFragment" app:destination="@id/nounFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action android:id="@+id/action_lessonDetailsFragment_to_particleFragment"
-                app:destination="@id/particleFragment"/>
+                app:destination="@id/particleFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action android:id="@+id/action_lessonDetailsFragment_to_newWordFragment"
-                app:destination="@id/newWordFragment"/>
+                app:destination="@id/newWordFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action android:id="@+id/action_lessonDetailsFragment_to_lessonDescriptionFragment"
-                app:destination="@id/lessonDescriptionFragment"/>
+                app:destination="@id/lessonDescriptionFragment" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action android:id="@+id/action_lessonDetailsFragment_to_lessonsListFragment"
-                app:destination="@id/lessonsListFragment" app:popUpTo="@+id/lessonsListFragment"/>
+                app:destination="@id/lessonsListFragment" app:popUpTo="@+id/lessonsListFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/verbFragment" android:name="bilbao.ivanlis.kobeta.VerbFragment"
               android:label="VerbFragment">
         <argument android:name="wordId" app:argType="long"/>
         <action android:id="@+id/action_verbFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <argument android:name="lessonId" app:argType="long"/>
     </fragment>
     <fragment android:id="@+id/nounFragment" android:name="bilbao.ivanlis.kobeta.NounFragment"
               android:label="fragment_noun" tools:layout="@layout/fragment_noun">
         <argument android:name="wordId" app:argType="long"/>
         <action android:id="@+id/action_nounFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <argument android:name="lessonId" app:argType="long"/>
     </fragment>
     <fragment android:id="@+id/particleFragment" android:name="bilbao.ivanlis.kobeta.ParticleFragment"
               android:label="fragment_particle" tools:layout="@layout/fragment_particle">
         <argument android:name="wordId" app:argType="long"/>
         <action android:id="@+id/action_particleFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <argument android:name="lessonId" app:argType="long"/>
     </fragment>
     <fragment android:id="@+id/newWordFragment" android:name="bilbao.ivanlis.kobeta.NewWordFragment"
               android:label="NewWordFragment">
         <argument android:name="lessonId" app:argType="long"/>
         <action android:id="@+id/action_newWordFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/lessonDescriptionFragment" android:name="bilbao.ivanlis.kobeta.LessonDescriptionFragment"
               android:label="LessonDescriptionFragment">
         <action android:id="@+id/action_lessonDescriptionFragment_to_lessonDetailsFragment"
-                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"/>
+                app:destination="@id/lessonDetailsFragment" app:popUpTo="@+id/lessonsListFragment"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <argument android:name="lessonId" app:argType="long" android:defaultValue="-1L"/>
     </fragment>
 </navigation>
