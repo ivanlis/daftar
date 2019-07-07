@@ -43,4 +43,10 @@
     <string name="tip_add_new_lesson">Add new lesson</string>
     <string name="tip_save_word">Save word</string>
     <string name="menu_go_to_lessons_list">Go to lessons list</string>
+    <string name="error_lesson_name_is_necessary">Lesson name is necessary</string>
+    <string name="error_you_have_to_select_pos">You have to select the part of speech</string>
+    <string name="error_translation_is_mandatory">Translation is needed</string>
+    <string name="error_past_form_is_mandatory">A verb must have at least a Past form</string>
+    <string name="error_singular_form_is_mandatory">At least the Singular form must be specified</string>
+    <string name="error_particle_is_necessary">A particle cannot be empty</string>
 </resources>

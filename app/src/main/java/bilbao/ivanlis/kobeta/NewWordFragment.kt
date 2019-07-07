@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.kobeta.databinding.FragmentNewWordBinding
+import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
 
@@ -132,6 +133,41 @@ class NewWordFragment : Fragment() {
             if (it) {
                 val posSelected = binding.posSelected
                 if (posSelected != null) {
+
+                    if (posSelected.isEmpty()) {
+                        Snackbar.make(view!!, R.string.error_you_have_to_select_pos, Snackbar.LENGTH_INDEFINITE).show()
+                        return@Observer
+                    }
+
+                    if (binding.translationEdit.text.isEmpty()) {
+                        Snackbar.make(view!!, R.string.error_translation_is_mandatory, Snackbar.LENGTH_INDEFINITE).show()
+                        return@Observer
+                    }
+
+                    when(posSelected) {
+                        POS_VERB -> {
+                            if (binding.pastEdit.text.isEmpty()) {
+                                Snackbar.make(view!!, R.string.error_past_form_is_mandatory, Snackbar.LENGTH_INDEFINITE)
+                                    .show()
+                                return@Observer
+                            }
+                        }
+                        POS_NOUN -> {
+                            if (binding.singularEdit.text.isEmpty()) {
+                                Snackbar.make(view!!, R.string.error_singular_form_is_mandatory, Snackbar.LENGTH_INDEFINITE)
+                                    .show()
+                                return@Observer
+                            }
+                        }
+                        POS_PARTICLE -> {
+                            if (binding.particleEdit.text.isEmpty()) {
+                                Snackbar.make(view!!, R.string.error_particle_is_necessary, Snackbar.LENGTH_INDEFINITE)
+                                    .show()
+                                return@Observer
+                            }
+                        }
+                    }
+
                     val userInput = WordFormInput(
                         lessonId, posSelected,
                         binding.pastEdit.text.toString(), binding.nonpastEdit.text.toString(),

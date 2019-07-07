@@ -53,15 +53,18 @@ class LessonDescriptionFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-
-//        binding.saveButton.setOnClickListener {
-//            viewModel.onSaveClicked()
-//        }
-
         viewModel.saveData.observe(this, Observer {
             it?.let { flagValue ->
                 if (flagValue)
                 {
+                    viewModel.onSaveDataComplete()
+
+                    if (binding.lessonNameEdit.text.isEmpty()) {
+                        Snackbar.make(view!!,
+                            R.string.error_lesson_name_is_necessary, Snackbar.LENGTH_INDEFINITE).show()
+                        return@Observer
+                    }
+
                     val userInput = LessonDescriptionUserInput(
                         name = binding.lessonNameEdit.text.toString(),
                         description = binding.descriptionEdit.text.toString()

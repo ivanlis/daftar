@@ -5,4 +5,11 @@
     <string name="tip_add_new_lesson">Nueva clase</string>
     <string name="tip_save_word">Guardar la palabra</string>
     <string name="menu_go_to_lessons_list">Ir a la lista de clases</string>
+    <string name="error_lesson_name_is_necessary">Tiene que introducir el nombre de la clase</string>
+    <string name="error_you_have_to_select_pos">Es necesario elegir la categoría gramatical</string>
+    <string name="error_translation_is_mandatory">Es necesaria una traducción</string>
+    <string name="error_particle_is_necessary">Es necesario introducir la partícula</string>
+    <string name="error_past_form_is_mandatory">Un verbo tiene que tener al menos la forma del perfecto</string>
+    <string name="error_singular_form_is_mandatory">Un sustantivo tiene que tener al menos la forma del singular
+    </string>
 </resources>

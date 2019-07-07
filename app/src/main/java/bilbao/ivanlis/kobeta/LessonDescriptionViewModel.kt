@@ -72,7 +72,7 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
 
     fun onSaveData(userInput: LessonDescriptionUserInput) {
 
-        onSaveDataComplete()
+        //onSaveDataComplete()
 
         if (userInput.name.isEmpty()) {
             //TODO: exception!!!
@@ -114,7 +114,7 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
     }
 
 
-    private fun onSaveDataComplete() { _saveData.value = false }
+    fun onSaveDataComplete() { _saveData.value = false }
 
     fun onNavigateToLessonDetailComplete() { _navigateToLessonDetails.value = false }
 }

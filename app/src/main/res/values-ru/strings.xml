@@ -5,4 +5,10 @@
     <string name="tip_add_new_lesson">Новый урок</string>
     <string name="tip_save_word">Сохранить слово</string>
     <string name="menu_go_to_lessons_list">К списку уроков</string>
+    <string name="error_lesson_name_is_necessary">Сначала введите имя урока</string>
+    <string name="error_you_have_to_select_pos">Необходимо выбрать часть речи</string>
+    <string name="error_translation_is_mandatory">Необходимо ввести перевод</string>
+    <string name="error_particle_is_necessary">Вы ещё не ввели частицу</string>
+    <string name="error_past_form_is_mandatory">Форма перфекта должна быть указана</string>
+    <string name="error_singular_form_is_mandatory">Форма единственного числа обязательна</string>
 </resources>
