@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.kobeta.databinding.FragmentParticleBinding
 import bilbao.ivanlis.kobeta.dialog.DeletionDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_particle.*
 import timber.log.Timber
 
@@ -58,10 +59,31 @@ class ParticleFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.saveData.observe(this, Observer {
-            viewModel.onSaveData(WordFormInput(
-                particleForm = particle_edit.text.toString(),
-                translation = translation_edit.text.toString()
-            ))
+            it?.let { flagValue ->
+
+                if (!flagValue)
+                    return@Observer
+
+                viewModel.onSaveDataComplete()
+
+                if (binding.particleEdit.text.isEmpty()) {
+                    Snackbar.make(view!!, R.string.error_particle_is_necessary, Snackbar.LENGTH_INDEFINITE).show()
+                    return@Observer
+                }
+                if (binding.translationEdit.text.isEmpty()) {
+                    Snackbar.make(view!!, R.string.error_translation_is_mandatory, Snackbar.LENGTH_INDEFINITE).show()
+                    return@Observer
+                }
+
+                viewModel.onSaveData(
+                    WordFormInput(
+                        particleForm = binding.particleEdit.text.toString(),
+                        translation = binding.translationEdit.text.toString()
+                    )
+                )
+
+                Snackbar.make(view!!, R.string.saved_exclamation, Snackbar.LENGTH_LONG).show()
+            }
         })
 
 

@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.kobeta.databinding.FragmentVerbBinding
 import bilbao.ivanlis.kobeta.dialog.DeletionDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
 
@@ -57,12 +58,29 @@ class VerbFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.saveData.observe(this, Observer {
-            it?.let {
+            it?.let { flagValue ->
+
+                if (!flagValue)
+                    return@Observer
+
+                viewModel.onSaveDataComplete()
+
+                if (binding.pastEdit.text.isEmpty()) {
+                    Snackbar.make(view!!, R.string.error_past_form_is_mandatory, Snackbar.LENGTH_INDEFINITE).show()
+                    return@Observer
+                }
+                if (binding.translationEdit.text.isEmpty()) {
+                    Snackbar.make(view!!, R.string.error_translation_is_mandatory, Snackbar.LENGTH_INDEFINITE).show()
+                    return@Observer
+                }
+
                 viewModel.onSaveData(WordFormInput(
                     pastForm = binding.pastEdit.text.toString(),
                     nonpastForm = binding.nonpastEdit.text.toString(),
                     verbnounForm = binding.verbnounEdit.text.toString(),
                     translation = binding.translationEdit.text.toString()))
+
+                Snackbar.make(view!!, R.string.saved_exclamation, Snackbar.LENGTH_LONG).show()
             }
         })
 

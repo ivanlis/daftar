@@ -17,7 +17,7 @@ class ParticleFragmentViewModel(application: Application, wordId: Long):
         particleTranslation.addSource(particleForms) {
             if (particleTranslation.value == null)
                 it?.let { pForms ->
-                    particleTranslation.value = pForms.particleForm
+                    particleTranslation.value = pForms.translation
                 }
         }
         particleParticle.addSource(particleForms) {

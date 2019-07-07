@@ -1,4 +1,4 @@
-package bilbao.ivanlis.kobeta
+    package bilbao.ivanlis.kobeta
 
 
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.kobeta.databinding.FragmentNounBinding
 import bilbao.ivanlis.kobeta.dialog.DeletionDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
 
@@ -56,12 +57,29 @@ class NounFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.saveData.observe(this, Observer {
-            it?.let {
+            it?.let { flagValue ->
+
+                if (!flagValue)
+                    return@Observer
+
+                viewModel.onSaveDataComplete()
+
+                if (binding.singularEdit.text.isEmpty()) {
+                    Snackbar.make(view!!, R.string.error_singular_form_is_mandatory, Snackbar.LENGTH_INDEFINITE).show()
+                    return@Observer
+                }
+                if (binding.translationEdit.text.isEmpty()) {
+                    Snackbar.make(view!!, R.string.error_translation_is_mandatory, Snackbar.LENGTH_INDEFINITE).show()
+                    return@Observer
+                }
+
                 viewModel.onSaveData(WordFormInput(
                     singularForm = binding.singularEdit.text.toString(),
                     pluralForm = binding.pluralEdit.text.toString(),
                     translation = binding.translationEdit.text.toString()
                 ))
+
+                Snackbar.make(view!!, R.string.saved_exclamation, Snackbar.LENGTH_LONG).show()
             }
         })
 

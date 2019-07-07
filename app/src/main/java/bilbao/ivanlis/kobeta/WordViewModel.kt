@@ -60,12 +60,10 @@ abstract class WordViewModel(application: Application, wordId: Long):
 
     fun onSaveData(userInput: WordFormInput) {
 
-        _saveData.value?.let {
-            if (!it)
-                return
-        }
-
-        onSaveDataComplete()
+//        _saveData.value?.let {
+//            if (!it)
+//                return
+//        }
 
         Timber.d("onSaveData()")
 
@@ -76,11 +74,9 @@ abstract class WordViewModel(application: Application, wordId: Long):
                 executeSave(userInput)
             }
         }
-
-        Toast.makeText(this.getApplication(), R.string.saved_exclamation, Toast.LENGTH_LONG).show()
     }
 
-    private fun onSaveDataComplete() { _saveData.value = false }
+    fun onSaveDataComplete() { _saveData.value = false }
 
     fun onExecuteDeleteWord() {
 

@@ -34,7 +34,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:text="@={viewModel.particleParticle}"
                     android:ems="10"
                     android:id="@+id/particle_edit" android:hint="@string/particle" android:layout_marginTop="8dp"
@@ -43,7 +43,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:text="@={viewModel.particleTranslation}"
                     android:ems="10"
                     android:id="@+id/translation_edit" android:hint="@string/translation" android:layout_marginTop="8dp"
