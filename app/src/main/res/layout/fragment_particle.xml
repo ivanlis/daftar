@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="bilbao.ivanlis.kobeta.ParticleFragmentViewModel"/>
+                type="bilbao.ivanlis.daftar.ParticleFragmentViewModel"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"

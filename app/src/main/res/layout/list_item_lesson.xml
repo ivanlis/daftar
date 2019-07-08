@@ -3,9 +3,9 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="lessonItem"
-                  type="bilbao.ivanlis.kobeta.database.LessonItemForList"/>
+                  type="bilbao.ivanlis.daftar.database.LessonItemForList"/>
         <variable name="clickListener"
-                  type="bilbao.ivanlis.kobeta.LessonItemListener"/>
+                  type="bilbao.ivanlis.daftar.LessonItemListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

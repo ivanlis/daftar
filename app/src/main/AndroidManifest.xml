@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-          package="bilbao.ivanlis.kobeta">
+          package="bilbao.ivanlis.daftar">
 
     <application
-            android:name=".KobetaApplication"
+            android:name="bilbao.ivanlis.daftar.KobetaApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher_kobeta"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_kobeta_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity"
+        <activity android:name="bilbao.ivanlis.daftar.MainActivity"
                   android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

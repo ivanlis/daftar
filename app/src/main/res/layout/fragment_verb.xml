@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="bilbao.ivanlis.kobeta.VerbFragmentViewModel"/>
+                type="bilbao.ivanlis.daftar.VerbFragmentViewModel"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"

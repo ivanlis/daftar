@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="bilbao.ivanlis.kobeta.NewWordViewModel"/>
+                type="bilbao.ivanlis.daftar.NewWordViewModel"/>
         <variable
                 name="posSelected"
                 type="String"/>

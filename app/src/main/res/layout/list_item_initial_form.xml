@@ -3,10 +3,10 @@
     <data>
         <variable
                 name="wordInitialFormTranslation"
-                type="bilbao.ivanlis.kobeta.database.WordInitialFormTranslation"/>
+                type="bilbao.ivanlis.daftar.database.WordInitialFormTranslation"/>
         <variable
                 name="clickListener"
-                type="bilbao.ivanlis.kobeta.InitialFormItemListener"/>
+                type="bilbao.ivanlis.daftar.InitialFormItemListener"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
