@@ -63,7 +63,8 @@ abstract class NotebookDb : RoomDatabase() {
                                 prePopulateArabic(context)
 
                                 //TODO: temporary
-                                addFakeLessons(context)
+                                if (BuildConfig.DEBUG)
+                                    addFakeLessons(context)
                             }
                         }
 
