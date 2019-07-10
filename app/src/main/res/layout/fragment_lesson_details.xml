@@ -17,13 +17,11 @@
 
             <!-- TODO: Update blank fragment layout -->
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/lessonNameText"
                     android:text="@{lessonDetailsViewModel.lessonName}"
                     tools:text="Lesson Name" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/initialFormsList"/>
+                    app:layout_constraintBottom_toTopOf="@+id/initialFormsList"
+                    style="@style/header_dynamic"/>
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="8dp"
