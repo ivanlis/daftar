@@ -28,12 +28,12 @@ class TrainingProcess private constructor(context: Context, fileName: String) {
     }
 
     fun resetCount() {
-        nextExercise = 0L
+        nextExerciseIndex = 0L
     }
 
     fun advance() {
-        if (nextExercise < numExercises - 1)
-            nextExercise += 1L
+        if (nextExerciseIndex < numExercises - 1)
+            nextExerciseIndex += 1L
         else
             throw TrainingProcessFinishedException("No more exercises")
     }
@@ -50,7 +50,7 @@ class TrainingProcess private constructor(context: Context, fileName: String) {
             sharedPreferences.edit().putLong("numExercises", value).apply()
         }
 
-    var nextExercise: Long
+    var nextExerciseIndex: Long
         get() = sharedPreferences.getLong("nextExercise", -1L)
         set(value: Long) {
             sharedPreferences.edit().putLong("nextExercise", value).apply()
