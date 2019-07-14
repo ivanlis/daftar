@@ -5,9 +5,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.SmallTest
 import bilbao.ivanlis.daftar.database.TrainingProcess
 import com.google.common.truth.Truth.assertThat
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
+import timber.log.Timber
 
 @SmallTest
 class TrainingProcessTest {
@@ -40,5 +39,23 @@ class TrainingProcessTest {
         val valueToAssign = 10L
         trainingProcess.numExercises = valueToAssign
         assertThat(trainingProcess.numExercises == valueToAssign)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun initializeTrainingProcess() {
+        val wordIdsToLearn: List<Long> = arrayListOf(256, 321, 678, 1, 2, 3, 10, 19)
+        val exercisesToExecute = 20L
+        trainingProcess.initialize(wordIdsToLearn, exercisesToExecute)
+
+        assertThat(trainingProcess.numExercises == exercisesToExecute)
+
+        for (i in 0 until exercisesToExecute) {
+            Timber.i("Trying exercise $i out of $exercisesToExecute")
+            assertThat(
+                trainingProcess.getWordIdCorrespondingToExercise(i.toInt()) in
+                        LongRange(0, exercisesToExecute - 1)
+            )
+        }
     }
 }

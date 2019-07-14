@@ -1,7 +1,10 @@
 package bilbao.ivanlis.daftar.database
 
 import android.content.Context
+import timber.log.Timber
 import java.lang.Exception
+import kotlin.random.Random
+import kotlin.random.nextLong
 
 class TrainingProcess private constructor(context: Context, fileName: String) {
 
@@ -22,6 +25,7 @@ class TrainingProcess private constructor(context: Context, fileName: String) {
     // key-value storage
     private val sharedPreferences = context.getSharedPreferences(
         fileName, Context.MODE_PRIVATE)
+
 
     fun clear() {
         sharedPreferences.edit().clear().apply()
@@ -56,6 +60,38 @@ class TrainingProcess private constructor(context: Context, fileName: String) {
             sharedPreferences.edit().putLong("nextExercise", value).apply()
         }
 
+
+    private var wordIdsToTrain: MutableList<Long> = arrayListOf()
+
+    var randomGenerator = Random(System.currentTimeMillis())
+
+    fun initialize(wordIds: List<Long>, exercisesToExecute: Long) {
+
+        if (exercisesToExecute < 0)
+            throw TrainingProcessException("exercisesToExecute cannot be negative")
+
+        if (wordIds.isEmpty())
+            throw TrainingProcessException("wordIds cannot be empty")
+
+        numExercises = exercisesToExecute
+
+        // generate a random sequence of size numExercises, samples from wordIds
+        for (i in 0 until numExercises) {
+            val valueToAdd = wordIds[randomGenerator.nextLong(0, wordIds.lastIndex.toLong()).toInt()]
+            Timber.d("Putting value $valueToAdd, index $i")
+            wordIdsToTrain.add(i.toInt(), valueToAdd)
+            sharedPreferences.edit().putLong(i.toString(), valueToAdd).apply()
+        }
+    }
+
+    fun getWordIdCorrespondingToExercise(exerciseIndex: Int): Long {
+        Timber.d("Getting exerciseIndex by index $exerciseIndex...")
+        val wordId = sharedPreferences.getLong(exerciseIndex.toString(), -1L)
+        if (wordId < 0)
+            throw TrainingProcessException("exerciseIndex out of bounds")
+        Timber.d("exerciseIndex = $wordId")
+        return wordId
+    }
 }
 
 open class TrainingProcessException(whatMsg: String): Exception(whatMsg)
