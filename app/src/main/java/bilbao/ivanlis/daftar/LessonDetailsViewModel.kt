@@ -15,6 +15,14 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
     val initialForms = repository.extractInitialFormsForLesson(lessonId)
 
+//    val thisLessonWordIds: LiveData<List<Long>> = Transformations.map(initialForms) {
+//        it?.let { initialFormTranslationList ->
+//            {
+//                var resultList
+//            }
+//        }
+//    }
+
     val lessonName = repository.getLessonName(lessonId)
 
     private val _navigateToLessonDescription = MutableLiveData<Boolean>()
