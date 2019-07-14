@@ -1,37 +1,37 @@
 package bilbao.ivanlis.daftar
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.filters.SmallTest
 import bilbao.ivanlis.daftar.database.TrainingProcess
+import com.google.common.truth.Truth.assertThat
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import java.lang.Exception
 
-@RunWith(AndroidJUnit4::class)
+@SmallTest
 class TrainingProcessTest {
 
-    private lateinit var trainingProcess: TrainingProcess
+    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private val trainingProcess = TrainingProcess.getInstance(context, "bilbao.ivanlis.daftar.training.test")
 
-    @Before
-    fun createTrainingProcess() {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        trainingProcess = TrainingProcess.getInstance(context, "bilbao.ivanlis.daftar.training.test")
-    }
-
-    @After
-    fun cleanup() {
-
-    }
+//    @Before
+//    fun createTrainingProcess() {
+//        val context = ApplicationProvider.getApplicationContext<Context>()
+//        trainingProcess = TrainingProcess.getInstance(context, "bilbao.ivanlis.daftar.training.test")
+//    }
+//
+//    @After
+//    fun cleanup() {
+//
+//    }
 
     @Test
     @Throws(Exception::class)
     fun assignLessonToStudy() {
         val valueToAssign = 19L
         trainingProcess.lessonToStudy = valueToAssign
-        Assert.assertEquals(trainingProcess.lessonToStudy, valueToAssign)
+        assertThat(trainingProcess.lessonToStudy == valueToAssign)
     }
 
     @Test
@@ -39,6 +39,6 @@ class TrainingProcessTest {
     fun assignNumExercises() {
         val valueToAssign = 10L
         trainingProcess.numExercises = valueToAssign
-        Assert.assertEquals(trainingProcess.numExercises, valueToAssign)
+        assertThat(trainingProcess.numExercises == valueToAssign)
     }
 }
