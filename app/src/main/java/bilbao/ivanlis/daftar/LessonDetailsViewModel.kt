@@ -2,6 +2,7 @@ package bilbao.ivanlis.daftar
 
 import android.app.Application
 import androidx.lifecycle.*
+import bilbao.ivanlis.daftar.constants.EXERCISES_PER_WORD
 import bilbao.ivanlis.daftar.database.NotebookDb
 import bilbao.ivanlis.daftar.database.NotebookRepository
 import bilbao.ivanlis.daftar.database.TrainingProcess
@@ -95,11 +96,11 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
             }
 
             if (wordIds.isNotEmpty()) {
-                trainingProcess.initialize(wordIds, 15)
+                trainingProcess.initialize(wordIds, EXERCISES_PER_WORD)
 
                 Timber.d("Passed ids: $wordIds")
-                for (i in 0 until 15)
-                    Timber.d("$i -> ${trainingProcess.getWordIdCorrespondingToExercise(i)}")
+                for (i in 0 until trainingProcess.numExercises)
+                    Timber.d("$i -> ${trainingProcess.getWordIdCorrespondingToExercise(i.toInt())}")
             }
             else {
                 _complainEmptyLesson.value = true

@@ -45,16 +45,16 @@ class TrainingProcessTest {
     @Throws(Exception::class)
     fun initializeTrainingProcess() {
         val wordIdsToLearn: List<Long> = arrayListOf(256, 321, 678, 1, 2, 3, 10, 19)
-        val exercisesToExecute = 20L
-        trainingProcess.initialize(wordIdsToLearn, exercisesToExecute)
+        val exercisesPerWord = 3L
+        trainingProcess.initialize(wordIdsToLearn, exercisesPerWord)
 
-        assertThat(trainingProcess.numExercises == exercisesToExecute)
+        assertThat(trainingProcess.numExercises == exercisesPerWord * wordIdsToLearn.size)
 
-        for (i in 0 until exercisesToExecute) {
-            Timber.i("Trying exercise $i out of $exercisesToExecute")
+        for (i in 0 until exercisesPerWord) {
+            Timber.i("Trying exercise $i out of $exercisesPerWord")
             assertThat(
                 trainingProcess.getWordIdCorrespondingToExercise(i.toInt()) in
-                        LongRange(0, exercisesToExecute - 1)
+                        LongRange(0, exercisesPerWord - 1)
             )
         }
     }

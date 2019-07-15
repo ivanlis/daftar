@@ -65,15 +65,17 @@ class TrainingProcess private constructor(context: Context, fileName: String) {
 
     var randomGenerator = Random(System.currentTimeMillis())
 
-    fun initialize(wordIds: List<Long>, exercisesToExecute: Long) {
+    fun initialize(wordIds: List<Long>, exercisesPerWord: Long) {
 
-        if (exercisesToExecute < 0)
-            throw TrainingProcessException("exercisesToExecute cannot be negative")
+        if (exercisesPerWord <= 0)
+            throw TrainingProcessException("exercisesPerWord must be positive")
 
         if (wordIds.isEmpty())
             throw TrainingProcessException("wordIds cannot be empty")
 
-        numExercises = exercisesToExecute
+        clear()
+
+        numExercises = exercisesPerWord * wordIds.size
 
         // generate a random sequence of size numExercises, samples from wordIds
         for (i in 0 until numExercises) {
