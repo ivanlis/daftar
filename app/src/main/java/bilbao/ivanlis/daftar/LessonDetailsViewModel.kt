@@ -16,14 +16,6 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
     val initialForms = repository.extractInitialFormsForLesson(lessonId)
 
-    //val thisLessonWordIds = repository.extractWordIdsForLesson(lessonId)
-
-//            LiveData<List<Long>> = Transformations.map(initialForms) {
-//        it.map { element ->
-//            element.wordId
-//        }
-//    }
-
     val lessonName = repository.getLessonName(lessonId)
 
     private val _navigateToLessonDescription = MutableLiveData<Boolean>()
@@ -38,10 +30,15 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     val executeDelete: LiveData<Boolean>
         get() = _executeDelete
 
+    private val _complainEmptyLesson = MutableLiveData<Boolean>()
+    val complainEmptyLesson: LiveData<Boolean>
+        get() = _complainEmptyLesson
+
     init {
         _navigateToLessonDescription.value = false
         _showDeletionDialog.value = false
         _executeDelete.value = false
+        _complainEmptyLesson.value = false
     }
 
     val trainingProcess = TrainingProcess.getInstance(application)
@@ -68,6 +65,10 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
 
     fun onExecuteDeleteComplete() {
         _executeDelete.value = false
+    }
+
+    fun onComplainEmptyLessonComplete() {
+        _complainEmptyLesson.value = false
     }
 
 
@@ -99,6 +100,9 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
                 Timber.d("Passed ids: $wordIds")
                 for (i in 0 until 15)
                     Timber.d("$i -> ${trainingProcess.getWordIdCorrespondingToExercise(i)}")
+            }
+            else {
+                _complainEmptyLesson.value = true
             }
         }
 

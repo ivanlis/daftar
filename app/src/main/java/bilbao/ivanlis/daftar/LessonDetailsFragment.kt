@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import bilbao.ivanlis.daftar.databinding.FragmentLessonDetailsBinding
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
 
@@ -116,6 +117,15 @@ class LessonDetailsFragment : Fragment() {
                     NavHostFragment.findNavController(this).navigate(
                         LessonDetailsFragmentDirections.actionLessonDetailsFragmentToLessonsListFragment())
                     Toast.makeText(this.context, getString(R.string.message_lesson_deleted), Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        viewModel.complainEmptyLesson.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    viewModel.onComplainEmptyLessonComplete()
+                    Snackbar.make(view!!, getString(R.string.no_words_in_lesson_yet), Snackbar.LENGTH_LONG).show()
                 }
             }
         })

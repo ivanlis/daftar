@@ -12,4 +12,5 @@
     <string name="error_past_form_is_mandatory">Un verbo tiene que tener al menos la forma del perfecto</string>
     <string name="error_singular_form_is_mandatory">Un sustantivo tiene que tener al menos la forma del singular
     </string>
+    <string name="no_words_in_lesson_yet">En esta clase todavía no hay palabras</string>
 </resources>
