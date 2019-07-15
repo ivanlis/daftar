@@ -1,4 +1,4 @@
-package bilbao.ivanlis.daftar
+package bilbao.ivanlis.daftar.constants
 
 const val LANG_ARABIC = "arabic"
 

@@ -2,7 +2,7 @@ package bilbao.ivanlis.daftar.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import bilbao.ivanlis.daftar.*
+import bilbao.ivanlis.daftar.constants.*
 
 @Dao
 interface NotebookDao {

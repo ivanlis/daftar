@@ -2,6 +2,7 @@ package bilbao.ivanlis.daftar
 
 import android.app.Application
 import androidx.lifecycle.*
+import bilbao.ivanlis.daftar.constants.*
 import bilbao.ivanlis.daftar.database.NotebookDb
 import bilbao.ivanlis.daftar.database.NotebookRepository
 import bilbao.ivanlis.daftar.database.Word
@@ -59,22 +60,34 @@ class NewWordViewModel(application: Application, lessonId: Long) :
                 POS_VERB -> {
                     Timber.d("Inserting verb")
                     withContext(Dispatchers.IO) {
-                        repository.registerWordRecord(wordId, LANG_ARABIC, FORM_PAST, userInput.pastForm)
-                        repository.registerWordRecord(wordId, LANG_ARABIC, FORM_NONPAST, userInput.nonpastForm)
-                        repository.registerWordRecord(wordId, LANG_ARABIC, FORM_VERBALNOUN, userInput.verbnounForm)
+                        repository.registerWordRecord(wordId,
+                            LANG_ARABIC,
+                            FORM_PAST, userInput.pastForm)
+                        repository.registerWordRecord(wordId,
+                            LANG_ARABIC,
+                            FORM_NONPAST, userInput.nonpastForm)
+                        repository.registerWordRecord(wordId,
+                            LANG_ARABIC,
+                            FORM_VERBALNOUN, userInput.verbnounForm)
                     }
                 }
                 POS_NOUN -> {
                     Timber.d("Inserting noun")
                     withContext(Dispatchers.IO) {
-                        repository.registerWordRecord(wordId, LANG_ARABIC, FORM_SINGULAR, userInput.singularForm)
-                        repository.registerWordRecord(wordId, LANG_ARABIC, FORM_PLURAL, userInput.pluralForm)
+                        repository.registerWordRecord(wordId,
+                            LANG_ARABIC,
+                            FORM_SINGULAR, userInput.singularForm)
+                        repository.registerWordRecord(wordId,
+                            LANG_ARABIC,
+                            FORM_PLURAL, userInput.pluralForm)
                     }
                 }
                 POS_PARTICLE -> {
                     Timber.d("Inserting particle")
                     withContext(Dispatchers.IO) {
-                        repository.registerWordRecord(wordId, LANG_ARABIC, FORM_PARTICLE, userInput.particleForm)
+                        repository.registerWordRecord(wordId,
+                            LANG_ARABIC,
+                            FORM_PARTICLE, userInput.particleForm)
                     }
                 }
                 //TODO: else: exception
