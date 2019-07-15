@@ -150,6 +150,9 @@ interface NotebookDao {
         """)
     fun extractInitialFormsForLesson(lessonId: Long): LiveData<List<WordInitialFormTranslation>>
 
+    @Query("""SELECT id FROM word WHERE lesson_id = :lessonId""")
+    fun extractWordIdsForLesson(lessonId: Long): List<Long>
+
     // query to extract all forms for an Arabic word
     //TODO: extract constant literals as constants
     @Query(

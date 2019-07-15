@@ -49,6 +49,8 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     @WorkerThread
     fun extractInitialFormsForLesson(lessonId: Long) = notebookDao.extractInitialFormsForLesson(lessonId)
     @WorkerThread
+    fun extractWordIdsForLesson(lessonId: Long) = notebookDao.extractWordIdsForLesson(lessonId)
+    @WorkerThread
     fun extractArabicVerbForms(wordId: Long) = notebookDao.extractArabicVerbForms(wordId)
     @WorkerThread
     fun extractArabicNounForms(wordId: Long) = notebookDao.extractArabicNounForms(wordId)

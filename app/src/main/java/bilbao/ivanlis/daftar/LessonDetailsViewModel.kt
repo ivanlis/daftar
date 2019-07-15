@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import bilbao.ivanlis.daftar.database.NotebookDb
 import bilbao.ivanlis.daftar.database.NotebookRepository
+import bilbao.ivanlis.daftar.database.TrainingProcess
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -15,11 +16,11 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
     val initialForms = repository.extractInitialFormsForLesson(lessonId)
 
-//    val thisLessonWordIds: LiveData<List<Long>> = Transformations.map(initialForms) {
-//        it?.let { initialFormTranslationList ->
-//            {
-//                var resultList
-//            }
+    //val thisLessonWordIds = repository.extractWordIdsForLesson(lessonId)
+
+//            LiveData<List<Long>> = Transformations.map(initialForms) {
+//        it.map { element ->
+//            element.wordId
 //        }
 //    }
 
@@ -42,6 +43,8 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
         _showDeletionDialog.value = false
         _executeDelete.value = false
     }
+
+    val trainingProcess = TrainingProcess.getInstance(application)
 
     fun onNavigateToLessonDescription() {
         _navigateToLessonDescription.value = true
@@ -83,11 +86,23 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
         }
     }
 
-//    init {
-//        uiScope.launch {
-//            lessonName = repository.getLessonName(lessonId)
-//        }
-//    }
+    fun initializeTrainingProcess() {
+
+        uiScope.launch {
+            val wordIds = withContext(Dispatchers.IO) {
+                repository.extractWordIdsForLesson(lessonId)
+            }
+
+            if (wordIds.isNotEmpty()) {
+                trainingProcess.initialize(wordIds, 15)
+
+                Timber.d("Passed ids: $wordIds")
+                for (i in 0 until 15)
+                    Timber.d("$i -> ${trainingProcess.getWordIdCorrespondingToExercise(i)}")
+            }
+        }
+
+    }
 }
 
 class LessonDetailsViewModelFactory(

@@ -77,7 +77,7 @@ class TrainingProcess private constructor(context: Context, fileName: String) {
 
         // generate a random sequence of size numExercises, samples from wordIds
         for (i in 0 until numExercises) {
-            val valueToAdd = wordIds[randomGenerator.nextLong(0, wordIds.lastIndex.toLong()).toInt()]
+            val valueToAdd = wordIds[randomGenerator.nextLong(0, wordIds.size.toLong()).toInt()]
             Timber.d("Putting value $valueToAdd, index $i")
             wordIdsToTrain.add(i.toInt(), valueToAdd)
             sharedPreferences.edit().putLong(i.toString(), valueToAdd).apply()
