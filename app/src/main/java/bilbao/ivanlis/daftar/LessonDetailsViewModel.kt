@@ -1,8 +1,11 @@
 package bilbao.ivanlis.daftar
 
 import android.app.Application
+import android.transition.Visibility
+import android.view.View
 import androidx.lifecycle.*
 import bilbao.ivanlis.daftar.constants.EXERCISES_PER_WORD
+import bilbao.ivanlis.daftar.constants.LessonDetailsMode
 import bilbao.ivanlis.daftar.database.NotebookDb
 import bilbao.ivanlis.daftar.database.NotebookRepository
 import bilbao.ivanlis.daftar.database.TrainingProcess
@@ -11,7 +14,8 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 
 
-class LessonDetailsViewModel(application: Application, private val lessonId: Long) :
+class LessonDetailsViewModel(application: Application, private val lessonId: Long,
+                             mode: LessonDetailsMode = LessonDetailsMode.EDIT) :
     AndroidViewModel(application), DeletionDialogFragment.DeletionDialogListener {
 
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
@@ -35,11 +39,28 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     val complainEmptyLesson: LiveData<Boolean>
         get() = _complainEmptyLesson
 
+    private val _mode = MutableLiveData<LessonDetailsMode>()
+    val currentMode: LiveData<LessonDetailsMode>
+        get() = _mode
+
+    val deleteButtonVisibility: LiveData<Int> = Transformations.map(currentMode) {
+        modeToDeleteButtonVisibility(it)
+    }
+
+    val addWordButtonVisibility: LiveData<Int> = Transformations.map(currentMode) {
+        modeToAddWordButtonVisibility(it)
+    }
+
+    val editDescriptionButtonVisibility: LiveData<Int> = Transformations.map(currentMode) {
+        modeToEditDescriptionButtonVisibility(it)
+    }
+
     init {
         _navigateToLessonDescription.value = false
         _showDeletionDialog.value = false
         _executeDelete.value = false
         _complainEmptyLesson.value = false
+        _mode.value = mode
     }
 
     val trainingProcess = TrainingProcess.getInstance(application)
@@ -72,6 +93,33 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
         _complainEmptyLesson.value = false
     }
 
+    fun modeToDeleteButtonVisibility(mode: LessonDetailsMode?) =
+        when(mode) {
+            LessonDetailsMode.EDIT -> View.VISIBLE
+            LessonDetailsMode.TRAIN -> View.GONE
+            null -> View.VISIBLE
+        }
+
+    fun modeToAddWordButtonVisibility(mode: LessonDetailsMode?) =
+        when(mode) {
+            LessonDetailsMode.EDIT -> View.VISIBLE
+            LessonDetailsMode.TRAIN -> View.GONE
+            null -> View.VISIBLE
+        }
+
+    fun modeToEditDescriptionButtonVisibility(mode: LessonDetailsMode?) =
+            when(mode) {
+                LessonDetailsMode.EDIT -> View.VISIBLE
+                LessonDetailsMode.TRAIN -> View.GONE
+                null -> View.VISIBLE
+            }
+
+    fun toggleMode() {
+        when(_mode.value) {
+            LessonDetailsMode.EDIT -> _mode.value = LessonDetailsMode.TRAIN
+            LessonDetailsMode.TRAIN -> _mode.value = LessonDetailsMode.EDIT
+        }
+    }
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -107,6 +155,8 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
             }
         }
 
+        //TODO: temporary
+        toggleMode()
     }
 }
 
