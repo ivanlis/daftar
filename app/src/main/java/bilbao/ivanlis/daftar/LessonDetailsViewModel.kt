@@ -59,6 +59,10 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
         modeToStartTrainingButtonVisibility(it)
     }
 
+    val trainButtonVisibility: LiveData<Int> = Transformations.map(currentMode) {
+        modeToTrainButtonVisibility(it)
+    }
+
     init {
         _navigateToLessonDescription.value = false
         _showDeletionDialog.value = false
@@ -125,6 +129,13 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
                 null -> View.GONE
             }
 
+    fun modeToTrainButtonVisibility(mode: LessonDetailsMode?) =
+            when(mode) {
+                LessonDetailsMode.EDIT -> View.VISIBLE
+                LessonDetailsMode.TRAIN -> View.GONE
+                null -> View.GONE
+            }
+
     fun toggleMode() {
         when(_mode.value) {
             LessonDetailsMode.EDIT -> _mode.value = LessonDetailsMode.TRAIN
@@ -166,8 +177,13 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
             }
         }
 
-        //TODO: temporary
-        toggleMode()
+        ////TODO: temporary
+        //toggleMode()
+    }
+
+    fun onTrainClicked() {
+        initializeTrainingProcess()
+        _mode.value = LessonDetailsMode.TRAIN
     }
 }
 

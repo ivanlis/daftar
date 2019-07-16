@@ -12,4 +12,5 @@
     <string name="error_past_form_is_mandatory">Форма перфекта должна быть указана</string>
     <string name="error_singular_form_is_mandatory">Форма единственного числа обязательна</string>
     <string name="no_words_in_lesson_yet">В этом уроке пока нет слов</string>
+    <string name="train">Учиться</string>
 </resources>

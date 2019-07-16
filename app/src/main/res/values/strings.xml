@@ -50,4 +50,5 @@
     <string name="error_singular_form_is_mandatory">At least the Singular form must be specified</string>
     <string name="error_particle_is_necessary">A particle cannot be empty</string>
     <string name="no_words_in_lesson_yet">No words in this lesson yet</string>
+    <string name="train">Train</string>
 </resources>
