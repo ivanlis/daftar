@@ -55,6 +55,10 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
         modeToEditDescriptionButtonVisibility(it)
     }
 
+    val startTrainingButtonVisibility: LiveData<Int> = Transformations.map(currentMode) {
+        modeToStartTrainingButtonVisibility(it)
+    }
+
     init {
         _navigateToLessonDescription.value = false
         _showDeletionDialog.value = false
@@ -114,6 +118,13 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
                 null -> View.VISIBLE
             }
 
+    fun modeToStartTrainingButtonVisibility(mode: LessonDetailsMode?) =
+            when(mode) {
+                LessonDetailsMode.EDIT -> View.GONE
+                LessonDetailsMode.TRAIN -> View.VISIBLE
+                null -> View.GONE
+            }
+
     fun toggleMode() {
         when(_mode.value) {
             LessonDetailsMode.EDIT -> _mode.value = LessonDetailsMode.TRAIN
@@ -161,13 +172,14 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
 }
 
 class LessonDetailsViewModelFactory(
-    private val application: Application, private val lessonId: Long
+    private val application: Application, private val lessonId: Long,
+    private val mode: LessonDetailsMode = LessonDetailsMode.EDIT
 ) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LessonDetailsViewModel::class.java)) {
-            return LessonDetailsViewModel(application, lessonId) as T
+            return LessonDetailsViewModel(application, lessonId, mode) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

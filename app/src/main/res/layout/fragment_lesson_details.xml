@@ -67,5 +67,16 @@
                 android:visibility="@{lessonDetailsViewModel.addWordButtonVisibility}"
         />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@drawable/ic_thumb_up_white_24dp"
+                android:id="@+id/start_training_fab"
+                android:tooltipText="Start training"
+                android:visibility="@{lessonDetailsViewModel.startTrainingButtonVisibility}"
+        />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
