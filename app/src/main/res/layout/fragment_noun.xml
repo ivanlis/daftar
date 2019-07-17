@@ -41,7 +41,7 @@
                     android:ems="10"
                     android:id="@+id/singular_edit" android:hint="@string/noun_singular"
                     app:layout_constraintStart_toEndOf="@+id/text_singular" android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/delete_button"/>
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,8 +76,10 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/delete_button" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:onClick="@{() -> viewModel.onDeleteRequest()}"/>
+                    app:layout_constraintTop_toBottomOf="@+id/translation_edit"
+                    android:onClick="@{() -> viewModel.onDeleteRequest()}"
+                    android:visibility="@{safeUnbox(viewModel.deleteButtonVisibility)}"
+            />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -89,6 +91,18 @@
                 android:id="@+id/save_fab"
                 android:onClick="@{() -> viewModel.onSaveClicked()}"
                 android:tooltipText="@string/tip_apply_changes"
+                android:visibility="@{safeUnbox(viewModel.saveButtonVisibility)}"
+        />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@drawable/ic_check_mod_white_24dp"
+                android:id="@+id/answer_fab"
+                android:tooltipText="Answer"
+                android:visibility="@{safeUnbox(viewModel.answerButtonVisibility)}"
         />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -63,12 +63,17 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
         modeToTrainButtonVisibility(it)
     }
 
+    private val _navigateToFirstExercise = MutableLiveData<Boolean>()
+    val navigateToFirstExercise: LiveData<Boolean>
+        get() = _navigateToFirstExercise
+
     init {
         _navigateToLessonDescription.value = false
         _showDeletionDialog.value = false
         _executeDelete.value = false
         _complainEmptyLesson.value = false
         _mode.value = mode
+        _navigateToFirstExercise.value = false
     }
 
     val trainingProcess = TrainingProcess.getInstance(application)
@@ -79,6 +84,14 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
 
     fun onNavigateToLessonDescriptionComplete() {
         _navigateToLessonDescription.value = false
+    }
+
+    fun onNavigateToFirstExercise() {
+        _navigateToFirstExercise.value = true
+    }
+
+    fun onNavigateToFirstExerciseComplete() {
+        _navigateToFirstExercise.value = false
     }
 
     fun onDeleteRequest() {

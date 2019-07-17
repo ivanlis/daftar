@@ -88,6 +88,7 @@
                 android:id="@+id/start_training_fab"
                 android:tooltipText="Start training"
                 android:visibility="@{safeUnbox(lessonDetailsViewModel.startTrainingButtonVisibility)}"
+                android:onClick="@{() -> lessonDetailsViewModel.onNavigateToFirstExercise()}"
         />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

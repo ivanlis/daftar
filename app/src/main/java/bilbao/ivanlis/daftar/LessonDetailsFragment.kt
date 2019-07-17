@@ -130,6 +130,18 @@ class LessonDetailsFragment : Fragment() {
             }
         })
 
+        viewModel.navigateToFirstExercise.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    viewModel.onNavigateToFirstExerciseComplete()
+                    //TODO: implement
+                    //NavHostFragment.findNavController(this).navigate(
+                    //
+                    //)
+                }
+            }
+        })
+
         binding.lifecycleOwner = this
 
 
