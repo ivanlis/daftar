@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import bilbao.ivanlis.daftar.constants.POS_NOUN
+import bilbao.ivanlis.daftar.constants.POS_VERB
 import bilbao.ivanlis.daftar.databinding.FragmentLessonDetailsBinding
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -64,9 +66,9 @@ class LessonDetailsFragment : Fragment() {
 
             NavHostFragment.findNavController(this).navigate(
                 when(it.partOfSpeechName) {
-                    "verb" -> LessonDetailsFragmentDirections
+                    POS_VERB -> LessonDetailsFragmentDirections
                         .actionLessonDetailsFragmentToVerbFragment(wordId = it.wordId, lessonId = lessonId)
-                    "noun" -> LessonDetailsFragmentDirections
+                    POS_NOUN -> LessonDetailsFragmentDirections
                         .actionLessonDetailsFragmentToNounFragment(wordId = it.wordId, lessonId = lessonId)
                     //TODO: exception on unknown part of speech name
                     else -> LessonDetailsFragmentDirections
