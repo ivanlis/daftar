@@ -13,7 +13,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import bilbao.ivanlis.daftar.constants.POS_NOUN
+import bilbao.ivanlis.daftar.constants.POS_PARTICLE
 import bilbao.ivanlis.daftar.constants.POS_VERB
+import bilbao.ivanlis.daftar.constants.WordScreenMode
 import bilbao.ivanlis.daftar.databinding.FragmentLessonDetailsBinding
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -136,10 +138,22 @@ class LessonDetailsFragment : Fragment() {
             it?.let { flagValue ->
                 if (flagValue) {
                     viewModel.onNavigateToFirstExerciseComplete()
-                    //TODO: implement
-                    //NavHostFragment.findNavController(this).navigate(
-                    //
-                    //)
+
+                    Timber.d("firstExerciseData: ${viewModel.firstExerciseData}")
+
+                    viewModel.firstExerciseData?.let {
+                        when (it.posName) {
+                            POS_VERB -> NavHostFragment.findNavController(this).navigate(
+                                LessonDetailsFragmentDirections.actionLessonDetailsFragmentToVerbFragment(
+                                    it.wordId, lessonId, WordScreenMode.ANSWER))
+                            POS_NOUN -> NavHostFragment.findNavController(this).navigate(
+                                LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNounFragment(
+                                    it.wordId, lessonId, WordScreenMode.ANSWER))
+                            POS_PARTICLE -> NavHostFragment.findNavController(this).navigate(
+                                LessonDetailsFragmentDirections.actionLessonDetailsFragmentToParticleFragment(
+                                    it.wordId, lessonId, WordScreenMode.ANSWER))
+                        }
+                    }
                 }
             }
         })

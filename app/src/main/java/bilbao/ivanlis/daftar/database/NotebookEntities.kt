@@ -165,6 +165,10 @@ data class WordInitialFormTranslation(val wordId: Long,
                                       val translation: String,
                                       val partOfSpeechName: String)
 
+data class WordPartOfSpeech(val wordId: Long,
+                            val posName: String,
+                            val posId: Long)
+
 // Verb forms for Arabic
 data class ArabicVerbForms(val wordId: Long,
                            val translation: String,

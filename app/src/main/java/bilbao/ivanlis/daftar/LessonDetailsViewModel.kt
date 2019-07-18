@@ -9,6 +9,7 @@ import bilbao.ivanlis.daftar.constants.LessonDetailsMode
 import bilbao.ivanlis.daftar.database.NotebookDb
 import bilbao.ivanlis.daftar.database.NotebookRepository
 import bilbao.ivanlis.daftar.database.TrainingProcess
+import bilbao.ivanlis.daftar.database.WordPartOfSpeech
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -67,6 +68,8 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     val navigateToFirstExercise: LiveData<Boolean>
         get() = _navigateToFirstExercise
 
+    var firstExerciseData: WordPartOfSpeech? = null
+
     init {
         _navigateToLessonDescription.value = false
         _showDeletionDialog.value = false
@@ -87,7 +90,20 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     }
 
     fun onNavigateToFirstExercise() {
-        _navigateToFirstExercise.value = true
+
+        val firstExerciseWordId = trainingProcess.getWordIdCorrespondingToExercise(0)
+        Timber.d("firstExerciseWordId = $firstExerciseWordId")
+        if (firstExerciseWordId < 0)
+            return
+
+        uiScope.launch {
+            firstExerciseData = withContext(Dispatchers.IO) {
+                repository.extractWordPartOfSpeech(firstExerciseWordId)
+            }
+            Timber.d("Extracted first exercise data: wordId = ${firstExerciseData?.wordId}, posName = ${firstExerciseData?.posName}")
+
+            _navigateToFirstExercise.value = true
+        }
     }
 
     fun onNavigateToFirstExerciseComplete() {

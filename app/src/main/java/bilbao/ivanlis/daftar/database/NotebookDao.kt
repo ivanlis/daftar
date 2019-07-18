@@ -150,6 +150,15 @@ interface NotebookDao {
         """)
     fun extractInitialFormsForLesson(lessonId: Long): LiveData<List<WordInitialFormTranslation>>
 
+
+    @Query("""
+        SELECT :wordId AS wordId, f.part_of_speech_id AS posId, pos.english_name AS posName
+        FROM word_record AS wr INNER JOIN form AS f ON wr.form_id = f.id AND wr.word_id=:wordId AND f.initial=1
+        INNER JOIN part_of_speech as pos ON f.part_of_speech_id = pos.id
+    """)
+    fun extractWordPartOfSpeech(wordId: Long): WordPartOfSpeech
+
+
     @Query("""SELECT id FROM word WHERE lesson_id = :lessonId""")
     fun extractWordIdsForLesson(lessonId: Long): List<Long>
 
