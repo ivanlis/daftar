@@ -98,7 +98,7 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
         }
     }
 
-    fun onNextCompleted() {
+    fun onAnswerCompleted() {
         _navigateToEvaluation.value = false
     }
 

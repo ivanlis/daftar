@@ -111,6 +111,17 @@ class NounFragment : Fragment() {
             }
         })
 
+        viewModel.navigateToEvaluation.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    viewModel.onAnswerCompleted()
+                    NavHostFragment.findNavController(this).navigate(
+                        NounFragmentDirections.actionNounFragmentSelf(wordId, lessonId, WordScreenMode.EVALUATE))
+                    Toast.makeText(this.context, "Navigated to EVALUATE", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
         return binding.root
     }
 

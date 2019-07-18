@@ -116,7 +116,7 @@ class VerbFragment : Fragment() {
 
             it?.let { flagValue ->
                 if (flagValue) {
-                    viewModel.onNextCompleted()
+                    viewModel.onAnswerCompleted()
                     NavHostFragment.findNavController(this).navigate(
                         VerbFragmentDirections.actionVerbFragmentSelf(wordId, lessonId, WordScreenMode.EVALUATE))
                     Toast.makeText(this.context, "Navigated to EVALUATE", Toast.LENGTH_LONG).show()
