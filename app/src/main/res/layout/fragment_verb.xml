@@ -126,6 +126,19 @@
                 android:id="@+id/answer_fab"
                 android:tooltipText="Answer"
                 android:visibility="@{safeUnbox(viewModel.answerButtonVisibility)}"
+                android:onClick="@{() -> viewModel.onAnswerClicked()}"
+        />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@drawable/ic_check_mod_white_24dp"
+                android:id="@+id/next_fab"
+                android:tooltipText="Next"
+                android:visibility="@{safeUnbox(viewModel.nextButtonVisibility)}"
+                android:onClick="@{() -> viewModel.onNextClicked()}"
         />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

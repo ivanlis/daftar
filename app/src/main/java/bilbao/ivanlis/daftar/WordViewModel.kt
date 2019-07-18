@@ -7,8 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import bilbao.ivanlis.daftar.constants.WordScreenMode
-import bilbao.ivanlis.daftar.database.NotebookDb
-import bilbao.ivanlis.daftar.database.NotebookRepository
+import bilbao.ivanlis.daftar.database.*
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -26,6 +25,10 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
     val saveData: LiveData<Boolean>
         get() = _saveData
 
+    protected val _navigateToEvaluation = MutableLiveData<Boolean>()
+    val navigateToEvaluation: LiveData<Boolean>
+        get() = _navigateToEvaluation
+
     private val _executeDelete = MutableLiveData<Boolean>()
     val executeDelete: LiveData<Boolean>
         get() = _executeDelete
@@ -37,6 +40,8 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
     private val _currentMode = MutableLiveData<WordScreenMode>()
     val currentMode: LiveData<WordScreenMode>
         get() = _currentMode
+
+    var nextExerciseData: WordPartOfSpeech? = null
 
     val saveButtonVisibility: LiveData<Int> = Transformations.map(currentMode) {
         modeToSaveButtonVisibility(it)
@@ -50,14 +55,51 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
         modeToDeleteButtonVisibility(it)
     }
 
+    val nextButtonVisibility: LiveData<Int> = Transformations.map(currentMode) {
+        modeToNextButtonVisibility(it)
+    }
+
     init {
         _saveData.value = false
         _executeDelete.value = false
+        _navigateToEvaluation.value = false
         _currentMode.value = mode
     }
 
+    val trainingProcess = TrainingProcess.getInstance(application)
+
     fun onSaveClicked() {
         _saveData.value = true
+    }
+
+    fun onAnswerClicked() {
+        _navigateToEvaluation.value = true
+    }
+
+    fun onNextClicked() {
+
+        try {
+            trainingProcess.advance()
+            val nextExerciseWordId = trainingProcess.getWordIdCorrespondingToExercise(
+                trainingProcess.nextExerciseIndex.toInt())
+
+            uiScope.launch {
+                nextExerciseData = withContext(Dispatchers.IO) {
+                    repository.extractWordPartOfSpeech(nextExerciseWordId)
+                }
+                //_navigateToEvaluation.value = true
+                //TODO: event to go to the next word (ANSWER mode)
+            }
+        }
+        catch (e: TrainingProcessFinishedException)
+        {
+            nextExerciseData = null
+            //_navigateToEvaluation.value = true
+        }
+    }
+
+    fun onNextCompleted() {
+        _navigateToEvaluation.value = false
     }
 
     override fun onConfirmedDeleteRequest() {
@@ -130,6 +172,13 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
                 WordScreenMode.EDIT -> View.VISIBLE
                 WordScreenMode.ANSWER -> View.GONE
                 WordScreenMode.EVALUATE -> View.GONE
+            }
+
+    fun modeToNextButtonVisibility(mode: WordScreenMode) =
+            when(mode) {
+                WordScreenMode.EDIT -> View.GONE
+                WordScreenMode.ANSWER -> View.GONE
+                WordScreenMode.EVALUATE -> View.VISIBLE
             }
 
     fun computeNextFragmentMode(mode: WordScreenMode) =

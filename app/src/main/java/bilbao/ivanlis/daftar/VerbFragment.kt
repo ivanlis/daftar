@@ -112,6 +112,18 @@ class VerbFragment : Fragment() {
             }
         })
 
+        viewModel.navigateToEvaluation.observe(this, Observer {
+
+            it?.let { flagValue ->
+                if (flagValue) {
+                    viewModel.onNextCompleted()
+                    NavHostFragment.findNavController(this).navigate(
+                        VerbFragmentDirections.actionVerbFragmentSelf(wordId, lessonId, WordScreenMode.EVALUATE))
+                    Toast.makeText(this.context, "Navigated to EVALUATE", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
         return binding.root
     }
 
