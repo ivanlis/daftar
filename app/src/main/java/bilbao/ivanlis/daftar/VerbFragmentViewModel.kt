@@ -4,10 +4,11 @@ import android.app.Application
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import bilbao.ivanlis.daftar.constants.WordScreenMode
 
 
-class VerbFragmentViewModel(application: Application, wordId: Long):
-        WordViewModel(application, wordId) {
+class VerbFragmentViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT):
+        WordViewModel(application, wordId, mode) {
 
 
     private val verbForms = repository.extractArabicVerbForms(wordId)
@@ -53,12 +54,14 @@ class VerbFragmentViewModel(application: Application, wordId: Long):
     }
 }
 
-class VerbFragmentViewModelFactory(private val application: Application, private val wordId: Long): ViewModelProvider.Factory {
+class VerbFragmentViewModelFactory(private val application: Application,
+                                   private val wordId: Long, private val mode: WordScreenMode = WordScreenMode.EDIT):
+    ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(VerbFragmentViewModel::class.java)) {
-            return VerbFragmentViewModel(application, wordId) as T
+            return VerbFragmentViewModel(application, wordId, mode) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

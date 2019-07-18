@@ -4,9 +4,10 @@ import android.app.Application
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import bilbao.ivanlis.daftar.constants.WordScreenMode
 
-class ParticleFragmentViewModel(application: Application, wordId: Long):
-        WordViewModel(application, wordId) {
+class ParticleFragmentViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT):
+        WordViewModel(application, wordId, mode) {
 
     private val particleForms = repository.extractArabicParticleForms(wordId)
 
@@ -35,14 +36,15 @@ class ParticleFragmentViewModel(application: Application, wordId: Long):
     }
 }
 
-class ParticleFragmentViewModelFactory(private val application: Application, private val wordId: Long):
+class ParticleFragmentViewModelFactory(private val application: Application,
+                                       private val wordId: Long, private val mode: WordScreenMode = WordScreenMode.EDIT):
         ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
         if (modelClass.isAssignableFrom(ParticleFragmentViewModel::class.java)) {
-            return ParticleFragmentViewModel(application, wordId) as T
+            return ParticleFragmentViewModel(application, wordId, mode) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

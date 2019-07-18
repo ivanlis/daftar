@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
+import bilbao.ivanlis.daftar.constants.WordScreenMode
 import bilbao.ivanlis.daftar.databinding.FragmentParticleBinding
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -46,10 +47,14 @@ class ParticleFragment : Fragment() {
             false -> null
         })
 
+        val mode = args?.let {
+            ParticleFragmentArgs.fromBundle(it).mode
+        } ?: WordScreenMode.EDIT
+
         Timber.d("Particle, wordId = $wordId")
 
         val application = requireNotNull(this.activity).application
-        val viewModelFactory = ParticleFragmentViewModelFactory(application, wordId)
+        val viewModelFactory = ParticleFragmentViewModelFactory(application, wordId, mode)
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(ParticleFragmentViewModel::class.java)
