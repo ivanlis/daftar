@@ -63,6 +63,10 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
         modeToNextButtonVisibility(it)
     }
 
+    val editability: LiveData<Boolean> = Transformations.map(currentMode) {
+        modeToEditability(it)
+    }
+
     init {
         _saveData.value = false
         _executeDelete.value = false
@@ -185,6 +189,13 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
                 WordScreenMode.EDIT -> View.GONE
                 WordScreenMode.ANSWER -> View.GONE
                 WordScreenMode.EVALUATE -> View.VISIBLE
+            }
+
+    fun modeToEditability(mode: WordScreenMode) =
+            when(mode) {
+                WordScreenMode.EDIT -> true
+                WordScreenMode.ANSWER -> true
+                WordScreenMode.EVALUATE -> false
             }
 
     fun computeNextFragmentMode(mode: WordScreenMode) =
