@@ -55,7 +55,7 @@ class TrainingProcess private constructor(context: Context, fileName: String) {
         }
 
     var nextExerciseIndex: Long
-        get() = sharedPreferences.getLong("nextExercise", -1L)
+        get() = sharedPreferences.getLong("nextExercise", 0L)
         set(value: Long) {
             sharedPreferences.edit().putLong("nextExercise", value).apply()
         }

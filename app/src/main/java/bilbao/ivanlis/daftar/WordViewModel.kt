@@ -29,6 +29,10 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
     val navigateToEvaluation: LiveData<Boolean>
         get() = _navigateToEvaluation
 
+    protected val _navigateToNext = MutableLiveData<Boolean>()
+    val navigateToNext: LiveData<Boolean>
+        get() = _navigateToNext
+
     private val _executeDelete = MutableLiveData<Boolean>()
     val executeDelete: LiveData<Boolean>
         get() = _executeDelete
@@ -63,6 +67,7 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
         _saveData.value = false
         _executeDelete.value = false
         _navigateToEvaluation.value = false
+        _navigateToNext.value = false
         _currentMode.value = mode
     }
 
@@ -79,27 +84,33 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
     fun onNextClicked() {
 
         try {
+            Timber.d("Now we are at ex. [${trainingProcess.nextExerciseIndex}] -> $wordId")
             trainingProcess.advance()
             val nextExerciseWordId = trainingProcess.getWordIdCorrespondingToExercise(
                 trainingProcess.nextExerciseIndex.toInt())
+            Timber.d("About to go to ex. [${trainingProcess.nextExerciseIndex}] -> $nextExerciseWordId")
+
 
             uiScope.launch {
                 nextExerciseData = withContext(Dispatchers.IO) {
                     repository.extractWordPartOfSpeech(nextExerciseWordId)
                 }
-                //_navigateToEvaluation.value = true
-                //TODO: event to go to the next word (ANSWER mode)
+                _navigateToNext.value = true
             }
         }
         catch (e: TrainingProcessFinishedException)
         {
             nextExerciseData = null
-            //_navigateToEvaluation.value = true
+            _navigateToNext.value = true
         }
     }
 
     fun onAnswerCompleted() {
         _navigateToEvaluation.value = false
+    }
+
+    fun onNavigateToNextComplete() {
+        _navigateToNext.value = false
     }
 
     override fun onConfirmedDeleteRequest() {
@@ -119,11 +130,6 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
     }
 
     fun onSaveData(userInput: WordFormInput) {
-
-//        _saveData.value?.let {
-//            if (!it)
-//                return
-//        }
 
         Timber.d("onSaveData()")
 

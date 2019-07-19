@@ -52,6 +52,8 @@
         <argument android:name="mode" app:argType="bilbao.ivanlis.daftar.constants.WordScreenMode" app:nullable="true"
                   android:defaultValue="@null"/>
         <action android:id="@+id/action_verbFragment_self" app:destination="@id/verbFragment"/>
+        <action android:id="@+id/action_verbFragment_to_nounFragment" app:destination="@id/nounFragment"/>
+        <action android:id="@+id/action_verbFragment_to_particleFragment" app:destination="@id/particleFragment"/>
     </fragment>
     <fragment android:id="@+id/nounFragment" android:name="bilbao.ivanlis.daftar.NounFragment"
               android:label="fragment_noun" tools:layout="@layout/fragment_noun">
@@ -64,6 +66,8 @@
         <argument android:name="mode" app:argType="bilbao.ivanlis.daftar.constants.WordScreenMode" app:nullable="true"
                   android:defaultValue="@null"/>
         <action android:id="@+id/action_nounFragment_self" app:destination="@id/nounFragment"/>
+        <action android:id="@+id/action_nounFragment_to_particleFragment" app:destination="@id/particleFragment"/>
+        <action android:id="@+id/action_nounFragment_to_verbFragment" app:destination="@id/verbFragment"/>
     </fragment>
     <fragment android:id="@+id/particleFragment" android:name="bilbao.ivanlis.daftar.ParticleFragment"
               android:label="fragment_particle" tools:layout="@layout/fragment_particle">
@@ -76,6 +80,8 @@
         <argument android:name="mode" app:argType="bilbao.ivanlis.daftar.constants.WordScreenMode" app:nullable="true"
                   android:defaultValue="@null"/>
         <action android:id="@+id/action_particleFragment_self" app:destination="@id/particleFragment"/>
+        <action android:id="@+id/action_particleFragment_to_verbFragment" app:destination="@id/verbFragment"/>
+        <action android:id="@+id/action_particleFragment_to_nounFragment" app:destination="@id/nounFragment"/>
     </fragment>
     <fragment android:id="@+id/newWordFragment" android:name="bilbao.ivanlis.daftar.NewWordFragment"
               android:label="NewWordFragment">
