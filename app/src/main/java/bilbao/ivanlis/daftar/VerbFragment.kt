@@ -132,8 +132,8 @@ class VerbFragment : Fragment() {
                             }
                         )
                     } ?: run {
-                        //TODO: go to the final screen
-                        Toast.makeText(this.context,"No more exercises.", Toast.LENGTH_LONG).show()
+                        NavHostFragment.findNavController(this).navigate(
+                            VerbFragmentDirections.actionVerbFragmentToTrainingFinishedFragment())
                     }
                 }
             }
