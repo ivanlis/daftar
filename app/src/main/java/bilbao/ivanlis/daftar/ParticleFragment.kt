@@ -11,6 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
+import bilbao.ivanlis.daftar.constants.POS_NOUN
+import bilbao.ivanlis.daftar.constants.POS_VERB
 import bilbao.ivanlis.daftar.constants.WordScreenMode
 import bilbao.ivanlis.daftar.databinding.FragmentParticleBinding
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
@@ -110,6 +112,31 @@ class ParticleFragment : Fragment() {
                         ParticleFragmentDirections.actionParticleFragmentToLessonDetailsFragment(lessonId)
                     )
                     Toast.makeText(this.context, getString(R.string.message_word_deleted), Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        viewModel.navigateToNext.observe(this, Observer {
+
+            it?.let { flagValue ->
+                if (flagValue) {
+                    viewModel.onNavigateToNextComplete()
+                    viewModel.nextExerciseData?.let { posData ->
+                        NavHostFragment.findNavController(this).navigate(
+
+                            when(posData.posName) {
+                                POS_VERB -> ParticleFragmentDirections.actionParticleFragmentToVerbFragment(
+                                    posData.wordId, lessonId, WordScreenMode.ANSWER)
+                                POS_NOUN -> ParticleFragmentDirections.actionParticleFragmentToNounFragment(
+                                    posData.wordId, lessonId, WordScreenMode.ANSWER)
+                                else -> ParticleFragmentDirections.actionParticleFragmentSelf(
+                                    posData.wordId, lessonId, WordScreenMode.ANSWER)
+                            }
+                        )
+                    } ?: run {
+                        //TODO: go to the final screen
+                        Toast.makeText(this.context,"No more exercises.", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         })
