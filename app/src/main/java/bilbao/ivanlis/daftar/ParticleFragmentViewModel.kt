@@ -22,7 +22,7 @@ class ParticleFragmentViewModel(application: Application, wordId: Long, mode: Wo
                 }
         }
         particleParticle.addSource(particleForms) {
-            if (particleParticle.value == null)
+            if (modeToContentFromDBDisplay(screenMode) && particleParticle.value == null)
                 it.let { pForms ->
                     particleParticle.value = pForms.particleForm
                 }

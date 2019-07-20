@@ -26,19 +26,19 @@ class VerbFragmentViewModel(application: Application, wordId: Long, mode: WordSc
                 }
         }
         verbPast.addSource(verbForms) {
-            if (verbPast.value == null)
+            if (modeToContentFromDBDisplay(screenMode) && verbPast.value == null)
                 it?.let { vForms ->
                     verbPast.value = vForms.pastForm
                 }
         }
         verbNonpast.addSource(verbForms) {
-            if (verbNonpast.value == null)
+            if (modeToContentFromDBDisplay(screenMode) && verbNonpast.value == null)
                 it?.let { vForms ->
                     verbNonpast.value = vForms.nonpastForm
                 }
         }
         verbVerbalNoun.addSource(verbForms) {
-            if (verbVerbalNoun.value == null)
+            if (modeToContentFromDBDisplay(screenMode) && verbVerbalNoun.value == null)
                 it?.let { vForms ->
                     verbVerbalNoun.value = vForms.verbalNounForm
                 }

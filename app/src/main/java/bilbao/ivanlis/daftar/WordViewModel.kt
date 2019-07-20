@@ -45,6 +45,8 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
     val currentMode: LiveData<WordScreenMode>
         get() = _currentMode
 
+    protected val screenMode = mode
+
     var nextExerciseData: WordPartOfSpeech? = null
 
     val saveButtonVisibility: LiveData<Int> = Transformations.map(currentMode) {
@@ -66,6 +68,10 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
     val editability: LiveData<Boolean> = Transformations.map(currentMode) {
         modeToEditability(it)
     }
+
+//    val displayContentFromDB: LiveData<Boolean> = Transformations.map(currentMode) {
+//        modeToContentFromDBDisplay(it)
+//    }
 
     init {
         _saveData.value = false
@@ -190,6 +196,13 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
                 WordScreenMode.ANSWER -> View.GONE
                 WordScreenMode.EVALUATE -> View.VISIBLE
             }
+
+    fun modeToContentFromDBDisplay(mode: WordScreenMode) =
+        when(mode) {
+            WordScreenMode.EDIT -> true
+            WordScreenMode.ANSWER -> false
+            WordScreenMode.EVALUATE -> true
+        }
 
     fun modeToEditability(mode: WordScreenMode) =
             when(mode) {

@@ -24,13 +24,13 @@ class NounFragmentViewModel(application: Application, wordId: Long, mode: WordSc
                 }
         }
         nounSingular.addSource(nounForms) {
-            if (nounSingular.value == null)
+            if (modeToContentFromDBDisplay(screenMode) && nounSingular.value == null)
                 it.let { nForms ->
                     nounSingular.value = nForms.singularForm
                 }
         }
         nounPlural.addSource(nounForms) {
-            if (nounPlural.value == null)
+            if (modeToContentFromDBDisplay(screenMode) && nounPlural.value == null)
                 it.let { nForms ->
                     nounPlural.value = nForms.pluralForm
                 }
