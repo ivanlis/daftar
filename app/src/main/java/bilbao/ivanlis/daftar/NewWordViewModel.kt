@@ -1,15 +1,17 @@
 package bilbao.ivanlis.daftar
 
 import android.app.Application
+import android.os.Parcelable
 import androidx.lifecycle.*
 import bilbao.ivanlis.daftar.constants.*
 import bilbao.ivanlis.daftar.database.NotebookDb
 import bilbao.ivanlis.daftar.database.NotebookRepository
 import bilbao.ivanlis.daftar.database.Word
+import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.*
 import timber.log.Timber
 
-
+@Parcelize
 data class WordFormInput(
     val lessonId: Long = 0L,
     val posChosen: String = "",
@@ -20,7 +22,7 @@ data class WordFormInput(
     val pluralForm: String = "",
     val particleForm: String = "",
     val translation: String = ""
-)
+) : Parcelable
 
 class NewWordViewModel(application: Application, lessonId: Long) :
     AndroidViewModel(application) {

@@ -7,8 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import bilbao.ivanlis.daftar.constants.WordScreenMode
 
 
-class VerbFragmentViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT):
-        WordViewModel(application, wordId, mode) {
+class VerbFragmentViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT,
+                            userAnswer: WordFormInput? = null):
+        WordViewModel(application, wordId, mode, userAnswer) {
 
 
     private val verbForms = repository.extractArabicVerbForms(wordId)
@@ -26,22 +27,52 @@ class VerbFragmentViewModel(application: Application, wordId: Long, mode: WordSc
                 }
         }
         verbPast.addSource(verbForms) {
-            if (modeToContentFromDBDisplay(screenMode) && verbPast.value == null)
-                it?.let { vForms ->
-                    verbPast.value = vForms.pastForm
+            if (modeToContentFromDBDisplay(screenMode) && verbPast.value == null) {
+                if (screenMode == WordScreenMode.EDIT) {
+                    it?.let { vForms ->
+                        verbPast.value = vForms.pastForm
+                    }
+                } else {
+                    it?.let { vForms ->
+                        //TODO: show the difference between the user input and the correct word
+                        userAnswer?.let { userAns ->
+                            verbPast.value = composeEvaluationValue(vForms.pastForm, userAns.pastForm)
+                        }
+                    }
                 }
+            }
         }
         verbNonpast.addSource(verbForms) {
-            if (modeToContentFromDBDisplay(screenMode) && verbNonpast.value == null)
-                it?.let { vForms ->
-                    verbNonpast.value = vForms.nonpastForm
+            if (modeToContentFromDBDisplay(screenMode) && verbNonpast.value == null) {
+                if (screenMode == WordScreenMode.EDIT) {
+                    it?.let { vForms ->
+                        verbNonpast.value = vForms.nonpastForm
+                    }
+                } else {
+                    it?.let { vForms ->
+                        //TODO: show the difference between the user input and the correct word
+                        userAnswer?.let { userAns ->
+                            verbNonpast.value = composeEvaluationValue(vForms.nonpastForm, userAns.nonpastForm)
+                        }
+                    }
                 }
+            }
         }
         verbVerbalNoun.addSource(verbForms) {
-            if (modeToContentFromDBDisplay(screenMode) && verbVerbalNoun.value == null)
-                it?.let { vForms ->
-                    verbVerbalNoun.value = vForms.verbalNounForm
+            if (modeToContentFromDBDisplay(screenMode) && verbVerbalNoun.value == null) {
+                if (screenMode == WordScreenMode.EDIT) {
+                    it?.let { vForms ->
+                        verbVerbalNoun.value = vForms.verbalNounForm
+                    }
+                } else {
+                    it?.let { vForms ->
+                        //TODO: show the difference between the user input and the correct word
+                        userAnswer?.let { userAns ->
+                            verbVerbalNoun.value = composeEvaluationValue(vForms.verbalNounForm, userAns.verbnounForm)
+                        }
+                    }
                 }
+            }
         }
     }
 
@@ -55,13 +86,15 @@ class VerbFragmentViewModel(application: Application, wordId: Long, mode: WordSc
 }
 
 class VerbFragmentViewModelFactory(private val application: Application,
-                                   private val wordId: Long, private val mode: WordScreenMode = WordScreenMode.EDIT):
+                                   private val wordId: Long,
+                                   private val mode: WordScreenMode = WordScreenMode.EDIT,
+                                   private val userAnswer: WordFormInput? = null):
     ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(VerbFragmentViewModel::class.java)) {
-            return VerbFragmentViewModel(application, wordId, mode) as T
+            return VerbFragmentViewModel(application, wordId, mode, userAnswer) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

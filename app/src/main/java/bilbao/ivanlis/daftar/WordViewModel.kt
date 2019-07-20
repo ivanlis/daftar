@@ -12,7 +12,8 @@ import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
 import kotlinx.coroutines.*
 import timber.log.Timber
 
-abstract class WordViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT):
+abstract class WordViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT,
+                             protected val userAnswer: WordFormInput? = null):
     AndroidViewModel(application), DeletionDialogFragment.DeletionDialogListener {
 
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
@@ -217,4 +218,6 @@ abstract class WordViewModel(application: Application, wordId: Long, mode: WordS
                 WordScreenMode.ANSWER -> WordScreenMode.EVALUATE
                 WordScreenMode.EVALUATE -> WordScreenMode.ANSWER
             }
+
+    fun composeEvaluationValue(trueString: String, userString: String) = "$userString $trueString"
 }

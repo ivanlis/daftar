@@ -7,8 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import bilbao.ivanlis.daftar.constants.WordScreenMode
 
 
-class NounFragmentViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT):
-    WordViewModel(application, wordId, mode) {
+class NounFragmentViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT,
+                            userAnswer: WordFormInput? = null):
+    WordViewModel(application, wordId, mode, userAnswer) {
 
     private val nounForms = repository.extractArabicNounForms(wordId)
 
@@ -24,16 +25,40 @@ class NounFragmentViewModel(application: Application, wordId: Long, mode: WordSc
                 }
         }
         nounSingular.addSource(nounForms) {
-            if (modeToContentFromDBDisplay(screenMode) && nounSingular.value == null)
-                it.let { nForms ->
-                    nounSingular.value = nForms.singularForm
+            when (screenMode) {
+                WordScreenMode.EDIT -> {
+                    if (modeToContentFromDBDisplay(screenMode) && nounSingular.value == null)
+                        it.let { nForms ->
+                            nounSingular.value = nForms.singularForm
+                        }
                 }
+                WordScreenMode.EVALUATE -> {
+                    it.let { nForms ->
+                        userAnswer?.let { userAns ->
+                            nounSingular.value = composeEvaluationValue(nForms.singularForm, userAns.singularForm)
+                        }
+                    }
+                }
+                else -> { }
+            }
         }
         nounPlural.addSource(nounForms) {
-            if (modeToContentFromDBDisplay(screenMode) && nounPlural.value == null)
-                it.let { nForms ->
-                    nounPlural.value = nForms.pluralForm
+            when (screenMode) {
+                WordScreenMode.EDIT -> {
+                    if (modeToContentFromDBDisplay(screenMode) && nounPlural.value == null)
+                        it.let { nForms ->
+                            nounPlural.value = nForms.pluralForm
+                        }
                 }
+                WordScreenMode.EVALUATE -> {
+                    it.let { nForms ->
+                        userAnswer?.let { userAns ->
+                            nounPlural.value = composeEvaluationValue(nForms.pluralForm, userAns.pluralForm)
+                        }
+                    }
+                }
+                else -> { }
+            }
         }
     }
 
@@ -46,13 +71,15 @@ class NounFragmentViewModel(application: Application, wordId: Long, mode: WordSc
 }
 
 class NounFragmentViewModelFactory(private val application: Application,
-                                   private val wordId: Long, private val mode: WordScreenMode = WordScreenMode.EDIT):
+                                   private val wordId: Long,
+                                   private val mode: WordScreenMode = WordScreenMode.EDIT,
+                                   private val userAnswer: WordFormInput? = null):
         ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(NounFragmentViewModel::class.java)) {
-            return NounFragmentViewModel(application, wordId, mode) as T
+            return NounFragmentViewModel(application, wordId, mode, userAnswer) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.daftar.constants.POS_NOUN
+import bilbao.ivanlis.daftar.constants.POS_PARTICLE
 import bilbao.ivanlis.daftar.constants.POS_VERB
 import bilbao.ivanlis.daftar.constants.WordScreenMode
 import bilbao.ivanlis.daftar.databinding.FragmentParticleBinding
@@ -53,10 +54,14 @@ class ParticleFragment : Fragment() {
             ParticleFragmentArgs.fromBundle(it).mode
         } ?: WordScreenMode.EDIT
 
+        val userAnswer = args?.let {
+            ParticleFragmentArgs.fromBundle(it).userInput
+        }
+
         Timber.d("Particle, wordId = $wordId")
 
         val application = requireNotNull(this.activity).application
-        val viewModelFactory = ParticleFragmentViewModelFactory(application, wordId, mode)
+        val viewModelFactory = ParticleFragmentViewModelFactory(application, wordId, mode, userAnswer)
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(ParticleFragmentViewModel::class.java)
@@ -146,8 +151,12 @@ class ParticleFragment : Fragment() {
             it?.let { flagValue ->
                 if (flagValue) {
                     viewModel.onAnswerCompleted()
+                    val userInput = WordFormInput(lessonId = lessonId, posChosen = POS_PARTICLE,
+                        particleForm = binding.particleEdit.text.toString(),
+                        translation = binding.translationEdit.text.toString())
                     NavHostFragment.findNavController(this).navigate(
-                        ParticleFragmentDirections.actionParticleFragmentSelf(wordId, lessonId, WordScreenMode.EVALUATE))
+                        ParticleFragmentDirections.actionParticleFragmentSelf(wordId, lessonId,
+                            WordScreenMode.EVALUATE, userInput = userInput))
                     Toast.makeText(this.context, "Navigated to EVALUATE", Toast.LENGTH_LONG).show()
                 }
             }

@@ -52,11 +52,14 @@ class VerbFragment : Fragment() {
             VerbFragmentArgs.fromBundle(it).mode
         } ?: WordScreenMode.EDIT
 
+        val userAnswer = args?.let {
+            VerbFragmentArgs.fromBundle(it).userInput
+        }
 
         Timber.d("Verb, wordId = $wordId")
 
         val application = requireNotNull(this.activity).application
-        val viewModelFactory = VerbFragmentViewModelFactory(application, wordId, mode)
+        val viewModelFactory = VerbFragmentViewModelFactory(application, wordId, mode, userAnswer)
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(VerbFragmentViewModel::class.java)
@@ -144,8 +147,13 @@ class VerbFragment : Fragment() {
             it?.let { flagValue ->
                 if (flagValue) {
                     viewModel.onAnswerCompleted()
+                    val userIput = WordFormInput(lessonId = lessonId, posChosen = POS_VERB,
+                        pastForm = binding.pastEdit.text.toString(),
+                        nonpastForm = binding.nonpastEdit.text.toString(),
+                        verbnounForm = binding.verbnounEdit.text.toString(),
+                        translation = binding.translationEdit.text.toString())
                     NavHostFragment.findNavController(this).navigate(
-                        VerbFragmentDirections.actionVerbFragmentSelf(wordId, lessonId, WordScreenMode.EVALUATE))
+                        VerbFragmentDirections.actionVerbFragmentSelf(wordId, lessonId, WordScreenMode.EVALUATE, userIput))
                     Toast.makeText(this.context, "Navigated to EVALUATE", Toast.LENGTH_LONG).show()
                 }
             }

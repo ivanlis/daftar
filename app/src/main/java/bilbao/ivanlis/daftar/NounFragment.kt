@@ -53,10 +53,14 @@ class NounFragment : Fragment() {
             NounFragmentArgs.fromBundle(it).mode
         } ?: WordScreenMode.EDIT
 
+        val userAnswer = args?.let {
+            NounFragmentArgs.fromBundle(it).userInput
+        }
+
         Timber.d("Noun, wordId = $wordId")
 
         val application = requireNotNull(this.activity).application
-        val viewModelFactory = NounFragmentViewModelFactory(application, wordId, mode)
+        val viewModelFactory = NounFragmentViewModelFactory(application, wordId, mode, userAnswer)
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(NounFragmentViewModel::class.java)
@@ -143,8 +147,12 @@ class NounFragment : Fragment() {
             it?.let { flagValue ->
                 if (flagValue) {
                     viewModel.onAnswerCompleted()
+                    val userInput = WordFormInput(lessonId = lessonId, posChosen = POS_NOUN,
+                        singularForm = binding.singularEdit.text.toString(),
+                        pluralForm = binding.pluralEdit.text.toString(),
+                        translation = binding.translationEdit.text.toString())
                     NavHostFragment.findNavController(this).navigate(
-                        NounFragmentDirections.actionNounFragmentSelf(wordId, lessonId, WordScreenMode.EVALUATE))
+                        NounFragmentDirections.actionNounFragmentSelf(wordId, lessonId, WordScreenMode.EVALUATE, userInput))
                     Toast.makeText(this.context, "Navigated to EVALUATE", Toast.LENGTH_LONG).show()
                 }
             }

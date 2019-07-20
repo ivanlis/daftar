@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import bilbao.ivanlis.daftar.constants.WordScreenMode
 
-class ParticleFragmentViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT):
-        WordViewModel(application, wordId, mode) {
+class ParticleFragmentViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT,
+                                userAnswer: WordFormInput? = null):
+        WordViewModel(application, wordId, mode, userAnswer) {
 
     private val particleForms = repository.extractArabicParticleForms(wordId)
 
@@ -22,10 +23,22 @@ class ParticleFragmentViewModel(application: Application, wordId: Long, mode: Wo
                 }
         }
         particleParticle.addSource(particleForms) {
-            if (modeToContentFromDBDisplay(screenMode) && particleParticle.value == null)
-                it.let { pForms ->
-                    particleParticle.value = pForms.particleForm
+            when (screenMode) {
+                WordScreenMode.EDIT -> {
+                    if (modeToContentFromDBDisplay(screenMode) && particleParticle.value == null)
+                        it.let { pForms ->
+                            particleParticle.value = pForms.particleForm
+                        }
                 }
+                WordScreenMode.EVALUATE -> {
+                    it.let { pForms ->
+                        userAnswer?.let { userAns ->
+                            particleParticle.value = composeEvaluationValue(pForms.particleForm, userAns.particleForm)
+                        }
+                    }
+                }
+                else -> { }
+            }
         }
     }
 
@@ -37,14 +50,16 @@ class ParticleFragmentViewModel(application: Application, wordId: Long, mode: Wo
 }
 
 class ParticleFragmentViewModelFactory(private val application: Application,
-                                       private val wordId: Long, private val mode: WordScreenMode = WordScreenMode.EDIT):
+                                       private val wordId: Long,
+                                       private val mode: WordScreenMode = WordScreenMode.EDIT,
+                                       private val userAnswer: WordFormInput? = null):
         ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
         if (modelClass.isAssignableFrom(ParticleFragmentViewModel::class.java)) {
-            return ParticleFragmentViewModel(application, wordId, mode) as T
+            return ParticleFragmentViewModel(application, wordId, mode, userAnswer) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")
