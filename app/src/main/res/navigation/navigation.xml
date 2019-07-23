@@ -63,6 +63,7 @@
                 app:destination="@id/trainingFinishedFragment" app:popUpTo="@+id/lessonsListFragment"/>
         <argument android:name="userInput" app:argType="bilbao.ivanlis.daftar.WordFormInput" app:nullable="true"
                   android:defaultValue="@null"/>
+        <action android:id="@+id/action_verbFragment_to_evaluationFragment2" app:destination="@id/evaluationFragment2"/>
     </fragment>
     <fragment android:id="@+id/nounFragment" android:name="bilbao.ivanlis.daftar.NounFragment"
               android:label="fragment_noun" tools:layout="@layout/fragment_noun">
@@ -84,6 +85,7 @@
                 app:destination="@id/trainingFinishedFragment" app:popUpTo="@+id/lessonsListFragment"/>
         <argument android:name="userInput" app:argType="bilbao.ivanlis.daftar.WordFormInput" app:nullable="true"
                   android:defaultValue="@null"/>
+        <action android:id="@+id/action_nounFragment_to_evaluationFragment2" app:destination="@id/evaluationFragment2"/>
     </fragment>
     <fragment android:id="@+id/particleFragment" android:name="bilbao.ivanlis.daftar.ParticleFragment"
               android:label="fragment_particle" tools:layout="@layout/fragment_particle">
@@ -105,6 +107,8 @@
                 app:destination="@id/trainingFinishedFragment" app:popUpTo="@+id/lessonsListFragment"/>
         <argument android:name="userInput" app:argType="bilbao.ivanlis.daftar.WordFormInput" app:nullable="true"
                   android:defaultValue="@null"/>
+        <action android:id="@+id/action_particleFragment_to_evaluationFragment2"
+                app:destination="@id/evaluationFragment2"/>
     </fragment>
     <fragment android:id="@+id/newWordFragment" android:name="bilbao.ivanlis.daftar.NewWordFragment"
               android:label="NewWordFragment">
@@ -126,5 +130,14 @@
               android:label="fragment_training_finished" tools:layout="@layout/fragment_training_finished">
         <action android:id="@+id/action_trainingFinishedFragment_to_lessonDetailsFragment"
                 app:destination="@id/lessonDetailsFragment"/>
+    </fragment>
+    <fragment android:id="@+id/evaluationFragment2" android:name="bilbao.ivanlis.daftar.EvaluationFragment"
+              android:label="EvaluationFragment">
+        <argument android:name="trueValues" app:argType="bilbao.ivanlis.daftar.WordFormInput"/>
+        <argument android:name="userValues" app:argType="bilbao.ivanlis.daftar.WordFormInput"/>
+        <action android:id="@+id/action_evaluationFragment2_to_particleFragment"
+                app:destination="@id/particleFragment"/>
+        <action android:id="@+id/action_evaluationFragment2_to_verbFragment" app:destination="@id/verbFragment"/>
+        <action android:id="@+id/action_evaluationFragment2_to_nounFragment" app:destination="@id/nounFragment"/>
     </fragment>
 </navigation>
