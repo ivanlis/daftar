@@ -30,13 +30,6 @@ class ParticleFragmentViewModel(application: Application, wordId: Long, mode: Wo
                             particleParticle.value = pForms.particleForm
                         }
                 }
-                WordScreenMode.EVALUATE -> {
-                    it.let { pForms ->
-                        userAnswer?.let { userAns ->
-                            particleParticle.value = composeEvaluationValue(pForms.particleForm, userAns.particleForm)
-                        }
-                    }
-                }
                 else -> { }
             }
         }

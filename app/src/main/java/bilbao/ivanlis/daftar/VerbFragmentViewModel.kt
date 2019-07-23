@@ -32,13 +32,6 @@ class VerbFragmentViewModel(application: Application, wordId: Long, mode: WordSc
                     it?.let { vForms ->
                         verbPast.value = vForms.pastForm
                     }
-                } else {
-                    it?.let { vForms ->
-                        //TODO: show the difference between the user input and the correct word
-                        userAnswer?.let { userAns ->
-                            verbPast.value = composeEvaluationValue(vForms.pastForm, userAns.pastForm)
-                        }
-                    }
                 }
             }
         }
@@ -48,13 +41,6 @@ class VerbFragmentViewModel(application: Application, wordId: Long, mode: WordSc
                     it?.let { vForms ->
                         verbNonpast.value = vForms.nonpastForm
                     }
-                } else {
-                    it?.let { vForms ->
-                        //TODO: show the difference between the user input and the correct word
-                        userAnswer?.let { userAns ->
-                            verbNonpast.value = composeEvaluationValue(vForms.nonpastForm, userAns.nonpastForm)
-                        }
-                    }
                 }
             }
         }
@@ -63,13 +49,6 @@ class VerbFragmentViewModel(application: Application, wordId: Long, mode: WordSc
                 if (screenMode == WordScreenMode.EDIT) {
                     it?.let { vForms ->
                         verbVerbalNoun.value = vForms.verbalNounForm
-                    }
-                } else {
-                    it?.let { vForms ->
-                        //TODO: show the difference between the user input and the correct word
-                        userAnswer?.let { userAns ->
-                            verbVerbalNoun.value = composeEvaluationValue(vForms.verbalNounForm, userAns.verbnounForm)
-                        }
                     }
                 }
             }

@@ -42,7 +42,6 @@
                     android:id="@+id/singular_edit" android:hint="@string/noun_singular"
                     app:layout_constraintStart_toEndOf="@+id/text_singular" android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-                    android:enabled="@{safeUnbox(viewModel.editability)}"
             />
             <EditText
                     android:layout_width="wrap_content"
@@ -54,7 +53,6 @@
                     android:hint="@string/noun_plural" app:layout_constraintStart_toEndOf="@+id/text_plural"
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/singular_edit"
-                    android:enabled="@{safeUnbox(viewModel.editability)}"
             />
             <TextView
                     android:text="@string/label_translation"
@@ -74,7 +72,6 @@
                     android:hint="@string/translation" app:layout_constraintStart_toEndOf="@+id/text_translation"
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/plural_edit"
-                    android:enabled="@{safeUnbox(viewModel.editability)}"
             />
             <Button
                     android:text="@string/delete_word"
@@ -112,17 +109,6 @@
                 android:onClick="@{() -> viewModel.onAnswerClicked()}"
         />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="end|bottom"
-                app:srcCompat="@drawable/ic_check_mod_white_24dp"
-                android:id="@+id/next_fab"
-                android:tooltipText="Next"
-                android:visibility="@{safeUnbox(viewModel.nextButtonVisibility)}"
-                android:onClick="@{() -> viewModel.onNextClicked()}"
-        />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

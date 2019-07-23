@@ -121,30 +121,6 @@ class ParticleFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToNext.observe(this, Observer {
-
-            it?.let { flagValue ->
-                if (flagValue) {
-                    viewModel.onNavigateToNextComplete()
-                    viewModel.nextExerciseData?.let { posData ->
-                        NavHostFragment.findNavController(this).navigate(
-
-                            when(posData.posName) {
-                                POS_VERB -> ParticleFragmentDirections.actionParticleFragmentToVerbFragment(
-                                    posData.wordId, lessonId, WordScreenMode.ANSWER)
-                                POS_NOUN -> ParticleFragmentDirections.actionParticleFragmentToNounFragment(
-                                    posData.wordId, lessonId, WordScreenMode.ANSWER)
-                                else -> ParticleFragmentDirections.actionParticleFragmentSelf(
-                                    posData.wordId, lessonId, WordScreenMode.ANSWER)
-                            }
-                        )
-                    } ?: run {
-                        NavHostFragment.findNavController(this).navigate(
-                            ParticleFragmentDirections.actionParticleFragmentToTrainingFinishedFragment())
-                    }
-                }
-            }
-        })
 
         viewModel.navigateToEvaluation.observe(this, Observer {
 

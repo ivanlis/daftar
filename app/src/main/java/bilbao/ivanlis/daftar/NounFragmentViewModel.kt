@@ -32,13 +32,6 @@ class NounFragmentViewModel(application: Application, wordId: Long, mode: WordSc
                             nounSingular.value = nForms.singularForm
                         }
                 }
-                WordScreenMode.EVALUATE -> {
-                    it.let { nForms ->
-                        userAnswer?.let { userAns ->
-                            nounSingular.value = composeEvaluationValue(nForms.singularForm, userAns.singularForm)
-                        }
-                    }
-                }
                 else -> { }
             }
         }
@@ -49,13 +42,6 @@ class NounFragmentViewModel(application: Application, wordId: Long, mode: WordSc
                         it.let { nForms ->
                             nounPlural.value = nForms.pluralForm
                         }
-                }
-                WordScreenMode.EVALUATE -> {
-                    it.let { nForms ->
-                        userAnswer?.let { userAns ->
-                            nounPlural.value = composeEvaluationValue(nForms.pluralForm, userAns.pluralForm)
-                        }
-                    }
                 }
                 else -> { }
             }

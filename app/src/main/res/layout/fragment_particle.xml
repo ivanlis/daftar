@@ -40,7 +40,6 @@
                     android:id="@+id/particle_edit" android:hint="@string/particle" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/text_particle" android:layout_marginStart="8dp"
-                    android:enabled="@{safeUnbox(viewModel.editability)}"
             />
             <EditText
                     android:layout_width="wrap_content"
@@ -51,7 +50,6 @@
                     android:id="@+id/translation_edit" android:hint="@string/translation" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/particle_edit"
                     app:layout_constraintStart_toEndOf="@+id/text_translation" android:layout_marginStart="8dp"
-                    android:enabled="@{safeUnbox(viewModel.editability)}"
             />
             <Button
                     android:text="@string/delete_word"
@@ -87,18 +85,6 @@
                 android:tooltipText="Answer"
                 android:visibility="@{safeUnbox(viewModel.answerButtonVisibility)}"
                 android:onClick="@{() -> viewModel.onAnswerClicked()}"
-        />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="end|bottom"
-                app:srcCompat="@drawable/ic_check_mod_white_24dp"
-                android:id="@+id/next_fab"
-                android:tooltipText="Answer"
-                android:visibility="@{safeUnbox(viewModel.nextButtonVisibility)}"
-                android:onClick="@{() -> viewModel.onNextClicked()}"
         />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
