@@ -151,9 +151,20 @@ class NounFragment : Fragment() {
                         singularForm = binding.singularEdit.text.toString(),
                         pluralForm = binding.pluralEdit.text.toString(),
                         translation = binding.translationEdit.text.toString())
-                    NavHostFragment.findNavController(this).navigate(
-                        NounFragmentDirections.actionNounFragmentSelf(wordId, lessonId, WordScreenMode.EVALUATE, userInput))
-                    Toast.makeText(this.context, "Navigated to EVALUATE", Toast.LENGTH_LONG).show()
+
+                    viewModel.nounForms.value?.let { nounForms ->
+
+                        val trueInput = WordFormInput(
+                            lessonId = lessonId, posChosen = POS_NOUN,
+                            singularForm = nounForms.singularForm,
+                            pluralForm = nounForms.pluralForm,
+                            translation = nounForms.translation
+                        )
+
+                        NavHostFragment.findNavController(this).navigate(
+                            NounFragmentDirections.actionNounFragmentToEvaluationFragment2(trueInput, userInput, lessonId)
+                        )
+                    }
                 }
             }
         })

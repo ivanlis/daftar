@@ -11,7 +11,7 @@ class NounFragmentViewModel(application: Application, wordId: Long, mode: WordSc
                             userAnswer: WordFormInput? = null):
     WordViewModel(application, wordId, mode, userAnswer) {
 
-    private val nounForms = repository.extractArabicNounForms(wordId)
+    val nounForms = repository.extractArabicNounForms(wordId)
 
     val nounTranslation = MediatorLiveData<String>()
     val nounSingular = MediatorLiveData<String>()

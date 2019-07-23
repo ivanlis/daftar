@@ -10,7 +10,7 @@ class ParticleFragmentViewModel(application: Application, wordId: Long, mode: Wo
                                 userAnswer: WordFormInput? = null):
         WordViewModel(application, wordId, mode, userAnswer) {
 
-    private val particleForms = repository.extractArabicParticleForms(wordId)
+    val particleForms = repository.extractArabicParticleForms(wordId)
 
     val particleTranslation = MediatorLiveData<String>()
     val particleParticle = MediatorLiveData<String>()

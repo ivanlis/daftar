@@ -6,7 +6,9 @@ import androidx.lifecycle.*
 import bilbao.ivanlis.daftar.constants.POS_NOUN
 import bilbao.ivanlis.daftar.constants.POS_PARTICLE
 import bilbao.ivanlis.daftar.constants.POS_VERB
-import bilbao.ivanlis.daftar.database.TrainingProcess
+import bilbao.ivanlis.daftar.database.*
+import kotlinx.coroutines.*
+import timber.log.Timber
 import java.lang.IllegalArgumentException
 
 class EvaluationViewModel(application: Application, val trueValues: WordFormInput, val userValues: WordFormInput):
@@ -30,6 +32,13 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
     val particleVisible: LiveData<Int>
         get() = _particleVisible
 
+    var nextExerciseData: WordPartOfSpeech? = null
+
+    var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
+    protected var viewModelJob = Job()
+    protected val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+
     init {
         _navigateToNextExercise.value = false
         _verbVisible.value = posToVerbVisibility(trueValues.posChosen)
@@ -38,24 +47,42 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
     }
 
     fun onNavigateToNextExercise() {
-        _navigateToNextExercise.value = true
+        try {
+            trainingProcess.advance()
+            val nextExerciseWordId = trainingProcess.getWordIdCorrespondingToExercise(
+                trainingProcess.nextExerciseIndex.toInt())
+            Timber.d("About to go to ex. [${trainingProcess.nextExerciseIndex}] -> $nextExerciseWordId")
+
+
+            uiScope.launch {
+                nextExerciseData = withContext(Dispatchers.IO) {
+                    repository.extractWordPartOfSpeech(nextExerciseWordId)
+                }
+                _navigateToNextExercise.value = true
+            }
+        }
+        catch (e: TrainingProcessFinishedException)
+        {
+            nextExerciseData = null
+            _navigateToNextExercise.value = true
+        }
     }
 
     fun onNavigateToNextExerciseComplete() {
         _navigateToNextExercise.value = false
     }
 
-    fun posToVerbVisibility(pos: String) =
+    private fun posToVerbVisibility(pos: String) =
         when(pos) {
             POS_VERB -> View.VISIBLE
             else -> View.GONE
         }
-    fun posToNounVisibility(pos: String) =
+    private fun posToNounVisibility(pos: String) =
         when(pos) {
             POS_NOUN -> View.VISIBLE
             else -> View.GONE
         }
-    fun posToParticleVisibility(pos: String) =
+    private fun posToParticleVisibility(pos: String) =
         when(pos) {
             POS_PARTICLE -> View.VISIBLE
             else -> View.GONE

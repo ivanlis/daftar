@@ -152,9 +152,6 @@ class VerbFragment : Fragment() {
                         nonpastForm = binding.nonpastEdit.text.toString(),
                         verbnounForm = binding.verbnounEdit.text.toString(),
                         translation = binding.translationEdit.text.toString())
-                    //NavHostFragment.findNavController(this).navigate(
-                    //    VerbFragmentDirections.actionVerbFragmentSelf(wordId, lessonId, WordScreenMode.EVALUATE, userIput))
-                    //Toast.makeText(this.context, "Navigated to EVALUATE", Toast.LENGTH_LONG).show()
 
                     viewModel.verbForms.value?.let {verbForms ->
 
@@ -165,7 +162,7 @@ class VerbFragment : Fragment() {
                         )
 
                         NavHostFragment.findNavController(this).navigate(
-                            VerbFragmentDirections.actionVerbFragmentToEvaluationFragment2(trueInput, userIput)
+                            VerbFragmentDirections.actionVerbFragmentToEvaluationFragment2(trueInput, userIput, lessonId)
                         )
                     }
                 }

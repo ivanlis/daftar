@@ -154,10 +154,20 @@ class ParticleFragment : Fragment() {
                     val userInput = WordFormInput(lessonId = lessonId, posChosen = POS_PARTICLE,
                         particleForm = binding.particleEdit.text.toString(),
                         translation = binding.translationEdit.text.toString())
-                    NavHostFragment.findNavController(this).navigate(
-                        ParticleFragmentDirections.actionParticleFragmentSelf(wordId, lessonId,
-                            WordScreenMode.EVALUATE, userInput = userInput))
-                    Toast.makeText(this.context, "Navigated to EVALUATE", Toast.LENGTH_LONG).show()
+
+                    viewModel.particleForms.value?.let { particleForms ->
+
+                        val trueInput = WordFormInput(
+                            lessonId = lessonId, posChosen = POS_PARTICLE,
+                            particleForm = particleForms.particleForm,
+                            translation = particleForms.translation
+                        )
+
+                        NavHostFragment.findNavController(this).navigate(
+                            ParticleFragmentDirections.actionParticleFragmentToEvaluationFragment2(
+                                trueInput, userInput, lessonId)
+                        )
+                    }
                 }
             }
         })

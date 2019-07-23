@@ -139,5 +139,8 @@
                 app:destination="@id/particleFragment"/>
         <action android:id="@+id/action_evaluationFragment2_to_verbFragment" app:destination="@id/verbFragment"/>
         <action android:id="@+id/action_evaluationFragment2_to_nounFragment" app:destination="@id/nounFragment"/>
+        <action android:id="@+id/action_evaluationFragment2_to_trainingFinishedFragment"
+                app:destination="@id/trainingFinishedFragment"/>
+        <argument android:name="lessonId" app:argType="long"/>
     </fragment>
 </navigation>
