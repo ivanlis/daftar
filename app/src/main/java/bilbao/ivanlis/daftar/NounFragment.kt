@@ -125,7 +125,8 @@ class NounFragment : Fragment() {
                     val userInput = WordFormInput(lessonId = lessonId, posChosen = POS_NOUN,
                         singularForm = binding.singularEdit.text.toString(),
                         pluralForm = binding.pluralEdit.text.toString(),
-                        translation = binding.translationEdit.text.toString())
+                        translation = binding.translationEdit.text.toString(),
+                        wordId = wordId)
 
                     viewModel.nounForms.value?.let { nounForms ->
 
@@ -133,8 +134,8 @@ class NounFragment : Fragment() {
                             lessonId = lessonId, posChosen = POS_NOUN,
                             singularForm = nounForms.singularForm,
                             pluralForm = nounForms.pluralForm,
-                            translation = nounForms.translation
-                        )
+                            translation = nounForms.translation,
+                            wordId = wordId)
 
                         NavHostFragment.findNavController(this).navigate(
                             NounFragmentDirections.actionNounFragmentToEvaluationFragment2(trueInput, userInput, lessonId)

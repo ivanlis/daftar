@@ -127,14 +127,16 @@ class VerbFragment : Fragment() {
                         pastForm = binding.pastEdit.text.toString(),
                         nonpastForm = binding.nonpastEdit.text.toString(),
                         verbnounForm = binding.verbnounEdit.text.toString(),
-                        translation = binding.translationEdit.text.toString())
+                        translation = binding.translationEdit.text.toString(),
+                        wordId = wordId)
 
                     viewModel.verbForms.value?.let {verbForms ->
 
                         val trueInput = WordFormInput(
                             lessonId = lessonId, posChosen = POS_VERB,
                             pastForm = verbForms.pastForm, nonpastForm = verbForms.nonpastForm,
-                            verbnounForm = verbForms.verbalNounForm, translation = verbForms.translation
+                            verbnounForm = verbForms.verbalNounForm, translation = verbForms.translation,
+                            wordId = wordId
                         )
 
                         NavHostFragment.findNavController(this).navigate(

@@ -129,14 +129,16 @@ class ParticleFragment : Fragment() {
                     viewModel.onAnswerCompleted()
                     val userInput = WordFormInput(lessonId = lessonId, posChosen = POS_PARTICLE,
                         particleForm = binding.particleEdit.text.toString(),
-                        translation = binding.translationEdit.text.toString())
+                        translation = binding.translationEdit.text.toString(),
+                        wordId = wordId)
 
                     viewModel.particleForms.value?.let { particleForms ->
 
                         val trueInput = WordFormInput(
                             lessonId = lessonId, posChosen = POS_PARTICLE,
                             particleForm = particleForms.particleForm,
-                            translation = particleForms.translation
+                            translation = particleForms.translation,
+                            wordId = wordId
                         )
 
                         NavHostFragment.findNavController(this).navigate(

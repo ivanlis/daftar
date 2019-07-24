@@ -21,7 +21,8 @@ data class WordFormInput(
     val singularForm: String = "",
     val pluralForm: String = "",
     val particleForm: String = "",
-    val translation: String = ""
+    val translation: String = "",
+    val wordId: Long = -1L
 ) : Parcelable
 
 class NewWordViewModel(application: Application, lessonId: Long) :

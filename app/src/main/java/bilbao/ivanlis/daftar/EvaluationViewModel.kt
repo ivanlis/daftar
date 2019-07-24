@@ -165,7 +165,7 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
 
         //TODO: refactor repetitive code
 
-        when(trueValues.posChosen) {
+        val result = when(trueValues.posChosen) {
 
             POS_VERB -> {
                 val pastRes = evaluateString(trueValues.pastForm, userValues.pastForm)
@@ -184,7 +184,7 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
                     scoreSum += verbnounRes.first
                 }
 
-                return EvaluatedWordFormInput(lessonId = trueValues.lessonId,
+                EvaluatedWordFormInput(lessonId = trueValues.lessonId,
                     posChosen = trueValues.posChosen,
                     pastForm = pastRes.second,
                     pastScore = pastRes.first,
@@ -210,7 +210,7 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
                     scoreSum += pluralRes.first
                 }
 
-                return EvaluatedWordFormInput(lessonId = trueValues.lessonId,
+                EvaluatedWordFormInput(lessonId = trueValues.lessonId,
                     posChosen = trueValues.posChosen,
                     pastForm = SpannableString("") as Spannable,
                     nonpastForm = SpannableString("") as Spannable,
@@ -230,7 +230,7 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
                     scoreSum += particleRes.first
                 }
 
-                return EvaluatedWordFormInput(lessonId = trueValues.lessonId,
+                EvaluatedWordFormInput(lessonId = trueValues.lessonId,
                     posChosen = trueValues.posChosen,
                     pastForm = SpannableString("") as Spannable,
                     nonpastForm = SpannableString("") as Spannable,
@@ -243,6 +243,19 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
                     overallScore = scoreSum / formCount)
             }
         }
+
+        // save overall score to DB
+        uiScope.launch {
+            val scoreId = withContext(Dispatchers.IO) {
+                repository.insertScore(Score(0L,
+                    wordId = trueValues.wordId,
+                    dateTime = System.currentTimeMillis(),
+                    scoreValue = result.overallScore))
+            }
+            Timber.d("Inserted score with id = $scoreId")
+        }
+
+        return result
     }
 
     private fun evaluateString(trueValue: String, userValue: String): Pair<Double, Spannable> {
