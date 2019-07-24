@@ -20,12 +20,19 @@ import java.lang.IllegalArgumentException
 data class EvaluatedWordFormInput(val lessonId: Long = 0L,
                                   val posChosen: String,
                                   val pastForm: Spannable,
+                                  val pastScore: Double = 0.0,
                                   val nonpastForm: Spannable,
+                                  val nonpastScore: Double = 0.0,
                                   val verbnounForm: Spannable,
+                                  val verbnounScore: Double = 0.0,
                                   val singularForm: Spannable,
+                                  val singularScore: Double = 0.0,
                                   val pluralForm: Spannable,
+                                  val pluralScore: Double = 0.0,
                                   val particleForm: Spannable,
-                                  val translation: Spannable)
+                                  val particleScore: Double = 0.0,
+                                  val translation: Spannable,
+                                  var overallScore: Double = 0.0)
 
 class EvaluationViewModel(application: Application, val trueValues: WordFormInput, val userValues: WordFormInput):
     AndroidViewModel(application) {
@@ -101,6 +108,8 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
         _nounVisible.value = posToNounVisibility(trueValues.posChosen)
         _particleVisible.value = posToParticleVisibility(trueValues.posChosen)
         _evaluated.value = evaluate(trueValues, userValues)
+
+        Timber.d("Evaluated. Overall score ${_evaluated.value?.overallScore}")
     }
 
     fun onNavigateToNextExercise() {
@@ -151,32 +160,76 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
 //            posChosen = trueValues.posChosen
 //        )
 
+        var formCount = 0
+        var scoreSum = 0.0
 
+        //TODO: refactor repetitive code
 
         when(trueValues.posChosen) {
+
             POS_VERB -> {
+                val pastRes = evaluateString(trueValues.pastForm, userValues.pastForm)
+                if (trueValues.pastForm.isNotEmpty()) {
+                    ++formCount
+                    scoreSum += pastRes.first
+                }
+                val nonpastRes = evaluateString(trueValues.nonpastForm, userValues.nonpastForm)
+                if (trueValues.nonpastForm.isNotEmpty()) {
+                    ++formCount
+                    scoreSum += nonpastRes.first
+                }
+                val verbnounRes = evaluateString(trueValues.verbnounForm, userValues.verbnounForm)
+                if (trueValues.verbnounForm.isNotEmpty()) {
+                    ++formCount
+                    scoreSum += verbnounRes.first
+                }
+
                 return EvaluatedWordFormInput(lessonId = trueValues.lessonId,
                     posChosen = trueValues.posChosen,
-                    pastForm = evaluateString(trueValues.pastForm, userValues.pastForm),
-                    nonpastForm = evaluateString(trueValues.nonpastForm, userValues.nonpastForm),
-                    verbnounForm = evaluateString(trueValues.verbnounForm, userValues.verbnounForm),
+                    pastForm = pastRes.second,
+                    pastScore = pastRes.first,
+                    nonpastForm = nonpastRes.second,
+                    nonpastScore = nonpastRes.first,
+                    verbnounForm = verbnounRes.second,
+                    verbnounScore = verbnounRes.first,
                     singularForm = SpannableString("") as Spannable,
                     pluralForm = SpannableString("") as Spannable,
                     particleForm = SpannableString("") as Spannable,
-                    translation = SpannableString(trueValues.translation) as Spannable)
+                    translation = SpannableString(trueValues.translation) as Spannable,
+                    overallScore = scoreSum / formCount)
             }
             POS_NOUN -> {
+                val singularRes = evaluateString(trueValues.singularForm, userValues.singularForm)
+                if (trueValues.singularForm.isNotEmpty()) {
+                    ++formCount
+                    scoreSum += singularRes.first
+                }
+                val pluralRes = evaluateString(trueValues.pluralForm, userValues.pluralForm)
+                if (trueValues.pluralForm.isNotEmpty()) {
+                    ++formCount
+                    scoreSum += pluralRes.first
+                }
+
                 return EvaluatedWordFormInput(lessonId = trueValues.lessonId,
                     posChosen = trueValues.posChosen,
                     pastForm = SpannableString("") as Spannable,
                     nonpastForm = SpannableString("") as Spannable,
                     verbnounForm = SpannableString("") as Spannable,
-                    singularForm = evaluateString(trueValues.singularForm, userValues.singularForm),
-                    pluralForm = evaluateString(trueValues.pluralForm, userValues.pluralForm),
+                    singularForm = singularRes.second,
+                    singularScore = singularRes.first,
+                    pluralForm = pluralRes.second,
+                    pluralScore = pluralRes.first,
                     particleForm = SpannableString("") as Spannable,
-                    translation = SpannableString(trueValues.translation) as Spannable)
+                    translation = SpannableString(trueValues.translation) as Spannable,
+                    overallScore = scoreSum / formCount)
             }
             else -> {
+                val particleRes = evaluateString(trueValues.particleForm, userValues.particleForm)
+                if (trueValues.particleForm.isNotEmpty()) {
+                    ++formCount
+                    scoreSum += particleRes.first
+                }
+
                 return EvaluatedWordFormInput(lessonId = trueValues.lessonId,
                     posChosen = trueValues.posChosen,
                     pastForm = SpannableString("") as Spannable,
@@ -184,13 +237,15 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
                     verbnounForm = SpannableString("") as Spannable,
                     singularForm = SpannableString("") as Spannable,
                     pluralForm = SpannableString("") as Spannable,
-                    particleForm = evaluateString(trueValues.particleForm, userValues.particleForm),
-                    translation = SpannableString(trueValues.translation) as Spannable)
+                    particleForm = particleRes.second,
+                    particleScore = particleRes.first,
+                    translation = SpannableString(trueValues.translation) as Spannable,
+                    overallScore = scoreSum / formCount)
             }
         }
     }
 
-    private fun evaluateString(trueValue: String, userValue: String): Spannable {
+    private fun evaluateString(trueValue: String, userValue: String): Pair<Double, Spannable> {
 //        val trueValueSpan = SpannableString(trueValue)
 //        trueValueSpan.setSpan(ForegroundColorSpan(Color.GREEN), 0, trueValueSpan.length,
 //            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -202,15 +257,15 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
 
         //val result = SpannableString("$userValue $trueValue")
 
-        var result = SpannableString("")
+        var result = Pair<Double, Spannable>(0.0, SpannableString(""))
 
         if (trueValue.isEmpty())
             return result
 
         when(userValue == trueValue) {
             true -> {
-                result = SpannableString(userValue)
-                result.setSpan(ForegroundColorSpan(Color.GREEN),
+                result = Pair<Double, Spannable>(1.0, SpannableString(userValue))
+                result.second.setSpan(ForegroundColorSpan(Color.GREEN),
                     0, userValue.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
             false -> {
@@ -218,9 +273,13 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
                     false -> userValue
                     true -> " - "
                 }
-                result = SpannableString("$insteadOfUserValue $trueValue")
-                result.setSpan(ForegroundColorSpan(Color.RED), 0, insteadOfUserValue.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                result.setSpan(ForegroundColorSpan(Color.GREEN), insteadOfUserValue.length + 1, result.length,
+
+                result = Pair<Double, Spannable>(0.0, SpannableString("$insteadOfUserValue $trueValue"))
+
+                //result = SpannableString("$insteadOfUserValue $trueValue")
+                result.second.setSpan(ForegroundColorSpan(Color.RED), 0, insteadOfUserValue.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                result.second.setSpan(ForegroundColorSpan(Color.GREEN), insteadOfUserValue.length + 1, result.second.length,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
         }
