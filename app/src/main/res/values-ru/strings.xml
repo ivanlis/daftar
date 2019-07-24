@@ -13,4 +13,5 @@
     <string name="error_singular_form_is_mandatory">Форма единственного числа обязательна</string>
     <string name="no_words_in_lesson_yet">В этом уроке пока нет слов</string>
     <string name="train">Учиться</string>
+    <string name="no_answer">пусто</string>
 </resources>

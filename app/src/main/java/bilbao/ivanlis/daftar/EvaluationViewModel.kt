@@ -1,6 +1,12 @@
 package bilbao.ivanlis.daftar
 
 import android.app.Application
+import android.content.res.Resources
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextUtils
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.lifecycle.*
 import bilbao.ivanlis.daftar.constants.POS_NOUN
@@ -10,6 +16,16 @@ import bilbao.ivanlis.daftar.database.*
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.lang.IllegalArgumentException
+
+data class EvaluatedWordFormInput(val lessonId: Long = 0L,
+                                  val posChosen: String,
+                                  val pastForm: Spannable,
+                                  val nonpastForm: Spannable,
+                                  val verbnounForm: Spannable,
+                                  val singularForm: Spannable,
+                                  val pluralForm: Spannable,
+                                  val particleForm: Spannable,
+                                  val translation: Spannable)
 
 class EvaluationViewModel(application: Application, val trueValues: WordFormInput, val userValues: WordFormInput):
     AndroidViewModel(application) {
@@ -34,9 +50,49 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
 
     var nextExerciseData: WordPartOfSpeech? = null
 
+    private val _evaluated = MutableLiveData<EvaluatedWordFormInput>()
+    val evaluated: LiveData<EvaluatedWordFormInput>
+        get() = _evaluated
+
+    val evaluatedPast = Transformations.map(evaluated) {
+        it?.let { evaluatedForms ->
+            evaluatedForms.pastForm
+        }
+    }
+    val evaluatedNonpast = Transformations.map(evaluated) {
+        it?.let { evaluatedForms ->
+            evaluatedForms.nonpastForm
+        }
+    }
+    val evaluatedVerbnoun = Transformations.map(evaluated) {
+        it?.let { evaluatedForms ->
+            evaluatedForms.verbnounForm
+        }
+    }
+    val evaluatedSingular = Transformations.map(evaluated) {
+        it?.let { evaluatedForms ->
+            evaluatedForms.singularForm
+        }
+    }
+    val evaluatedPlural = Transformations.map(evaluated) {
+        it?.let { evaluatedForms ->
+            evaluatedForms.pluralForm
+        }
+    }
+    val evaluatedParticle = Transformations.map(evaluated) {
+        it?.let { evaluatedForms ->
+            evaluatedForms.particleForm
+        }
+    }
+    val evaluatedTranslation = Transformations.map(evaluated) {
+        it?.let { evaluatedForms ->
+            evaluatedForms.translation
+        }
+    }
+
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
-    protected var viewModelJob = Job()
-    protected val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
 
     init {
@@ -44,6 +100,7 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
         _verbVisible.value = posToVerbVisibility(trueValues.posChosen)
         _nounVisible.value = posToNounVisibility(trueValues.posChosen)
         _particleVisible.value = posToParticleVisibility(trueValues.posChosen)
+        _evaluated.value = evaluate(trueValues, userValues)
     }
 
     fun onNavigateToNextExercise() {
@@ -87,6 +144,89 @@ class EvaluationViewModel(application: Application, val trueValues: WordFormInpu
             POS_PARTICLE -> View.VISIBLE
             else -> View.GONE
         }
+
+    private fun evaluate(trueValues: WordFormInput, userValues: WordFormInput): EvaluatedWordFormInput {
+//        return EvaluatedWordFormInput(
+//            lessonId = trueValues.lessonId,
+//            posChosen = trueValues.posChosen
+//        )
+
+
+
+        when(trueValues.posChosen) {
+            POS_VERB -> {
+                return EvaluatedWordFormInput(lessonId = trueValues.lessonId,
+                    posChosen = trueValues.posChosen,
+                    pastForm = evaluateString(trueValues.pastForm, userValues.pastForm),
+                    nonpastForm = evaluateString(trueValues.nonpastForm, userValues.nonpastForm),
+                    verbnounForm = evaluateString(trueValues.verbnounForm, userValues.verbnounForm),
+                    singularForm = SpannableString("") as Spannable,
+                    pluralForm = SpannableString("") as Spannable,
+                    particleForm = SpannableString("") as Spannable,
+                    translation = SpannableString(trueValues.translation) as Spannable)
+            }
+            POS_NOUN -> {
+                return EvaluatedWordFormInput(lessonId = trueValues.lessonId,
+                    posChosen = trueValues.posChosen,
+                    pastForm = SpannableString("") as Spannable,
+                    nonpastForm = SpannableString("") as Spannable,
+                    verbnounForm = SpannableString("") as Spannable,
+                    singularForm = evaluateString(trueValues.singularForm, userValues.singularForm),
+                    pluralForm = evaluateString(trueValues.pluralForm, userValues.pluralForm),
+                    particleForm = SpannableString("") as Spannable,
+                    translation = SpannableString(trueValues.translation) as Spannable)
+            }
+            else -> {
+                return EvaluatedWordFormInput(lessonId = trueValues.lessonId,
+                    posChosen = trueValues.posChosen,
+                    pastForm = SpannableString("") as Spannable,
+                    nonpastForm = SpannableString("") as Spannable,
+                    verbnounForm = SpannableString("") as Spannable,
+                    singularForm = SpannableString("") as Spannable,
+                    pluralForm = SpannableString("") as Spannable,
+                    particleForm = evaluateString(trueValues.particleForm, userValues.particleForm),
+                    translation = SpannableString(trueValues.translation) as Spannable)
+            }
+        }
+    }
+
+    private fun evaluateString(trueValue: String, userValue: String): Spannable {
+//        val trueValueSpan = SpannableString(trueValue)
+//        trueValueSpan.setSpan(ForegroundColorSpan(Color.GREEN), 0, trueValueSpan.length,
+//            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        val userValueSpan = SpannableString(userValue)
+//        userValueSpan.setSpan(ForegroundColorSpan(Color.RED), 0, trueValueSpan.length,
+//            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//
+//        return TextUtils.concat(userValueSpan, " ", trueValueSpan) as Spannable
+
+        //val result = SpannableString("$userValue $trueValue")
+
+        var result = SpannableString("")
+
+        if (trueValue.isEmpty())
+            return result
+
+        when(userValue == trueValue) {
+            true -> {
+                result = SpannableString(userValue)
+                result.setSpan(ForegroundColorSpan(Color.GREEN),
+                    0, userValue.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+            false -> {
+                val insteadOfUserValue = when(userValue.isEmpty()) {
+                    false -> userValue
+                    true -> " - "
+                }
+                result = SpannableString("$insteadOfUserValue $trueValue")
+                result.setSpan(ForegroundColorSpan(Color.RED), 0, insteadOfUserValue.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                result.setSpan(ForegroundColorSpan(Color.GREEN), insteadOfUserValue.length + 1, result.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+        }
+
+        return result
+    }
 }
 
 class EvaluationViewModelFactory(private val application: Application,

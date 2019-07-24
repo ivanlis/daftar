@@ -2,6 +2,7 @@ package bilbao.ivanlis.daftar.utils
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import bilbao.ivanlis.daftar.EvaluatedWordFormInput
 import bilbao.ivanlis.daftar.database.LessonItemForList
 import bilbao.ivanlis.daftar.database.WordInitialFormTranslation
 import java.text.SimpleDateFormat

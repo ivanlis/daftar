@@ -13,12 +13,14 @@
                                                            tools:context="EvaluationFragment">
 
             <TextView
-                    android:text="@string/label_translation"
+                    tools:text="@string/label_translation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/text_translation" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp"/>
+                    android:layout_marginStart="8dp"
+                    android:text="@{viewModel.evaluatedTranslation}"
+            />
             <TextView
                     android:text="@string/label_past"
                     android:layout_width="wrap_content"
@@ -35,6 +37,7 @@
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_past" tools:text="@string/past_form"
                     android:visibility="@{safeUnbox(viewModel.verbVisible)}"
+                    android:text="@{viewModel.evaluatedPast}"
             />
             <TextView
                     android:text="@string/label_nonpast"
@@ -52,6 +55,7 @@
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_nonpast" tools:text="@string/nonpast_form"
                     android:visibility="@{safeUnbox(viewModel.verbVisible)}"
+                    android:text="@{viewModel.evaluatedNonpast}"
             />
             <TextView
                     android:text="@string/label_verbnoun"
@@ -69,6 +73,7 @@
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_verbnoun" tools:text="@string/verbal_nout"
                     android:visibility="@{safeUnbox(viewModel.verbVisible)}"
+                    android:text="@{viewModel.evaluatedVerbnoun}"
             />
             <TextView
                     android:text="@string/label_singular"
@@ -86,6 +91,7 @@
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_singular" tools:text="@string/noun_singular"
                     android:visibility="@{safeUnbox(viewModel.nounVisible)}"
+                    android:text="@{viewModel.evaluatedSingular}"
             />
             <TextView
                     android:text="@string/label_plural"
@@ -103,6 +109,7 @@
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_plural" tools:text="@string/noun_plural"
                     android:visibility="@{safeUnbox(viewModel.nounVisible)}"
+                    android:text="@{viewModel.evaluatedPlural}"
             />
             <TextView
                     android:text="@string/label_particle"
@@ -120,6 +127,7 @@
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_particle" tools:text="@string/particle"
                     android:visibility="@{safeUnbox(viewModel.particleVisible)}"
+                    android:text="@{viewModel.evaluatedParticle}"
             />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
