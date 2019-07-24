@@ -14,13 +14,10 @@
 
             <TextView
                     tools:text="@string/label_translation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/text_translation" android:layout_marginTop="8dp"
+                    android:id="@+id/text_translation"
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp"
                     android:text="@{viewModel.evaluatedTranslation}"
-            />
+                    style="@style/evaluation_translation"/>
             <TextView
                     android:text="@string/label_past"
                     android:layout_width="wrap_content"
@@ -31,14 +28,11 @@
                     android:visibility="@{safeUnbox(viewModel.verbVisible)}"
             />
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/text_past_value" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_past" tools:text="@string/past_form"
                     android:visibility="@{safeUnbox(viewModel.verbVisible)}"
                     android:text="@{viewModel.evaluatedPast}"
-            />
+                    style="@style/evaluation_value"/>
             <TextView
                     android:text="@string/label_nonpast"
                     android:layout_width="wrap_content"
@@ -49,14 +43,11 @@
                     android:visibility="@{safeUnbox(viewModel.verbVisible)}"
             />
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/text_nonpast_value" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_nonpast" tools:text="@string/nonpast_form"
                     android:visibility="@{safeUnbox(viewModel.verbVisible)}"
                     android:text="@{viewModel.evaluatedNonpast}"
-            />
+                    style="@style/evaluation_value"/>
             <TextView
                     android:text="@string/label_verbnoun"
                     android:layout_width="wrap_content"
@@ -67,13 +58,11 @@
                     android:visibility="@{safeUnbox(viewModel.verbVisible)}"
             />
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/text_verbnoun_value" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_verbnoun" tools:text="@string/verbal_nout"
                     android:visibility="@{safeUnbox(viewModel.verbVisible)}"
                     android:text="@{viewModel.evaluatedVerbnoun}"
+                    style="@style/evaluation_value"
             />
             <TextView
                     android:text="@string/label_singular"
@@ -85,14 +74,11 @@
                     android:visibility="@{safeUnbox(viewModel.nounVisible)}"
             />
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/text_singular_value" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_singular" tools:text="@string/noun_singular"
                     android:visibility="@{safeUnbox(viewModel.nounVisible)}"
                     android:text="@{viewModel.evaluatedSingular}"
-            />
+                    style="@style/evaluation_value"/>
             <TextView
                     android:text="@string/label_plural"
                     android:layout_width="wrap_content"
@@ -103,14 +89,11 @@
                     android:visibility="@{safeUnbox(viewModel.nounVisible)}"
             />
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/text_plural_value" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_plural" tools:text="@string/noun_plural"
                     android:visibility="@{safeUnbox(viewModel.nounVisible)}"
                     android:text="@{viewModel.evaluatedPlural}"
-            />
+                    style="@style/evaluation_value"/>
             <TextView
                     android:text="@string/label_particle"
                     android:layout_width="wrap_content"
@@ -118,17 +101,13 @@
                     android:id="@+id/text_particle" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_plural_value"
-                    android:visibility="@{safeUnbox(viewModel.particleVisible)}"
-            />
+                    android:visibility="@{safeUnbox(viewModel.particleVisible)}"/>
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/text_particle_value" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/text_particle" tools:text="@string/particle"
                     android:visibility="@{safeUnbox(viewModel.particleVisible)}"
                     android:text="@{viewModel.evaluatedParticle}"
-            />
+                    style="@style/evaluation_value"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
