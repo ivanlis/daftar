@@ -3,7 +3,8 @@ package bilbao.ivanlis.daftar.constants
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-enum class LessonDetailsMode {
+@Parcelize
+enum class LessonDetailsMode: Parcelable {
     EDIT,
     TRAIN
 }

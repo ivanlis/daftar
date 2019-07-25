@@ -12,10 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import bilbao.ivanlis.daftar.constants.POS_NOUN
-import bilbao.ivanlis.daftar.constants.POS_PARTICLE
-import bilbao.ivanlis.daftar.constants.POS_VERB
-import bilbao.ivanlis.daftar.constants.WordScreenMode
+import bilbao.ivanlis.daftar.constants.*
 import bilbao.ivanlis.daftar.databinding.FragmentLessonDetailsBinding
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -46,11 +43,14 @@ class LessonDetailsFragment : Fragment() {
             true -> LessonDetailsFragmentArgs.fromBundle(args).lessonId
             false -> null
         })
+        val mode = args?.let { argsNotNull ->
+            LessonDetailsFragmentArgs.fromBundle(argsNotNull).mode ?: LessonDetailsMode.EDIT
+        } ?: LessonDetailsMode.EDIT
 
         Timber.d("lessonId = $lessonId")
 
         val application = requireNotNull(this.activity).application
-        val viewModelFactory = LessonDetailsViewModelFactory(application, lessonId)
+        val viewModelFactory = LessonDetailsViewModelFactory(application, lessonId, mode)
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(LessonDetailsViewModel::class.java)

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.daftar.databinding.FragmentLessonsListBinding
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import bilbao.ivanlis.daftar.constants.LessonDetailsMode
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -100,8 +101,8 @@ class LessonsListFragment : Fragment() {
                 if (randomLessonId >= 0) {
                     lessonsListViewModel.onRandomLessonNavigateComplete()
                     NavHostFragment.findNavController(this).navigate(
-                        //TODO: pass it the TRAINING mode
-                        LessonsListFragmentDirections.actionLessonsListFragmentToLessonDetailsFragment(randomLessonId)
+                        LessonsListFragmentDirections.actionLessonsListFragmentToLessonDetailsFragment(
+                            randomLessonId, LessonDetailsMode.TRAIN)
                     )
                 }
             }
