@@ -7,6 +7,8 @@ import bilbao.ivanlis.daftar.database.NotebookRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import timber.log.Timber
+import kotlin.random.Random
 
 class LessonsListViewModel (application: Application):
         AndroidViewModel(application) {
@@ -20,8 +22,13 @@ class LessonsListViewModel (application: Application):
     val navigateToNewLesson: LiveData<Boolean>
         get() = _navigateToNewLesson
 
+    private val _randomLessonId = MutableLiveData<Long>()
+    val randomLessonId: LiveData<Long>
+        get() = _randomLessonId
+
     init {
         _navigateToNewLesson.value = false
+        _randomLessonId.value = -1L
     }
 
     val lessonItemsForList = repository.getLessonItemsForList()
@@ -33,6 +40,22 @@ class LessonsListViewModel (application: Application):
 
     fun onNewLessonNavigateComplete() {
         _navigateToNewLesson.value = false
+    }
+
+    fun onTrainClicked() {
+        lessonItemsForList.value?.let { itemList ->
+            if (itemList.isNotEmpty()) {
+                Timber.d("Choosing between ${itemList.size} ids...")
+                val lessonIds = itemList.map { it.id }
+                _randomLessonId.value = selectLessonId(lessonIds)
+            }
+        }
+    }
+
+    private fun selectLessonId(idList: List<Long>) = idList[Random.nextInt(0, idList.size)]
+
+    fun onRandomLessonNavigateComplete() {
+        _randomLessonId.value = -1L
     }
 }
 

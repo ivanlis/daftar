@@ -15,8 +15,8 @@ android {
         applicationId "bilbao.ivanlis.kobeta"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 2
-        versionName "0.2test"
+        versionCode 3
+        versionName "0.3test"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         dataBinding {

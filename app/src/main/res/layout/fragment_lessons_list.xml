@@ -19,10 +19,21 @@
                                                            android:layout_height="match_parent"
                                                            tools:context="LessonsListFragment">
 
+            <Button
+                    android:text="@string/train"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/train_button"
+                    android:onClick="@{() -> lessonsListViewModel.onTrainClicked()}"
+            />
+
+
             <TextView
                     android:text="@string/lessons_list"
                     android:id="@+id/textView" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" style="@style/header_static"/>
+                    app:layout_constraintTop_toBottomOf="@id/train_button" style="@style/header_static"/>
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/lessons_list"

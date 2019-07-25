@@ -95,6 +95,18 @@ class LessonsListFragment : Fragment() {
             }
         })
 
+        lessonsListViewModel.randomLessonId.observe(this, Observer {
+            it?.let { randomLessonId ->
+                if (randomLessonId >= 0) {
+                    lessonsListViewModel.onRandomLessonNavigateComplete()
+                    NavHostFragment.findNavController(this).navigate(
+                        //TODO: pass it the TRAINING mode
+                        LessonsListFragmentDirections.actionLessonsListFragmentToLessonDetailsFragment(randomLessonId)
+                    )
+                }
+            }
+        })
+
 
         binding.lifecycleOwner = this
 
