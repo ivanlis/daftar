@@ -29,7 +29,7 @@
     <string name="label_lesson_description">Descripción</string>
     <string name="lesson_name">nombre de la clase</string>
     <string name="lesson_description">descripción</string>
-    <string name="edit_lesson_description">Editar descripción</string>
+    <string name="edit_lesson_description">Editar</string>
     <string name="new_lesson">Nueva clase</string>
     <string name="delete_lesson">Borrar clase</string>
     <string name="message_lesson_deleted">La clase ha sido borrada</string>

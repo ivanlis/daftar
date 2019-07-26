@@ -28,7 +28,7 @@
     <string name="label_lesson_description">Description</string>
     <string name="lesson_name">Lesson name</string>
     <string name="lesson_description">Description</string>
-    <string name="edit_lesson_description">Edit Description</string>
+    <string name="edit_lesson_description">Edit</string>
     <string name="new_lesson">New Lesson</string>
     <string name="delete_lesson">Delete Lesson</string>
     <string name="message_lesson_deleted">Lesson deleted</string>

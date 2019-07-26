@@ -29,7 +29,7 @@
     <string name="label_lesson_description">Описание</string>
     <string name="lesson_name">имя урока</string>
     <string name="lesson_description">описание</string>
-    <string name="edit_lesson_description">Изменить описание</string>
+    <string name="edit_lesson_description">Изменить</string>
     <string name="new_lesson">Новый урок</string>
     <string name="delete_lesson">Удалить урок</string>
     <string name="message_lesson_deleted">Урок удалён</string>
