@@ -53,4 +53,5 @@
     <string name="train">Train</string>
     <string name="no_answer">no answer</string>
     <string name="training_finished_exclamation">Training finished!</string>
+    <string name="export_training">Export Training</string>
 </resources>

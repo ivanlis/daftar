@@ -16,4 +16,5 @@
     <string name="train">Estudiar</string>
     <string name="no_answer">vacío</string>
     <string name="training_finished_exclamation">¡Repaso acabado!</string>
+    <string name="export_training">Guardar puntuación</string>
 </resources>

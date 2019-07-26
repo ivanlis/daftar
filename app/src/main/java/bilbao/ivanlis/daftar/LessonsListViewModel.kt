@@ -1,6 +1,7 @@
 package bilbao.ivanlis.daftar
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.*
 import bilbao.ivanlis.daftar.database.NotebookDb
 import bilbao.ivanlis.daftar.database.NotebookRepository
@@ -56,6 +57,11 @@ class LessonsListViewModel (application: Application):
 
     fun onRandomLessonNavigateComplete() {
         _randomLessonId.value = -1L
+    }
+
+    fun onExportTraining(/*wordFile: String = "words.csv", scoreFile: String = "scores.csv"*/) {
+        //TODO: store
+        Toast.makeText(getApplication(), R.string.saved_exclamation, Toast.LENGTH_LONG).show()
     }
 }
 

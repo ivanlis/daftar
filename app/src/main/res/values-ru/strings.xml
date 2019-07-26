@@ -15,4 +15,5 @@
     <string name="train">Учиться</string>
     <string name="no_answer">пусто</string>
     <string name="training_finished_exclamation">Конец занятия!</string>
+    <string name="export_training">Сохранить оценки</string>
 </resources>
