@@ -1,12 +1,16 @@
 package bilbao.ivanlis.daftar
 
 import android.app.Application
+import android.os.Environment
 import android.widget.Toast
 import androidx.lifecycle.*
 import bilbao.ivanlis.daftar.database.NotebookDb
 import bilbao.ivanlis.daftar.database.NotebookRepository
+import bilbao.ivanlis.daftar.database.Word
+import bilbao.ivanlis.daftar.database.WordInitialFormTranslation
 import kotlinx.coroutines.*
 import timber.log.Timber
+import java.io.File
 import kotlin.random.Random
 
 class LessonsListViewModel (application: Application):
@@ -73,6 +77,19 @@ class LessonsListViewModel (application: Application):
         }
 
         Toast.makeText(getApplication(), R.string.saved_exclamation, Toast.LENGTH_LONG).show()
+    }
+
+    private fun writeWords(wordList: List<WordInitialFormTranslation>, fileName: String = "words.csv") {
+        //TODO: get the Downloads directory
+
+        val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName)
+
+        //TODO: try-catch
+        file.bufferedWriter().use {
+            for (word in wordList) {
+                it.write("${word.wordId}, ${word.spelling}\n")
+            }
+        }
     }
 }
 
