@@ -1,8 +1,12 @@
 package bilbao.ivanlis.daftar
 
+import android.Manifest
 import android.app.Application
+import android.content.pm.PackageManager
 import android.os.Environment
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.*
 import bilbao.ivanlis.daftar.database.NotebookDb
 import bilbao.ivanlis.daftar.database.NotebookRepository
@@ -69,6 +73,7 @@ class LessonsListViewModel (application: Application):
                 val allWords = repository.extractAllWordsInitialForms()
                 Timber.d("About to store ${allWords.size} words...")
                 //TODO: store allWords in words.csv
+                writeWords(allWords)
 
                 val allScores = repository.extractAllScores()
                 Timber.d("About to store ${allScores.size} scores...")
@@ -82,14 +87,29 @@ class LessonsListViewModel (application: Application):
     private fun writeWords(wordList: List<WordInitialFormTranslation>, fileName: String = "words.csv") {
         //TODO: get the Downloads directory
 
-        val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName)
+//        val writeExternalStoragePermission = ContextCompat.checkSelfPermission(getApplication(),
+//            Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//        if (writeExternalStoragePermission!= PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(getApplication(),
+//                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+//                MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION);
+//        }
 
-        //TODO: try-catch
-        file.bufferedWriter().use {
-            for (word in wordList) {
-                it.write("${word.wordId}, ${word.spelling}\n")
-            }
-        }
+
+        val file = File(Environment.getExternalStorageDirectory(), fileName)
+
+        Timber.d("The file will be $file")
+//        //if (!file?.mkdirs())
+//        if (!file.exists())
+//            file.createNewFile()
+//
+//
+//            //TODO: try-catch
+//        file.bufferedWriter().use {
+//            for (word in wordList) {
+//                it.write("${word.wordId}, ${word.spelling}\n")
+//            }
+//        }
     }
 }
 
