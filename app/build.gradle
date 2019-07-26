@@ -15,8 +15,8 @@ android {
         applicationId "bilbao.ivanlis.kobeta"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
-        versionName "0.3test"
+        versionCode 4
+        versionName "0.4test"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         dataBinding {
@@ -88,5 +88,7 @@ dependencies {
 
     // Material design
     implementation 'com.google.android.material:material:1.1.0-alpha08'
+    api 'com.google.android.material:material:1.1.0-alpha08'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
 }

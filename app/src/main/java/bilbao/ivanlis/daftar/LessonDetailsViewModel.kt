@@ -91,6 +91,8 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
 
     fun onNavigateToFirstExercise() {
 
+        initializeTrainingProcess()
+
         val firstExerciseWordId = trainingProcess.getWordIdCorrespondingToExercise(0)
         Timber.d("firstExerciseWordId = $firstExerciseWordId")
         if (firstExerciseWordId < 0)
@@ -211,7 +213,6 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
     }
 
     fun onTrainClicked() {
-        initializeTrainingProcess()
         _mode.value = LessonDetailsMode.TRAIN
     }
 }

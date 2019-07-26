@@ -31,7 +31,7 @@
     <string name="lesson_description">описание</string>
     <string name="edit_lesson_description">Изменить</string>
     <string name="new_lesson">Новый урок</string>
-    <string name="delete_lesson">Удалить урок</string>
+    <string name="delete_lesson">Удалить</string>
     <string name="message_lesson_deleted">Урок удалён</string>
     <string name="do_you_want_to_delete_this_lesson">Удалить этот урок?</string>
     <string name="choice_yes">Да</string>

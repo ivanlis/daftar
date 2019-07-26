@@ -31,7 +31,7 @@
     <string name="lesson_description">descripción</string>
     <string name="edit_lesson_description">Editar</string>
     <string name="new_lesson">Nueva clase</string>
-    <string name="delete_lesson">Borrar clase</string>
+    <string name="delete_lesson">Borrar</string>
     <string name="message_lesson_deleted">La clase ha sido borrada</string>
     <string name="do_you_want_to_delete_this_lesson">¿Quiere borrar esta clase?</string>
     <string name="choice_yes">Sí</string>
