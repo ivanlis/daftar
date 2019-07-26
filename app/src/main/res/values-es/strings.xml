@@ -15,4 +15,5 @@
     <string name="no_words_in_lesson_yet">En esta clase todavía no hay palabras</string>
     <string name="train">Estudiar</string>
     <string name="no_answer">vacío</string>
+    <string name="training_finished_exclamation">¡Repaso acabado!</string>
 </resources>

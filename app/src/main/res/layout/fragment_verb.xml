@@ -96,7 +96,7 @@
                     app:layout_constraintStart_toEndOf="@+id/text_translation"
                     android:layout_marginStart="8dp"
             />
-            <Button
+            <com.google.android.material.button.MaterialButton
                     android:text="@string/delete_word"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

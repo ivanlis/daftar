@@ -52,4 +52,5 @@
     <string name="no_words_in_lesson_yet">No words in this lesson yet</string>
     <string name="train">Train</string>
     <string name="no_answer">no answer</string>
+    <string name="training_finished_exclamation">Training finished!</string>
 </resources>
