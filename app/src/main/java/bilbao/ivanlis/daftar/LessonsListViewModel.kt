@@ -5,9 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.*
 import bilbao.ivanlis.daftar.database.NotebookDb
 import bilbao.ivanlis.daftar.database.NotebookRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import timber.log.Timber
 import kotlin.random.Random
 
@@ -60,7 +58,20 @@ class LessonsListViewModel (application: Application):
     }
 
     fun onExportTraining(/*wordFile: String = "words.csv", scoreFile: String = "scores.csv"*/) {
+
         //TODO: store
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                val allWords = repository.extractAllWordsInitialForms()
+                Timber.d("About to store ${allWords.size} words...")
+                //TODO: store allWords in words.csv
+
+                val allScores = repository.extractAllScores()
+                Timber.d("About to store ${allScores.size} scores...")
+                //TODO: store allScores in scores.csv
+            }
+        }
+
         Toast.makeText(getApplication(), R.string.saved_exclamation, Toast.LENGTH_LONG).show()
     }
 }

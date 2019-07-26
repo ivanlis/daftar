@@ -129,6 +129,10 @@ interface NotebookDao {
 
 
     // score
+    @Query("""
+        SELECT * FROM score ORDER BY id
+    """)
+    fun extractAllScores(): List<Score>
 
     @Insert
     fun insertScore(score: Score): Long
@@ -150,6 +154,15 @@ interface NotebookDao {
         """)
     fun extractInitialFormsForLesson(lessonId: Long): LiveData<List<WordInitialFormTranslation>>
 
+    @Query(
+        """SELECT wr.word_id AS wordId, wr.spelling, w.translation, pos.english_name AS partOfSpeechName
+            FROM
+        word AS w INNER JOIN word_record AS wr INNER JOIN form AS f INNER JOIN part_of_speech AS pos
+        ON w.id = wr.word_id AND wr.form_id = f.id AND f.part_of_speech_id = pos.id
+        WHERE f.initial = 1
+        ORDER BY wr.word_id
+        """)
+    fun extractAllWordsInitialForms(): List<WordInitialFormTranslation>
 
     @Query("""
         SELECT :wordId AS wordId, f.part_of_speech_id AS posId, pos.english_name AS posName
