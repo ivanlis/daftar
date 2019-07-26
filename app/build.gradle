@@ -89,5 +89,6 @@ dependencies {
     // Material design
     implementation 'com.google.android.material:material:1.1.0-alpha08'
     api 'com.google.android.material:material:1.1.0-alpha08'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
 }

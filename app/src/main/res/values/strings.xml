@@ -30,7 +30,7 @@
     <string name="lesson_description">Description</string>
     <string name="edit_lesson_description">Edit Description</string>
     <string name="new_lesson">New Lesson</string>
-    <string name="delete_lesson">Delete Lesson</string>
+    <string name="delete_lesson">Delete</string>
     <string name="message_lesson_deleted">Lesson deleted</string>
     <string name="do_you_want_to_delete_this_lesson">Do you want to delete this lesson?</string>
     <string name="choice_yes">Yes</string>
