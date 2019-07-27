@@ -8,13 +8,12 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.*
-import bilbao.ivanlis.daftar.database.NotebookDb
-import bilbao.ivanlis.daftar.database.NotebookRepository
-import bilbao.ivanlis.daftar.database.Word
-import bilbao.ivanlis.daftar.database.WordInitialFormTranslation
+import bilbao.ivanlis.daftar.database.*
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.random.Random
 
 class LessonsListViewModel (application: Application):
@@ -72,44 +71,65 @@ class LessonsListViewModel (application: Application):
             withContext(Dispatchers.IO) {
                 val allWords = repository.extractAllWordsInitialForms()
                 Timber.d("About to store ${allWords.size} words...")
-                //TODO: store allWords in words.csv
                 writeWords(allWords)
 
                 val allScores = repository.extractAllScores()
                 Timber.d("About to store ${allScores.size} scores...")
-                //TODO: store allScores in scores.csv
+                writeScores(allScores)
             }
         }
 
         Toast.makeText(getApplication(), R.string.saved_exclamation, Toast.LENGTH_LONG).show()
     }
 
-    private fun writeWords(wordList: List<WordInitialFormTranslation>, fileName: String = "words.csv") {
-        //TODO: get the Downloads directory
+    private fun writeWords(wordList: List<WordInitialFormTranslation>, fileName: String = "word.csv") {
 
-//        val writeExternalStoragePermission = ContextCompat.checkSelfPermission(getApplication(),
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//        if (writeExternalStoragePermission!= PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(getApplication(),
-//                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-//                MY_PERMISSIONS_REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION);
-//        }
+        try {
+
+            val file = File(getApplication<Application>().filesDir,
+                fileName)
+
+            Timber.d("The file will be $file")
+            Timber.d("File exists: ${file.exists()}")
+            if (!file.exists())
+                file.createNewFile()
+            Timber.d("File exists: ${file.exists()}")
 
 
-        val file = File(Environment.getExternalStorageDirectory(), fileName)
+            file.bufferedWriter().use {
+                for (word in wordList) {
+                    it.appendln("\u200E${word.wordId},\"\u200F${word.spelling}\u200E\"")
+                }
+                it.flush()
+            }
+        }
+        catch (exc: Exception) {
+            Timber.e("Exception: ${exc.message}")
+        }
+    }
 
-        Timber.d("The file will be $file")
-//        //if (!file?.mkdirs())
-//        if (!file.exists())
-//            file.createNewFile()
-//
-//
-//            //TODO: try-catch
-//        file.bufferedWriter().use {
-//            for (word in wordList) {
-//                it.write("${word.wordId}, ${word.spelling}\n")
-//            }
-//        }
+    private fun writeScores(scoreList: List<Score>, fileName: String = "score.csv") {
+        try {
+            val file = File(getApplication<Application>().filesDir,
+                fileName)
+
+            Timber.d("The file will be $file")
+            Timber.d("File exists: ${file.exists()}")
+            if (!file.exists())
+                file.createNewFile()
+            Timber.d("File exists: ${file.exists()}")
+
+            file.bufferedWriter().use {
+                for (score in scoreList) {
+                    val scoreDateTime = SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ").format(score.dateTime)
+                    it.appendln("${score.id},${score.wordId},${score.scoreValue},\"$scoreDateTime\"")
+                }
+                it.flush()
+            }
+        }
+        catch (exc: Exception) {
+            Timber.e("Exception: ${exc.message}")
+        }
     }
 }
 

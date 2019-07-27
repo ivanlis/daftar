@@ -91,20 +91,22 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
 
     fun onNavigateToFirstExercise() {
 
-        initializeTrainingProcess()
-
-        val firstExerciseWordId = trainingProcess.getWordIdCorrespondingToExercise(0)
-        Timber.d("firstExerciseWordId = $firstExerciseWordId")
-        if (firstExerciseWordId < 0)
-            return
-
         uiScope.launch {
-            firstExerciseData = withContext(Dispatchers.IO) {
-                repository.extractWordPartOfSpeech(firstExerciseWordId)
+            withContext(Dispatchers.IO) {
+                initializeTrainingProcess()
             }
-            Timber.d("Extracted first exercise data: wordId = ${firstExerciseData?.wordId}, posName = ${firstExerciseData?.posName}")
 
-            _navigateToFirstExercise.value = true
+            val firstExerciseWordId = trainingProcess.getWordIdCorrespondingToExercise(0)
+            Timber.d("firstExerciseWordId = $firstExerciseWordId")
+            if (firstExerciseWordId >= 0) {
+
+                firstExerciseData = withContext(Dispatchers.IO) {
+                    repository.extractWordPartOfSpeech(firstExerciseWordId)
+                }
+                Timber.d("Extracted first exercise data: wordId = ${firstExerciseData?.wordId}, posName = ${firstExerciseData?.posName}")
+
+                _navigateToFirstExercise.value = true
+            }
         }
     }
 
@@ -189,12 +191,14 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
         }
     }
 
-    fun initializeTrainingProcess() {
+    private suspend fun initializeTrainingProcess() {
 
-        uiScope.launch {
+        val fut = uiScope.launch {
             val wordIds = withContext(Dispatchers.IO) {
                 repository.extractWordIdsForLesson(lessonId)
             }
+
+            Timber.d("wordIds: ${wordIds.size}")
 
             if (wordIds.isNotEmpty()) {
                 trainingProcess.initialize(wordIds, EXERCISES_PER_WORD)
@@ -208,8 +212,8 @@ class LessonDetailsViewModel(application: Application, private val lessonId: Lon
             }
         }
 
-        ////TODO: temporary
-        //toggleMode()
+        fut.join()
+
     }
 
     fun onTrainClicked() {
