@@ -66,20 +66,24 @@ class LessonsListViewModel (application: Application):
 
     fun onExportTraining(/*wordFile: String = "words.csv", scoreFile: String = "scores.csv"*/) {
 
-        //TODO: store
         uiScope.launch {
-            withContext(Dispatchers.IO) {
-                val allWords = repository.extractAllWordsInitialForms()
-                Timber.d("About to store ${allWords.size} words...")
-                writeWords(allWords)
+            try {
+                withContext(Dispatchers.IO) {
+                    val allWords = repository.extractAllWordsInitialForms()
+                    Timber.d("About to store ${allWords.size} words...")
+                    writeWords(allWords)
 
-                val allScores = repository.extractAllScores()
-                Timber.d("About to store ${allScores.size} scores...")
-                writeScores(allScores)
+                    val allScores = repository.extractAllScores()
+                    Timber.d("About to store ${allScores.size} scores...")
+                    writeScores(allScores)
+                }
+                Toast.makeText(getApplication(), R.string.saved_exclamation, Toast.LENGTH_LONG).show()
+            }
+            catch(exc: Exception) {
+                Toast.makeText(getApplication(), R.string.error_saving_scores, Toast.LENGTH_LONG).show()
             }
         }
 
-        Toast.makeText(getApplication(), R.string.saved_exclamation, Toast.LENGTH_LONG).show()
     }
 
     private fun writeWords(wordList: List<WordInitialFormTranslation>, fileName: String = "word.csv") {
@@ -88,6 +92,8 @@ class LessonsListViewModel (application: Application):
 
             val file = File(getApplication<Application>().filesDir,
                 fileName)
+//            val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+//                fileName)
 
             Timber.d("The file will be $file")
             Timber.d("File exists: ${file.exists()}")
@@ -105,6 +111,7 @@ class LessonsListViewModel (application: Application):
         }
         catch (exc: Exception) {
             Timber.e("Exception: ${exc.message}")
+            throw(exc)
         }
     }
 
@@ -129,6 +136,7 @@ class LessonsListViewModel (application: Application):
         }
         catch (exc: Exception) {
             Timber.e("Exception: ${exc.message}")
+            throw(exc)
         }
     }
 }

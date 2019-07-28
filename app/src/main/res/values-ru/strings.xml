@@ -16,4 +16,5 @@
     <string name="no_answer">пусто</string>
     <string name="training_finished_exclamation">Конец занятия!</string>
     <string name="export_training">Сохранить оценки</string>
+    <string name="error_saving_scores">Ошибка при сохр. оценок</string>
 </resources>
