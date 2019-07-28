@@ -49,6 +49,12 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
     @WorkerThread
     fun extractInitialFormsForLesson(lessonId: Long) = notebookDao.extractInitialFormsForLesson(lessonId)
     @WorkerThread
+    fun extractAllWordsInitialForms() = notebookDao.extractAllWordsInitialForms()
+    @WorkerThread
+    fun extractWordPartOfSpeech(wordId: Long) = notebookDao.extractWordPartOfSpeech(wordId)
+    @WorkerThread
+    fun extractWordIdsForLesson(lessonId: Long) = notebookDao.extractWordIdsForLesson(lessonId)
+    @WorkerThread
     fun extractArabicVerbForms(wordId: Long) = notebookDao.extractArabicVerbForms(wordId)
     @WorkerThread
     fun extractArabicNounForms(wordId: Long) = notebookDao.extractArabicNounForms(wordId)
@@ -64,6 +70,8 @@ class NotebookRepository(private val notebookDao: NotebookDao) {
         notebookDao.updateWordRecordByWordAndForm(wordId, formId, spelling)
     }
 
+    @WorkerThread
+    fun extractAllScores() = notebookDao.extractAllScores()
     @WorkerThread
     suspend fun insertScore(score: Score) = notebookDao.insertScore(score)
     @WorkerThread

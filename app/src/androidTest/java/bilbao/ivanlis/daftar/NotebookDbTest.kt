@@ -1,7 +1,7 @@
 package bilbao.ivanlis.daftar
 
-import org.junit.runner.RunWith
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.runner.RunWith
 import androidx.test.platform.app.InstrumentationRegistry
 import bilbao.ivanlis.daftar.database.Lesson
 import bilbao.ivanlis.daftar.database.NotebookDao

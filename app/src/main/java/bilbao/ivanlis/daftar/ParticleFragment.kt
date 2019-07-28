@@ -11,6 +11,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
+import bilbao.ivanlis.daftar.constants.POS_NOUN
+import bilbao.ivanlis.daftar.constants.POS_PARTICLE
+import bilbao.ivanlis.daftar.constants.POS_VERB
+import bilbao.ivanlis.daftar.constants.WordScreenMode
 import bilbao.ivanlis.daftar.databinding.FragmentParticleBinding
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -46,10 +50,18 @@ class ParticleFragment : Fragment() {
             false -> null
         })
 
+        val mode = args?.let {
+            ParticleFragmentArgs.fromBundle(it).mode
+        } ?: WordScreenMode.EDIT
+
+        val userAnswer = args?.let {
+            ParticleFragmentArgs.fromBundle(it).userInput
+        }
+
         Timber.d("Particle, wordId = $wordId")
 
         val application = requireNotNull(this.activity).application
-        val viewModelFactory = ParticleFragmentViewModelFactory(application, wordId)
+        val viewModelFactory = ParticleFragmentViewModelFactory(application, wordId, mode, userAnswer)
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(ParticleFragmentViewModel::class.java)
@@ -105,6 +117,35 @@ class ParticleFragment : Fragment() {
                         ParticleFragmentDirections.actionParticleFragmentToLessonDetailsFragment(lessonId)
                     )
                     Toast.makeText(this.context, getString(R.string.message_word_deleted), Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+
+        viewModel.navigateToEvaluation.observe(this, Observer {
+
+            it?.let { flagValue ->
+                if (flagValue) {
+                    viewModel.onAnswerCompleted()
+                    val userInput = WordFormInput(lessonId = lessonId, posChosen = POS_PARTICLE,
+                        particleForm = binding.particleEdit.text.toString(),
+                        translation = binding.translationEdit.text.toString(),
+                        wordId = wordId)
+
+                    viewModel.particleForms.value?.let { particleForms ->
+
+                        val trueInput = WordFormInput(
+                            lessonId = lessonId, posChosen = POS_PARTICLE,
+                            particleForm = particleForms.particleForm,
+                            translation = particleForms.translation,
+                            wordId = wordId
+                        )
+
+                        NavHostFragment.findNavController(this).navigate(
+                            ParticleFragmentDirections.actionParticleFragmentToEvaluationFragment2(
+                                trueInput, userInput, lessonId)
+                        )
+                    }
                 }
             }
         })

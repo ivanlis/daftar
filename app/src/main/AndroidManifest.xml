@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
           package="bilbao.ivanlis.daftar">
 
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
+
     <application
             android:name="bilbao.ivanlis.daftar.KobetaApplication"
             android:allowBackup="true"
@@ -9,7 +11,7 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_kobeta_round"
             android:supportsRtl="true"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            android:theme="@style/Theme.Daftar">
         <activity android:name="bilbao.ivanlis.daftar.MainActivity"
                   android:windowSoftInputMode="adjustResize">
             <intent-filter>

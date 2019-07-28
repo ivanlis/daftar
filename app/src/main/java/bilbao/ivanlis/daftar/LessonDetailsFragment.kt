@@ -12,8 +12,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import bilbao.ivanlis.daftar.constants.*
 import bilbao.ivanlis.daftar.databinding.FragmentLessonDetailsBinding
 import bilbao.ivanlis.daftar.dialog.DeletionDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
 
@@ -41,11 +43,14 @@ class LessonDetailsFragment : Fragment() {
             true -> LessonDetailsFragmentArgs.fromBundle(args).lessonId
             false -> null
         })
+        val mode = args?.let { argsNotNull ->
+            LessonDetailsFragmentArgs.fromBundle(argsNotNull).mode ?: LessonDetailsMode.EDIT
+        } ?: LessonDetailsMode.EDIT
 
         Timber.d("lessonId = $lessonId")
 
         val application = requireNotNull(this.activity).application
-        val viewModelFactory = LessonDetailsViewModelFactory(application, lessonId)
+        val viewModelFactory = LessonDetailsViewModelFactory(application, lessonId, mode)
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(LessonDetailsViewModel::class.java)
@@ -63,9 +68,9 @@ class LessonDetailsFragment : Fragment() {
 
             NavHostFragment.findNavController(this).navigate(
                 when(it.partOfSpeechName) {
-                    "verb" -> LessonDetailsFragmentDirections
+                    POS_VERB -> LessonDetailsFragmentDirections
                         .actionLessonDetailsFragmentToVerbFragment(wordId = it.wordId, lessonId = lessonId)
-                    "noun" -> LessonDetailsFragmentDirections
+                    POS_NOUN -> LessonDetailsFragmentDirections
                         .actionLessonDetailsFragmentToNounFragment(wordId = it.wordId, lessonId = lessonId)
                     //TODO: exception on unknown part of speech name
                     else -> LessonDetailsFragmentDirections
@@ -116,6 +121,39 @@ class LessonDetailsFragment : Fragment() {
                     NavHostFragment.findNavController(this).navigate(
                         LessonDetailsFragmentDirections.actionLessonDetailsFragmentToLessonsListFragment())
                     Toast.makeText(this.context, getString(R.string.message_lesson_deleted), Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        viewModel.complainEmptyLesson.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    viewModel.onComplainEmptyLessonComplete()
+                    Snackbar.make(view!!, getString(R.string.no_words_in_lesson_yet), Snackbar.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        viewModel.navigateToFirstExercise.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    viewModel.onNavigateToFirstExerciseComplete()
+
+                    Timber.d("firstExerciseData: ${viewModel.firstExerciseData}")
+
+                    viewModel.firstExerciseData?.let {
+                        when (it.posName) {
+                            POS_VERB -> NavHostFragment.findNavController(this).navigate(
+                                LessonDetailsFragmentDirections.actionLessonDetailsFragmentToVerbFragment(
+                                    it.wordId, lessonId, WordScreenMode.ANSWER))
+                            POS_NOUN -> NavHostFragment.findNavController(this).navigate(
+                                LessonDetailsFragmentDirections.actionLessonDetailsFragmentToNounFragment(
+                                    it.wordId, lessonId, WordScreenMode.ANSWER))
+                            POS_PARTICLE -> NavHostFragment.findNavController(this).navigate(
+                                LessonDetailsFragmentDirections.actionLessonDetailsFragmentToParticleFragment(
+                                    it.wordId, lessonId, WordScreenMode.ANSWER))
+                        }
+                    }
                 }
             }
         })

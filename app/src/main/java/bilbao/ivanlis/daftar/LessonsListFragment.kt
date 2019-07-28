@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import bilbao.ivanlis.daftar.databinding.FragmentLessonsListBinding
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import bilbao.ivanlis.daftar.constants.LessonDetailsMode
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -91,6 +92,18 @@ class LessonsListFragment : Fragment() {
                         LessonsListFragmentDirections.actionLessonsListFragmentToLessonDescriptionFragment()
                     )
                     lessonsListViewModel.onNewLessonNavigateComplete()
+                }
+            }
+        })
+
+        lessonsListViewModel.randomLessonId.observe(this, Observer {
+            it?.let { randomLessonId ->
+                if (randomLessonId >= 0) {
+                    lessonsListViewModel.onRandomLessonNavigateComplete()
+                    NavHostFragment.findNavController(this).navigate(
+                        LessonsListFragmentDirections.actionLessonsListFragmentToLessonDetailsFragment(
+                            randomLessonId, LessonDetailsMode.TRAIN)
+                    )
                 }
             }
         })

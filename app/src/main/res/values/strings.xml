@@ -28,9 +28,9 @@
     <string name="label_lesson_description">Description</string>
     <string name="lesson_name">Lesson name</string>
     <string name="lesson_description">Description</string>
-    <string name="edit_lesson_description">Edit Description</string>
+    <string name="edit_lesson_description">Edit</string>
     <string name="new_lesson">New Lesson</string>
-    <string name="delete_lesson">Delete Lesson</string>
+    <string name="delete_lesson">Delete</string>
     <string name="message_lesson_deleted">Lesson deleted</string>
     <string name="do_you_want_to_delete_this_lesson">Do you want to delete this lesson?</string>
     <string name="choice_yes">Yes</string>
@@ -49,4 +49,10 @@
     <string name="error_past_form_is_mandatory">A verb must have at least a Past form</string>
     <string name="error_singular_form_is_mandatory">At least the Singular form must be specified</string>
     <string name="error_particle_is_necessary">A particle cannot be empty</string>
+    <string name="no_words_in_lesson_yet">No words in this lesson yet</string>
+    <string name="train">Train</string>
+    <string name="no_answer">no answer</string>
+    <string name="training_finished_exclamation">Training finished!</string>
+    <string name="export_training">Export Training</string>
+    <string name="error_saving_scores">Error saving scores</string>
 </resources>

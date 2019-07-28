@@ -10,6 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
+import bilbao.ivanlis.daftar.constants.POS_NOUN
+import bilbao.ivanlis.daftar.constants.POS_PARTICLE
+import bilbao.ivanlis.daftar.constants.POS_VERB
 import bilbao.ivanlis.daftar.databinding.FragmentNewWordBinding
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber

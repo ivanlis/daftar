@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Daftar</string>
+    <string name="welcome_to_kobeta">¡Bienvenida a Kobeta!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Fragmento vacío</string>
+    <string name="lessons_list">Listado de clases</string>
+    <string name="label_singular">Singular</string>
+    <string name="label_plural">Plural</string>
+    <string name="noun_singular">singular</string>
+    <string name="noun_plural">plural</string>
+    <string name="past_form">perfecto</string>
+    <string name="nonpast_form">imperfecto</string>
+    <string name="label_past">Perfecto</string>
+    <string name="label_nonpast">Imperfecto</string>
+    <string name="verbal_nout">masdar</string>
+    <string name="label_verbnoun">Masdar</string>
+    <string name="save">Guardar</string>
+    <string name="label_translation">Traducción</string>
+    <string name="translation">traducción</string>
+    <string name="label_particle">Partícula</string>
+    <string name="particle">partícula</string>
+    <string name="verb">verbo</string>
+    <string name="noun">sustantivo</string>
+    <string name="new_word">Nueva palabra</string>
+    <string name="saved_exclamation">¡Guardado!</string>
+    <string name="label_lesson_name">Nombre de la clase</string>
+    <string name="label_lesson_description">Descripción</string>
+    <string name="lesson_name">nombre de la clase</string>
+    <string name="lesson_description">descripción</string>
+    <string name="edit_lesson_description">Editar</string>
+    <string name="new_lesson">Nueva clase</string>
+    <string name="delete_lesson">Borrar</string>
+    <string name="message_lesson_deleted">La clase ha sido borrada</string>
+    <string name="do_you_want_to_delete_this_lesson">¿Quiere borrar esta clase?</string>
+    <string name="choice_yes">Sí</string>
+    <string name="choice_no">No</string>
+    <string name="delete_word">Borrar palabra</string>
+    <string name="message_word_deleted">La palabra ha sido borrada</string>
+    <string name="do_you_want_to_delete_this_word">¿Quiere borrar esta palabra?</string>
+
     <string name="tip_apply_changes">Guardar los cambios</string>
     <string name="tip_add_new_word">Añadir una palabra</string>
     <string name="tip_add_new_lesson">Nueva clase</string>
@@ -12,4 +52,10 @@
     <string name="error_past_form_is_mandatory">Un verbo tiene que tener al menos la forma del perfecto</string>
     <string name="error_singular_form_is_mandatory">Un sustantivo tiene que tener al menos la forma del singular
     </string>
+    <string name="no_words_in_lesson_yet">En esta clase todavía no hay palabras</string>
+    <string name="train">Estudiar</string>
+    <string name="no_answer">vacío</string>
+    <string name="training_finished_exclamation">¡Repaso acabado!</string>
+    <string name="export_training">Guardar puntuación</string>
+    <string name="error_saving_scores">"Error guardando valoraciones "</string>
 </resources>

@@ -2,6 +2,9 @@ package bilbao.ivanlis.daftar.database
 
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
+import bilbao.ivanlis.daftar.constants.POS_NOUN
+import bilbao.ivanlis.daftar.constants.POS_PARTICLE
+import bilbao.ivanlis.daftar.constants.POS_VERB
 
 @Entity(tableName = "language")
 data class Language(
@@ -154,13 +157,16 @@ data class LessonItemForList(
     val wordCount: Long
 )
 
-
 // auxiliary structures
 // initial form and translation
 data class WordInitialFormTranslation(val wordId: Long,
                                       val spelling: String,
                                       val translation: String,
                                       val partOfSpeechName: String)
+
+data class WordPartOfSpeech(val wordId: Long,
+                            val posName: String,
+                            val posId: Long)
 
 // Verb forms for Arabic
 data class ArabicVerbForms(val wordId: Long,
@@ -170,7 +176,8 @@ data class ArabicVerbForms(val wordId: Long,
                            val verbalNounForm: String = "",
                            val pastFormId: Long,
                            val nonpastFormId: Long,
-                           val verbalNounFormId: Long)
+                           val verbalNounFormId: Long,
+                           val posName: String = POS_VERB)
 
 // Noun forms for Arabic
 data class ArabicNounForms(val wordId: Long,
@@ -178,10 +185,12 @@ data class ArabicNounForms(val wordId: Long,
                            val singularForm: String,
                            val pluralForm: String = "",
                            val singularFormId: Long,
-                           val pluralFormId: Long)
+                           val pluralFormId: Long,
+                           val posName: String = POS_NOUN)
 
 
 data class ArabicParticleForms(val wordId: Long,
                                val translation: String,
                                val particleForm: String,
-                               val particleFormId: Long)
+                               val particleFormId: Long,
+                               val posName: String = POS_PARTICLE)

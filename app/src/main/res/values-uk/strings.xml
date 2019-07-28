@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Дафтар</string>
+    <string name="welcome_to_kobeta">Ласкаво просимо до програми Кобета!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Пустий фрагмент.</string>
+    <string name="lessons_list">Список уроків</string>
+    <string name="label_singular">Однина</string>
+    <string name="label_plural">Множина</string>
+    <string name="noun_singular">однина</string>
+    <string name="noun_plural">множина</string>
+    <string name="past_form">перфект</string>
+    <string name="nonpast_form">імперфект</string>
+    <string name="label_past">Перфект</string>
+    <string name="label_nonpast">Імперфект</string>
+    <string name="verbal_nout">масдар</string>
+    <string name="label_verbnoun">Масдар</string>
+    <string name="save">Зберегти</string>
+    <string name="label_translation">Переклад</string>
+    <string name="translation">переклад</string>
+    <string name="label_particle">Частка</string>
+    <string name="particle">частка</string>
+    <string name="verb">дієслово</string>
+    <string name="noun">ім’я</string>
+    <string name="new_word">Додати</string>
+    <string name="saved_exclamation">Збережено!</string>
+    <string name="label_lesson_name">Назва уроку</string>
+    <string name="label_lesson_description">Опис</string>
+    <string name="lesson_name">назва уроку</string>
+    <string name="lesson_description">опис</string>
+    <string name="edit_lesson_description">Змінити</string>
+    <string name="new_lesson">Новий урок</string>
+    <string name="delete_lesson">Видалити</string>
+    <string name="message_lesson_deleted">Урок видалено</string>
+    <string name="do_you_want_to_delete_this_lesson">Видалити цей урок?</string>
+    <string name="choice_yes">Так</string>
+    <string name="choice_no">Ні</string>
+    <string name="delete_word">Видалити слово</string>
+    <string name="message_word_deleted">Слово видалено</string>
+    <string name="do_you_want_to_delete_this_word">Видалити це слово?</string>
+
     <string name="tip_apply_changes">Зберегти зміни</string>
     <string name="tip_add_new_word">Додати слово</string>
     <string name="tip_add_new_lesson">Новий урок</string>
@@ -11,4 +51,10 @@
     <string name="error_particle_is_necessary">Ви досі не ввели частку</string>
     <string name="error_past_form_is_mandatory">Форма перфекту повинна бути вказана</string>
     <string name="error_singular_form_is_mandatory">Форма однини обовʼязкова</string>
+    <string name="no_words_in_lesson_yet">У цьому уроці поки немає слів</string>
+    <string name="train">Вчитися</string>
+    <string name="no_answer">без відп.</string>
+    <string name="training_finished_exclamation">Кінець заняття!</string>
+    <string name="export_training">Зберегти оцінки</string>
+    <string name="error_saving_scores">Помилка при збереж. оцінок</string>
 </resources>

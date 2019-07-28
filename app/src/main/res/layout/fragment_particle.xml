@@ -38,8 +38,9 @@
                     android:text="@={viewModel.particleParticle}"
                     android:ems="10"
                     android:id="@+id/particle_edit" android:hint="@string/particle" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/delete_button"
-                    app:layout_constraintStart_toEndOf="@+id/text_particle" android:layout_marginStart="8dp"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_particle" android:layout_marginStart="8dp"
+            />
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,15 +49,18 @@
                     android:ems="10"
                     android:id="@+id/translation_edit" android:hint="@string/translation" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/particle_edit"
-                    app:layout_constraintStart_toEndOf="@+id/text_translation" android:layout_marginStart="8dp"/>
-            <Button
+                    app:layout_constraintStart_toEndOf="@+id/text_translation" android:layout_marginStart="8dp"
+            />
+            <com.google.android.material.button.MaterialButton
                     android:text="@string/delete_word"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/delete_button" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/translation_edit" app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp"
-                    android:onClick="@{() -> viewModel.onDeleteRequest()}"/>
+                    android:onClick="@{() -> viewModel.onDeleteRequest()}"
+                    android:visibility="@{safeUnbox(viewModel.deleteButtonVisibility)}"
+            />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,6 +72,19 @@
                 android:id="@+id/save_fab"
                 android:onClick="@{() -> viewModel.onSaveClicked()}"
                 android:tooltipText="@string/tip_apply_changes"
+                android:visibility="@{safeUnbox(viewModel.saveButtonVisibility)}"
+        />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="end|bottom"
+                app:srcCompat="@drawable/ic_check_mod_white_24dp"
+                android:id="@+id/answer_fab"
+                android:tooltipText="Answer"
+                android:visibility="@{safeUnbox(viewModel.answerButtonVisibility)}"
+                android:onClick="@{() -> viewModel.onAnswerClicked()}"
         />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

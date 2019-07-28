@@ -4,12 +4,14 @@ import android.app.Application
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import bilbao.ivanlis.daftar.constants.WordScreenMode
 
 
-class NounFragmentViewModel(application: Application, wordId: Long):
-    WordViewModel(application, wordId) {
+class NounFragmentViewModel(application: Application, wordId: Long, mode: WordScreenMode = WordScreenMode.EDIT,
+                            userAnswer: WordFormInput? = null):
+    WordViewModel(application, wordId, mode, userAnswer) {
 
-    private val nounForms = repository.extractArabicNounForms(wordId)
+    val nounForms = repository.extractArabicNounForms(wordId)
 
     val nounTranslation = MediatorLiveData<String>()
     val nounSingular = MediatorLiveData<String>()
@@ -23,16 +25,26 @@ class NounFragmentViewModel(application: Application, wordId: Long):
                 }
         }
         nounSingular.addSource(nounForms) {
-            if (nounSingular.value == null)
-                it.let { nForms ->
-                    nounSingular.value = nForms.singularForm
+            when (screenMode) {
+                WordScreenMode.EDIT -> {
+                    if (modeToContentFromDBDisplay(screenMode) && nounSingular.value == null)
+                        it.let { nForms ->
+                            nounSingular.value = nForms.singularForm
+                        }
                 }
+                else -> { }
+            }
         }
         nounPlural.addSource(nounForms) {
-            if (nounPlural.value == null)
-                it.let { nForms ->
-                    nounPlural.value = nForms.pluralForm
+            when (screenMode) {
+                WordScreenMode.EDIT -> {
+                    if (modeToContentFromDBDisplay(screenMode) && nounPlural.value == null)
+                        it.let { nForms ->
+                            nounPlural.value = nForms.pluralForm
+                        }
                 }
+                else -> { }
+            }
         }
     }
 
@@ -44,13 +56,16 @@ class NounFragmentViewModel(application: Application, wordId: Long):
     }
 }
 
-class NounFragmentViewModelFactory(private val application: Application, private val wordId: Long):
+class NounFragmentViewModelFactory(private val application: Application,
+                                   private val wordId: Long,
+                                   private val mode: WordScreenMode = WordScreenMode.EDIT,
+                                   private val userAnswer: WordFormInput? = null):
         ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(NounFragmentViewModel::class.java)) {
-            return NounFragmentViewModel(application, wordId) as T
+            return NounFragmentViewModel(application, wordId, mode, userAnswer) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")
