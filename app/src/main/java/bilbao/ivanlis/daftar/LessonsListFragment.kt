@@ -1,11 +1,15 @@
 package bilbao.ivanlis.daftar
 
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -126,6 +130,22 @@ class LessonsListFragment : Fragment() {
                     lessonsListViewModel.onErrorSavingScoreComplete()
                     view?.let { viewNotNull ->
                         Snackbar.make(viewNotNull, R.string.error_saving_scores, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+        })
+
+        lessonsListViewModel.askForExternalStoragePerm.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    lessonsListViewModel.onAskForExternalStoragePermComplete()
+
+                    if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                            PackageManager.PERMISSION_GRANTED) {
+
+                        ActivityCompat.requestPermissions(activity!!,
+                            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
+
                     }
                 }
             }

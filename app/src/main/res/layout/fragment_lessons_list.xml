@@ -37,7 +37,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toEndOf="@id/train_button"
                     android:id="@+id/export_button"
-                    android:onClick="@{() -> lessonsListViewModel.onExportTraining()}"/>
+                    android:onClick="@{() -> lessonsListViewModel.onAskForExternalStoragePerm()}"/>
 
             <TextView
                     android:text="@string/lessons_list"

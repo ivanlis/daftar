@@ -40,11 +40,16 @@ class LessonsListViewModel (application: Application):
     val errorSavingScore: LiveData<Boolean>
         get() = _errorSavingScore
 
+    private val _askForExternalStoragePerm = MutableLiveData<Boolean>()
+    val askForExternalStoragePerm: LiveData<Boolean>
+        get() = _askForExternalStoragePerm
+
     init {
         _navigateToNewLesson.value = false
         _randomLessonId.value = -1L
         _scoreSaved.value = false
         _errorSavingScore.value = false
+        _askForExternalStoragePerm.value = false
     }
 
     val lessonItemsForList = repository.getLessonItemsForList()
@@ -104,14 +109,29 @@ class LessonsListViewModel (application: Application):
 
     }
 
+    fun onAskForExternalStoragePerm() {
+
+        if (ContextCompat.checkSelfPermission(getApplication(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
+            _askForExternalStoragePerm.value = true
+        }
+        else {
+            onExportTraining()
+        }
+    }
+
+    fun onAskForExternalStoragePermComplete() {
+        _askForExternalStoragePerm.value = false
+    }
+
     private fun writeWords(wordList: List<WordInitialFormTranslation>, fileName: String = "word.csv") {
 
         try {
 
-            val file = File(getApplication<Application>().filesDir,
-                fileName)
-//            val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+//            val file = File(getApplication<Application>().filesDir,
 //                fileName)
+            val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                fileName)
 
             Timber.d("The file will be $file")
             Timber.d("File exists: ${file.exists()}")
@@ -135,7 +155,9 @@ class LessonsListViewModel (application: Application):
 
     private fun writeScores(scoreList: List<Score>, fileName: String = "score.csv") {
         try {
-            val file = File(getApplication<Application>().filesDir,
+//            val file = File(getApplication<Application>().filesDir,
+//                fileName)
+            val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
                 fileName)
 
             Timber.d("The file will be $file")
