@@ -55,7 +55,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:ems="10"
                     android:id="@+id/past_edit" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/radiogroup_pos"
@@ -73,7 +73,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:ems="10"
                     android:id="@+id/nonpast_edit" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/past_edit"
@@ -82,7 +82,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:ems="10"
                     android:id="@+id/verbnoun_edit" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/nonpast_edit"
@@ -91,7 +91,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:ems="10"
                     android:id="@+id/singular_edit" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/verbnoun_edit"
@@ -100,7 +100,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:ems="10"
                     android:id="@+id/plural_edit" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/singular_edit"
@@ -109,7 +109,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:ems="10"
                     android:id="@+id/particle_edit" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/plural_edit"
@@ -162,7 +162,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:ems="10"
                     android:id="@+id/translation_edit"
                     app:layout_constraintStart_toEndOf="@+id/text_translation" android:layout_marginStart="8dp"
