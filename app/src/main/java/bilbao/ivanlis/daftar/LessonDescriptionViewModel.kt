@@ -13,11 +13,13 @@ data class LessonDescriptionUserInput(
     val description: String
 )
 
-class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L):
+class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L, afterModification: Boolean = false):
         AndroidViewModel(application) {
 
     var repository: NotebookRepository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
-    private val lessonId = lessonId
+    private val _lessonId = lessonId
+    val lessonId
+        get() = _lessonId
     // lesson to go to after finishing
     private var _destinationLessonId = lessonId
     val destinationLessonId
@@ -51,34 +53,35 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
     val saveData: LiveData<Boolean>
         get() = _saveData
 
-    private val _navigateToLessonDetails = MutableLiveData<Boolean>()
-    val navigateToLessonDetails: LiveData<Boolean>
-        get() = _navigateToLessonDetails
+    private val _saveDataDone = MutableLiveData<Boolean>()
+    val saveDataDone: LiveData<Boolean>
+        get() = _saveDataDone
 
-
+    private val _afterModification = MutableLiveData<Boolean>()
+    val afterModification: LiveData<Boolean>
+        get() = _afterModification
 
     init {
         _saveData.value = false
-        _navigateToLessonDetails.value = false
+        _saveDataDone.value = false
+        _afterModification.value = afterModification
     }
 
     fun onSaveClicked() {
         _saveData.value = true
     }
 
-    fun onNavigateToLessonDetail() { _navigateToLessonDetails.value = true }
+    private fun onSaveDataDone() { _saveDataDone.value = true }
 
 
     fun onSaveData(userInput: LessonDescriptionUserInput) {
-
-        //onSaveDataComplete()
 
         if (userInput.name.isEmpty()) {
             //TODO: exception!!!
             return
         }
 
-        if (lessonId >= 0) {
+        if (_lessonId >= 0) {
             lesson.value?.let {
                 val updatedLesson = Lesson(id = it.id, name = userInput.name, creationDateTime = it.creationDateTime,
                     description = userInput.description)
@@ -87,10 +90,8 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
                     withContext(Dispatchers.IO) {
                         repository.updateLesson(updatedLesson)
                     }
-                }.invokeOnCompletion {
-                    onNavigateToLessonDetail()
+                    onSaveDataDone()
                 }
-                //onSaveDataComplete()
             }
             //TODO: if null, exception
         }
@@ -102,32 +103,31 @@ class LessonDescriptionViewModel(application: Application, lessonId: Long = -1L)
                         Lesson(name = userInput.name, description = userInput.description))
                 }
 
-            }.invokeOnCompletion {
                 Timber.d("Inserted lesson id = $destinationLessonId")
                 // once done, navigate to the lesson's word list
-                onNavigateToLessonDetail()
+                onSaveDataDone()
             }
-            //onSaveDataComplete()
         }
 
     }
 
 
     fun onSaveDataComplete() { _saveData.value = false }
-
-    fun onNavigateToLessonDetailComplete() { _navigateToLessonDetails.value = false }
+    fun onSaveDataDoneComplete() { _saveDataDone.value = false }
+    fun onAfterModificationComplete() { _afterModification.value = false }
 }
 
 class LessonDescriptionViewModelFactory(
     private val application: Application,
-    private val lessonId: Long): ViewModelProvider.Factory {
+    private val lessonId: Long,
+    private val afterModification: Boolean = false): ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         Timber.d("Creating view-model for ${lessonId}")
 
         if (modelClass.isAssignableFrom(LessonDescriptionViewModel::class.java))
-            return LessonDescriptionViewModel(application, lessonId) as T
+            return LessonDescriptionViewModel(application, lessonId, afterModification) as T
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

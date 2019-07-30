@@ -59,6 +59,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_lesson_description"
                     android:hint="@string/lesson_description"
                     android:text="@={viewModel.lessonDescription}"
+                    android:linksClickable="true"
+                    android:autoLink="all"
             />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

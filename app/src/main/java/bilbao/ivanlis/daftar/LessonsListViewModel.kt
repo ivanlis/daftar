@@ -32,9 +32,19 @@ class LessonsListViewModel (application: Application):
     val randomLessonId: LiveData<Long>
         get() = _randomLessonId
 
+    private val _scoreSaved = MutableLiveData<Boolean>()
+    val scoreSaved: LiveData<Boolean>
+        get() = _scoreSaved
+
+    private val _errorSavingScore = MutableLiveData<Boolean>()
+    val errorSavingScore: LiveData<Boolean>
+        get() = _errorSavingScore
+
     init {
         _navigateToNewLesson.value = false
         _randomLessonId.value = -1L
+        _scoreSaved.value = false
+        _errorSavingScore.value = false
     }
 
     val lessonItemsForList = repository.getLessonItemsForList()
@@ -58,6 +68,14 @@ class LessonsListViewModel (application: Application):
         }
     }
 
+    fun onScoreSavedShowComplete() {
+        _scoreSaved.value = false
+    }
+
+    fun onErrorSavingScoreComplete() {
+        _errorSavingScore.value = false
+    }
+
     private fun selectLessonId(idList: List<Long>) = idList[Random.nextInt(0, idList.size)]
 
     fun onRandomLessonNavigateComplete() {
@@ -77,10 +95,10 @@ class LessonsListViewModel (application: Application):
                     Timber.d("About to store ${allScores.size} scores...")
                     writeScores(allScores)
                 }
-                Toast.makeText(getApplication(), R.string.saved_exclamation, Toast.LENGTH_LONG).show()
+                _scoreSaved.value = true
             }
             catch(exc: Exception) {
-                Toast.makeText(getApplication(), R.string.error_saving_scores, Toast.LENGTH_LONG).show()
+                _errorSavingScore.value = true
             }
         }
 

@@ -58,4 +58,5 @@
     <string name="training_finished_exclamation">¡Repaso acabado!</string>
     <string name="export_training">Guardar puntuación</string>
     <string name="error_saving_scores">"Error guardando valoraciones "</string>
+    <string name="description">Descripción</string>
 </resources>
