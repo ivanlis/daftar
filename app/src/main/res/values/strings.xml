@@ -55,4 +55,5 @@
     <string name="training_finished_exclamation">Training finished!</string>
     <string name="export_training">Export Training</string>
     <string name="error_saving_scores">Error saving scores</string>
+    <string name="title_lesson_contents">Lesson Contents</string>
 </resources>
