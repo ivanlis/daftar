@@ -3,6 +3,7 @@ package bilbao.ivanlis.daftar
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.Navigation
@@ -10,6 +11,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import bilbao.ivanlis.daftar.database.DataExporter
+import bilbao.ivanlis.daftar.database.NotebookDb
+import bilbao.ivanlis.daftar.database.NotebookRepository
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +42,19 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.lessonsListFragment)
 
             true
+        }
+        R.id.action_export_training -> {
+            val exporter = DataExporter(application,
+                NotebookRepository(NotebookDb.getInstance(application).notebookDao()))
+            try {
+                exporter.exportTraining()
+                Toast.makeText(application, R.string.saved_exclamation, Toast.LENGTH_LONG).show()
+                true
+            }
+            catch (exc: Exception) {
+                Toast.makeText(application, R.string.error_saving_scores, Toast.LENGTH_LONG).show()
+                false
+            }
         }
         else -> {
             super.onOptionsItemSelected(item)
