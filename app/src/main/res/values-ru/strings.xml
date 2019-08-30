@@ -57,4 +57,10 @@
     <string name="training_finished_exclamation">Конец занятия!</string>
     <string name="export_training">Сохранить оценки</string>
     <string name="error_saving_scores">Ошибка при сохр. оценок</string>
+    <string name="title_lesson_contents">Содержание урока</string>
+    <string name="title_lesson_description">Описание урока</string>
+    <string name="title_verb_forms">Формы глагола</string>
+    <string name="title_noun_forms">Формы имени</string>
+    <string name="title_particle_forms">Формы частицы</string>
+    <string name="title_adding_word">Новое слово</string>
 </resources>

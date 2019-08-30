@@ -57,4 +57,10 @@
     <string name="training_finished_exclamation">Кінець заняття!</string>
     <string name="export_training">Зберегти оцінки</string>
     <string name="error_saving_scores">Помилка при збереж. оцінок</string>
+    <string name="title_lesson_contents">Зміст уроку</string>
+    <string name="title_lesson_description">Опис уроку</string>
+    <string name="title_verb_forms">Форми дієслова</string>
+    <string name="title_noun_forms">Форми імені</string>
+    <string name="title_particle_forms">Форми частки</string>
+    <string name="title_adding_word">Нове слово</string>
 </resources>

@@ -58,4 +58,10 @@
     <string name="training_finished_exclamation">¡Repaso acabado!</string>
     <string name="export_training">Guardar puntuación</string>
     <string name="error_saving_scores">"Error guardando valoraciones "</string>
+    <string name="title_lesson_contents">Contenido de la clase</string>
+    <string name="title_lesson_description">Descripción de la clase</string>
+    <string name="title_verb_forms">Formas del verbo</string>
+    <string name="title_noun_forms">Formas del nombre</string>
+    <string name="title_particle_forms">Formas de la partícula</string>
+    <string name="title_adding_word">Nueva palabra</string>
 </resources>

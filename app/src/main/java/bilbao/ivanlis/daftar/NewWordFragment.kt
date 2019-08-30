@@ -195,5 +195,10 @@ class NewWordFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
 
+        val mainActivity = activity as MainActivity
+        mainActivity.setActionBarTitle(R.string.title_adding_word)
+    }
 }

@@ -183,7 +183,7 @@ class LessonDetailsFragment : Fragment() {
         super.onResume()
 
         val mainActivity = activity as MainActivity
-        mainActivity.setActionBarTitle(R.string.lesson_description)
+        mainActivity.setActionBarTitle(R.string.title_lesson_contents)
     }
 }
 
