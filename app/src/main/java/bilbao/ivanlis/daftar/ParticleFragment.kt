@@ -160,4 +160,10 @@ class ParticleFragment : Fragment() {
         deletionDialogFragment.show(fragmentManager!!, "lesson_deletion_dialog")
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val mainActivity = activity as MainActivity
+        mainActivity.setActionBarTitle(R.string.title_particle_forms)
+    }
 }

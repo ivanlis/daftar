@@ -6,4 +6,9 @@
             android:icon="@drawable/ic_home_black_24dp"
             app:showAsAction="ifRoom"
         />
+    <item
+            android:id="@+id/action_export_training"
+            android:title="@string/menu_export_training"
+            app:showAsAction="never"
+        />
 </menu>

@@ -32,6 +32,9 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -78,17 +81,20 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
 
-    def nav_version = "2.1.0-alpha06"
+    //def nav_version = "2.1.0-alpha06"
+    def nav_version = "2.2.0-alpha01"
     implementation "androidx.navigation:navigation-fragment:$nav_version" // For Kotlin use navigation-fragment-ktx
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'// For Kotlin use navigation-ui-ktx
 
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Material design
-    implementation 'com.google.android.material:material:1.1.0-alpha08'
-    api 'com.google.android.material:material:1.1.0-alpha08'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
+    api 'com.google.android.material:material:1.1.0-alpha09'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
 }

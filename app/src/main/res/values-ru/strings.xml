@@ -45,6 +45,7 @@
     <string name="tip_add_new_lesson">Новый урок</string>
     <string name="tip_save_word">Сохранить слово</string>
     <string name="menu_go_to_lessons_list">К списку уроков</string>
+    <string name="menu_export_training">Сохранить оценки</string>
     <string name="error_lesson_name_is_necessary">Сначала введите имя урока</string>
     <string name="error_you_have_to_select_pos">Необходимо выбрать часть речи</string>
     <string name="error_translation_is_mandatory">Необходимо ввести перевод</string>
@@ -57,5 +58,11 @@
     <string name="training_finished_exclamation">Конец занятия!</string>
     <string name="export_training">Сохранить оценки</string>
     <string name="error_saving_scores">Ошибка при сохр. оценок</string>
+    <string name="title_lesson_contents">Содержание урока</string>
+    <string name="title_lesson_description">Описание урока</string>
+    <string name="title_verb_forms">Формы глагола</string>
+    <string name="title_noun_forms">Формы имени</string>
+    <string name="title_particle_forms">Формы частицы</string>
+    <string name="title_adding_word">Новое слово</string>
     <string name="description">Описание</string>
 </resources>

@@ -45,6 +45,7 @@
     <string name="tip_add_new_lesson">Nueva clase</string>
     <string name="tip_save_word">Guardar la palabra</string>
     <string name="menu_go_to_lessons_list">Ir a la lista de clases</string>
+    <string name="menu_export_training">Guardar puntuación</string>
     <string name="error_lesson_name_is_necessary">Tiene que introducir el nombre de la clase</string>
     <string name="error_you_have_to_select_pos">Es necesario elegir la categoría gramatical</string>
     <string name="error_translation_is_mandatory">Es necesaria una traducción</string>
@@ -58,5 +59,11 @@
     <string name="training_finished_exclamation">¡Repaso acabado!</string>
     <string name="export_training">Guardar puntuación</string>
     <string name="error_saving_scores">"Error guardando valoraciones "</string>
+    <string name="title_lesson_contents">Contenido de la clase</string>
+    <string name="title_lesson_description">Descripción de la clase</string>
+    <string name="title_verb_forms">Formas del verbo</string>
+    <string name="title_noun_forms">Formas del nombre</string>
+    <string name="title_particle_forms">Formas de la partícula</string>
+    <string name="title_adding_word">Nueva palabra</string>
     <string name="description">Descripción</string>
 </resources>

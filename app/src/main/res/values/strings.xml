@@ -43,6 +43,7 @@
     <string name="tip_add_new_lesson">Add new lesson</string>
     <string name="tip_save_word">Save word</string>
     <string name="menu_go_to_lessons_list">Go to lessons list</string>
+    <string name="menu_export_training">Export training</string>
     <string name="error_lesson_name_is_necessary">Lesson name is necessary</string>
     <string name="error_you_have_to_select_pos">You have to select the part of speech</string>
     <string name="error_translation_is_mandatory">Translation is needed</string>
@@ -55,5 +56,11 @@
     <string name="training_finished_exclamation">Training finished!</string>
     <string name="export_training">Export Training</string>
     <string name="error_saving_scores">Error saving scores</string>
+    <string name="title_lesson_contents">Lesson Contents</string>
+    <string name="title_lesson_description">Lesson Description</string>
+    <string name="title_verb_forms">Verb Forms</string>
+    <string name="title_noun_forms">Noun Forms</string>
+    <string name="title_particle_forms">Particle forms</string>
+    <string name="title_adding_word">Adding Word</string>
     <string name="description">Description</string>
 </resources>

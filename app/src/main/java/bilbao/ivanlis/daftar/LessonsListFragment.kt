@@ -163,4 +163,10 @@ class LessonsListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val mainActivity = activity as MainActivity
+        mainActivity.setActionBarTitle(R.string.app_name)
+    }
 }
