@@ -15,11 +15,6 @@ import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  *
@@ -37,14 +32,18 @@ class LessonDescriptionFragment : Fragment() {
 
         val args = arguments
         val lessonId = requireNotNull(when(args != null) {
-            true -> LessonDetailsFragmentArgs.fromBundle(args).lessonId
+            true -> LessonDescriptionFragmentArgs.fromBundle(args).lessonId
             false -> null
         })
 
-        Timber.d("lessonId = $lessonId")
+        val afterModification = args?.let { argsNotNull ->
+            LessonDescriptionFragmentArgs.fromBundle(argsNotNull).afterModification
+        } ?: false
+
+        Timber.d("lessonId = $lessonId, afterModification = $afterModification")
 
         val application = requireNotNull(this.activity).application
-        val viewModelFactory = LessonDescriptionViewModelFactory(application, lessonId)
+        val viewModelFactory = LessonDescriptionViewModelFactory(application, lessonId, afterModification)
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(LessonDescriptionViewModel::class.java)
@@ -72,20 +71,36 @@ class LessonDescriptionFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToLessonDetails.observe(this, Observer {
+        viewModel.saveDataDone.observe(this, Observer {
             it?.let { flagValue ->
                 if (flagValue) {
                     Timber.d("Navigating to lesson details for ${viewModel.destinationLessonId}")
 
-                    //Toast.makeText(this.context, R.string.saved_exclamation, Toast.LENGTH_SHORT).show()
-                    //Snackbar.make(binding.root, R.string.saved_exclamation, Snackbar.LENGTH_SHORT).show()
+                    viewModel.onSaveDataDoneComplete()
 
-                    NavHostFragment.findNavController(this).navigate(
-                        LessonDescriptionFragmentDirections.actionLessonDescriptionFragmentToLessonDetailsFragment(
-                            viewModel.destinationLessonId
+                    // If we were editing an existing lesson, just reload this fragment.
+                    if (viewModel.lessonId >= 0) {
+                        NavHostFragment.findNavController(this).navigate(
+                            LessonDescriptionFragmentDirections.actionLessonDescriptionFragmentSelf(
+                                viewModel.lessonId, true)
                         )
-                    )
-                    viewModel.onNavigateToLessonDetailComplete()
+                    }
+                    else { // If we were adding a new lesson, navigate to its details.
+                        NavHostFragment.findNavController(this).navigate(
+                            LessonDescriptionFragmentDirections.actionLessonDescriptionFragmentToLessonDetailsFragment(
+                                viewModel.destinationLessonId))
+                    }
+                }
+            }
+        })
+
+        viewModel.afterModification.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    viewModel.onAfterModificationComplete()
+                    view?.let { viewNotNull ->
+                        Snackbar.make(viewNotNull, R.string.saved_exclamation, Snackbar.LENGTH_LONG).show()
+                    }
                 }
             }
         })

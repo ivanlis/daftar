@@ -105,6 +105,9 @@
                 app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <argument android:name="lessonId" app:argType="long" android:defaultValue="-1L"/>
+        <action android:id="@+id/action_lessonDescriptionFragment_self"
+                app:destination="@id/lessonDescriptionFragment" app:popUpTo="@+id/lessonDetailsFragment"/>
+        <argument android:name="afterModification" app:argType="boolean" android:defaultValue="false"/>
     </fragment>
     <fragment android:id="@+id/trainingFinishedFragment" android:name="bilbao.ivanlis.daftar.TrainingFinishedFragment"
               android:label="fragment_training_finished" tools:layout="@layout/fragment_training_finished">

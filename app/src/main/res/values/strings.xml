@@ -62,4 +62,5 @@
     <string name="title_noun_forms">Noun Forms</string>
     <string name="title_particle_forms">Particle forms</string>
     <string name="title_adding_word">Adding Word</string>
+    <string name="description">Description</string>
 </resources>

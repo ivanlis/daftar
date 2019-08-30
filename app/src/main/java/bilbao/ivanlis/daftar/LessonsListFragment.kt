@@ -14,6 +14,7 @@ import bilbao.ivanlis.daftar.databinding.FragmentLessonsListBinding
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import bilbao.ivanlis.daftar.constants.LessonDetailsMode
+import com.google.android.material.snackbar.Snackbar
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -104,6 +105,28 @@ class LessonsListFragment : Fragment() {
                         LessonsListFragmentDirections.actionLessonsListFragmentToLessonDetailsFragment(
                             randomLessonId, LessonDetailsMode.TRAIN)
                     )
+                }
+            }
+        })
+
+        lessonsListViewModel.scoreSaved.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    lessonsListViewModel.onScoreSavedShowComplete()
+                    view?.let { viewNotNull ->
+                        Snackbar.make(viewNotNull, R.string.saved_exclamation, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+        })
+
+        lessonsListViewModel.errorSavingScore.observe(this, Observer {
+            it?.let { flagValue ->
+                if (flagValue) {
+                    lessonsListViewModel.onErrorSavingScoreComplete()
+                    view?.let { viewNotNull ->
+                        Snackbar.make(viewNotNull, R.string.error_saving_scores, Snackbar.LENGTH_LONG).show()
+                    }
                 }
             }
         })

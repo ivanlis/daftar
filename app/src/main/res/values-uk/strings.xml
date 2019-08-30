@@ -64,4 +64,5 @@
     <string name="title_noun_forms">Форми імені</string>
     <string name="title_particle_forms">Форми частки</string>
     <string name="title_adding_word">Нове слово</string>
+    <string name="description">Опис</string>
 </resources>
