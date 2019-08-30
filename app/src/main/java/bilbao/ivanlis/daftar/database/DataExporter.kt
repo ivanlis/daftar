@@ -1,6 +1,7 @@
 package bilbao.ivanlis.daftar.database
 
 import android.app.Application
+import android.os.Environment
 import android.widget.Toast
 import bilbao.ivanlis.daftar.R
 import bilbao.ivanlis.daftar.constants.TRAINING_SCORE_FILE
@@ -39,7 +40,10 @@ class DataExporter(private val application: Application, private val repository:
 
     private fun writeWords(wordList: List<WordInitialFormTranslation>, fileName: String) {
         try {
-            val file = File(application.filesDir,
+            //val file = File(application.filesDir,
+            //    fileName)
+            val file = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
                 fileName)
 
             Timber.d("The file will be $file")
@@ -64,7 +68,10 @@ class DataExporter(private val application: Application, private val repository:
 
     private fun writeScores(scoreList: List<Score>, fileName: String) {
         try {
-            val file = File(application.filesDir, fileName)
+            //val file = File(application.filesDir, fileName)
+            val file = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                fileName)
 
             Timber.d("The file will be $file")
             Timber.d("File exists: ${file.exists()}")
