@@ -45,6 +45,7 @@
     <string name="tip_add_new_lesson">Новий урок</string>
     <string name="tip_save_word">Зберегти слово</string>
     <string name="menu_go_to_lessons_list">До списку уроків</string>
+    <string name="menu_export_training">Зберегти оцінки</string>
     <string name="error_lesson_name_is_necessary">Спочатку введіть назву уроку</string>
     <string name="error_you_have_to_select_pos">Необхідно вибрати частину мови</string>
     <string name="error_translation_is_mandatory">Необхідно ввести переклад</string>
