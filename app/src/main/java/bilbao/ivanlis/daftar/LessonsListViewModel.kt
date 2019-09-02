@@ -3,6 +3,7 @@ package bilbao.ivanlis.daftar
 import android.Manifest
 import android.app.Application
 import android.content.pm.PackageManager
+import android.media.MediaScannerConnection
 import android.os.Environment
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -18,6 +19,8 @@ import kotlin.random.Random
 
 class LessonsListViewModel (application: Application):
         AndroidViewModel(application) {
+
+    private val appRef = application
 
     private val repository = NotebookRepository(NotebookDb.getInstance(application).notebookDao())
 
@@ -124,14 +127,20 @@ class LessonsListViewModel (application: Application):
         _askForExternalStoragePerm.value = false
     }
 
-    private fun writeWords(wordList: List<WordInitialFormTranslation>, fileName: String = "word.csv") {
+    private fun writeWords(wordList: List<WordInitialFormTranslation>, fileName: String = "word.txt") {
 
         try {
 
 //            val file = File(getApplication<Application>().filesDir,
 //                fileName)
-            val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                fileName)
+
+            val containingDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOWNLOADS)
+
+            val file = File(containingDir, fileName)
+
+            if (!containingDir.exists())
+                containingDir.mkdirs()
 
             Timber.d("The file will be $file")
             Timber.d("File exists: ${file.exists()}")
@@ -146,6 +155,12 @@ class LessonsListViewModel (application: Application):
                 }
                 it.flush()
             }
+
+            MediaScannerConnection.scanFile(getApplication(),
+                arrayOf(file.absolutePath), null,
+                {path, uri ->
+                    Timber.d("Scanned $path, $uri")
+                })
         }
         catch (exc: Exception) {
             Timber.e("Exception: ${exc.message}")
@@ -157,8 +172,14 @@ class LessonsListViewModel (application: Application):
         try {
 //            val file = File(getApplication<Application>().filesDir,
 //                fileName)
-            val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                fileName)
+
+            val containingDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOWNLOADS)
+
+            val file = File(containingDir, fileName)
+
+            if (!containingDir.exists())
+                containingDir.mkdirs()
 
             Timber.d("The file will be $file")
             Timber.d("File exists: ${file.exists()}")
@@ -173,6 +194,9 @@ class LessonsListViewModel (application: Application):
                 }
                 it.flush()
             }
+
+            MediaScannerConnection.scanFile(getApplication(),
+                arrayOf(file.absolutePath), null, null)
         }
         catch (exc: Exception) {
             Timber.e("Exception: ${exc.message}")
