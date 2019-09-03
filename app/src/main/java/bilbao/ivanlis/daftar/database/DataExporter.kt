@@ -20,7 +20,7 @@ class DataExporter(private val application: Application, private val repository:
                        scoreFile: String = TRAINING_SCORE_FILE) {
 
         uiScope.launch {
-//            try {
+            try {
                 withContext(Dispatchers.IO) {
                     val allWords = repository.extractAllWordsInitialForms()
                     Timber.d("About to store ${allWords.size} words...")
@@ -31,10 +31,11 @@ class DataExporter(private val application: Application, private val repository:
                     writeScores(allScores, scoreFile)
                 }
 //                Toast.makeText(application, R.string.saved_exclamation, Toast.LENGTH_LONG).show()
-//            }
-//            catch(exc: Exception) {
+            }
+            catch(exc: Exception) {
 //                Toast.makeText(application, R.string.error_saving_scores, Toast.LENGTH_LONG).show()
-//            }
+                throw(exc)
+            }
         }
     }
 
@@ -42,8 +43,13 @@ class DataExporter(private val application: Application, private val repository:
         try {
             //val file = File(application.filesDir,
             //    fileName)
+            val containingDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+
+            if (!containingDir.exists())
+                containingDir.mkdirs()
+
             val file = File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                containingDir,
                 fileName)
 
             Timber.d("The file will be $file")
@@ -69,8 +75,13 @@ class DataExporter(private val application: Application, private val repository:
     private fun writeScores(scoreList: List<Score>, fileName: String) {
         try {
             //val file = File(application.filesDir, fileName)
+            val containingDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+
+            if (!containingDir.exists())
+                containingDir.mkdirs()
+
             val file = File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                containingDir,
                 fileName)
 
             Timber.d("The file will be $file")
@@ -93,3 +104,6 @@ class DataExporter(private val application: Application, private val repository:
         }
     }
 }
+
+
+class DataExporterException(whatMsg: String): Exception(whatMsg)
