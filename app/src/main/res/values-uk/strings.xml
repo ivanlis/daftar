@@ -65,4 +65,5 @@
     <string name="title_particle_forms">Форми частки</string>
     <string name="title_adding_word">Нове слово</string>
     <string name="description">Опис</string>
+    <string name="title_evaluation">Перевірка</string>
 </resources>
