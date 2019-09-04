@@ -33,27 +33,36 @@
                     android:layout_marginStart="8dp"
                     app:layout_constraintTop_toTopOf="@+id/plural_edit"
                     app:layout_constraintBottom_toBottomOf="@+id/plural_edit"/>
+
             <EditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/singular_edit"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:ems="10"
+                    android:hint="@string/noun_singular"
                     android:inputType="text"
                     android:text="@={viewModel.nounSingular}"
-                    android:ems="10"
-                    android:id="@+id/singular_edit" android:hint="@string/noun_singular"
-                    app:layout_constraintStart_toEndOf="@+id/text_singular" android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-            />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_singular"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             <EditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/plural_edit"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:ems="10"
+                    android:hint="@string/noun_plural"
                     android:inputType="text"
                     android:text="@={viewModel.nounPlural}"
-                    android:ems="10"
-                    android:id="@+id/plural_edit"
-                    android:hint="@string/noun_plural" app:layout_constraintStart_toEndOf="@+id/text_plural"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/singular_edit"
-            />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_plural"
+                    app:layout_constraintTop_toBottomOf="@+id/singular_edit" />
             <TextView
                     android:text="@string/label_translation"
                     android:layout_width="wrap_content"
@@ -62,17 +71,21 @@
                     android:layout_marginStart="8dp"
                     app:layout_constraintTop_toTopOf="@+id/translation_edit"
                     app:layout_constraintBottom_toBottomOf="@+id/translation_edit"/>
+
             <EditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/translation_edit"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:ems="10"
+                    android:hint="@string/translation"
                     android:inputType="text"
                     android:text="@={viewModel.nounTranslation}"
-                    android:ems="10"
-                    android:id="@+id/translation_edit"
-                    android:hint="@string/translation" app:layout_constraintStart_toEndOf="@+id/text_translation"
-                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/plural_edit"
-            />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_translation"
+                    app:layout_constraintTop_toBottomOf="@+id/plural_edit" />
             <com.google.android.material.button.MaterialButton
                     android:text="@string/delete_word"
                     android:layout_width="wrap_content"
